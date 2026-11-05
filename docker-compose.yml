@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16
+    container_name: radnexus-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-radnexus}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-radnexus_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-radnexus_intelligence}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-radnexus} -d ${POSTGRES_DB:-radnexus_intelligence}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: radnexus-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

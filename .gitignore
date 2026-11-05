@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local credentials / secrets
+*.pem
+*.key
+*.p12
+*.kdbx
+
+# Alembic
+alembic/versions/*.pyc
+
+# OS/editor
+.DS_Store
+.vscode/
+
+# Databases and data artifacts
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+
+# Logs and runtime files
+*.log
+*.pid
+
+# Frontend dependencies/build output
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.turbo/

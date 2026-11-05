@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling>=1.24.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "radnexus-intelligence"
+version = "0.1.0"
+description = "Rad Nexus Intelligence foundation platform"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Rad Nexus" }]
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.30.0",
+  "sqlalchemy>=2.0.32",
+  "psycopg[binary]>=3.2.1",
+  "pydantic-settings>=2.4.0",
+  "alembic>=1.13.2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.2",
+  "httpx>=0.27.0",
+  "ruff>=0.6.2",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B"]

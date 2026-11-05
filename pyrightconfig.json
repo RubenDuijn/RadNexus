@@ -1,0 +1,11 @@
+{
+  "include": [
+    "src",
+    "tests",
+    "alembic"
+  ],
+  "extraPaths": [
+    "src"
+  ],
+  "pythonVersion": "3.9"
+}
