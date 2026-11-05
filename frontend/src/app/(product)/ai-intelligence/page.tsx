@@ -24,10 +24,10 @@ const investigationStages = [
 
 export default function AiIntelligencePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       <section>
-        <h1 className="text-2xl font-semibold text-slate-100">AI Intelligence Investigation Workspace</h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <h1 className="rn-heading text-3xl font-semibold">AI Intelligence Investigation Workspace</h1>
+        <p className="mt-3 text-sm rn-muted">
           Central enterprise differentiator: natural-language business investigation with transparent evidence workflow.
         </p>
       </section>
@@ -38,7 +38,7 @@ export default function AiIntelligencePage() {
       >
         <div className="space-y-4">
           <textarea
-            className="h-36 w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none focus:border-cyan-400/60"
+            className="rn-control h-36"
             placeholder="Ask an enterprise question, for example: Why did sales decline in Germany?"
           />
           <div className="flex flex-wrap gap-2">
@@ -46,13 +46,13 @@ export default function AiIntelligencePage() {
               <button
                 key={question}
                 type="button"
-                className="rounded-md border border-slate-700 bg-slate-900 px-3 py-1.5 text-sm text-slate-300 hover:border-cyan-500/50 hover:text-cyan-100"
+                className="rn-btn-secondary rounded-md px-3 py-1.5 text-sm"
               >
                 {question}
               </button>
             ))}
           </div>
-          <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-200">
+          <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-700">
             AI provider and SQL execution backends are not connected yet. This page currently defines interaction and audit structure.
           </div>
         </div>
@@ -61,12 +61,12 @@ export default function AiIntelligencePage() {
       <Panel title="Investigation Lifecycle" subtitle="End-to-end explainable investigation flow">
         <div className="grid gap-3 xl:grid-cols-2">
           {investigationStages.map((stage) => (
-            <article key={stage.title} className="rounded-lg border border-slate-800 bg-slate-950/85 p-3">
+            <article key={stage.title} className="rn-card-soft p-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-sm font-medium text-slate-100">{stage.title}</p>
+                <p className="text-sm font-medium text-slate-800">{stage.title}</p>
                 <StatusBadge status={stage.state} />
               </div>
-              <p className="mt-2 text-sm text-slate-400">{stage.detail}</p>
+              <p className="mt-2 text-sm rn-muted">{stage.detail}</p>
             </article>
           ))}
         </div>
@@ -74,13 +74,13 @@ export default function AiIntelligencePage() {
 
       <section className="grid gap-4 xl:grid-cols-2">
         <Panel title="Planned SQL Evidence Log" subtitle="Query lineage and reproducibility">
-          <div className="rounded-lg border border-slate-800 bg-slate-950/85 p-3 text-sm text-slate-400">
+          <div className="rn-card-soft p-3 text-sm rn-muted">
             SQL execution records will appear here with query text, execution time, row counts, and table lineage once backend integration is available.
           </div>
         </Panel>
 
         <Panel title="Planned Conclusion Workspace" subtitle="Decision-ready narrative output">
-          <div className="rounded-lg border border-slate-800 bg-slate-950/85 p-3 text-sm text-slate-400">
+          <div className="rn-card-soft p-3 text-sm rn-muted">
             Investigation outputs will include confidence, assumptions, evidence links, and suggested next questions when AI pipeline integration is complete.
           </div>
         </Panel>

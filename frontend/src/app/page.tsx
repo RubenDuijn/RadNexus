@@ -7,24 +7,25 @@ import { businessPillars, maturityNotes } from "@/lib/corporate-content";
 export default function HomePage() {
   return (
     <CorporateShell>
-      <div className="space-y-6">
-        <section className="rounded-xl border border-slate-800/90 bg-slate-900/70 p-6">
-          <p className="text-xs uppercase tracking-[0.18em] text-cyan-300">Independent Technology Company</p>
-          <h2 className="mt-2 text-3xl font-semibold text-slate-100">RAD NEXUS</h2>
-          <p className="mt-3 max-w-3xl text-sm text-slate-300">
+      <div className="space-y-8 lg:space-y-10">
+        <section className="rn-card p-7 lg:p-10">
+          <p className="rn-eyebrow">Independent Technology Company</p>
+          <h2 className="rn-heading mt-3 text-4xl font-semibold lg:text-5xl">RAD NEXUS</h2>
+          <p className="mt-2 text-base text-slate-700">Technology · Data · Artificial Intelligence</p>
+          <p className="mt-5 max-w-3xl text-base rn-muted">
             RAD NEXUS helps organizations modernize technology, unlock enterprise data, and apply artificial
             intelligence to real business problems.
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href="/products"
-              className="rounded-md border border-cyan-400/50 bg-cyan-500/10 px-3 py-2 text-sm text-cyan-100"
+              className="rn-btn-primary rounded-md px-4 py-2 text-sm font-medium"
             >
               View Products
             </Link>
             <Link
               href="/overview"
-              className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-200"
+              className="rn-btn-secondary rounded-md px-4 py-2 text-sm font-medium"
             >
               Open Rad Nexus Intelligence
             </Link>
@@ -34,9 +35,9 @@ export default function HomePage() {
         <section className="grid gap-4 xl:grid-cols-2">
           {businessPillars.map((pillar) => (
             <Panel key={pillar.title} title={pillar.title} subtitle={pillar.state}>
-              <ul className="space-y-1 text-sm text-slate-300">
+              <ul className="space-y-2 text-sm text-slate-700">
                 {pillar.items.map((item) => (
-                  <li key={item}>- {item}</li>
+                  <li key={item} className="rn-card-soft p-3">{item}</li>
                 ))}
               </ul>
             </Panel>
@@ -44,9 +45,9 @@ export default function HomePage() {
         </section>
 
         <Panel title="Strategic Clarity" subtitle="Company scope and product scope are intentionally separated">
-          <ul className="space-y-2 text-sm text-slate-300">
+          <ul className="space-y-2 text-sm text-slate-700">
             {maturityNotes.map((note) => (
-              <li key={note} className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+              <li key={note} className="rn-card-soft p-3">
                 {note}
               </li>
             ))}

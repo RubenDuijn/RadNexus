@@ -11,18 +11,18 @@ const focusAreas = [
 export default function LabsAndInnovationPage() {
   return (
     <CorporateShell>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <section>
-          <h2 className="text-2xl font-semibold text-slate-100">Labs & Innovation</h2>
-          <p className="mt-2 text-sm text-slate-400">
+          <h2 className="rn-heading text-3xl font-semibold">Labs & Innovation</h2>
+          <p className="mt-3 max-w-3xl text-base rn-muted">
             Experimental and product incubation area where new technology ideas are explored and validated.
           </p>
         </section>
 
         <Panel title="Focus Areas" subtitle="Strategic business area">
-          <ul className="space-y-1 text-sm text-slate-300">
+          <ul className="space-y-2 text-sm text-slate-700">
             {focusAreas.map((area) => (
-              <li key={area}>- {area}</li>
+              <li key={area} className="rn-card-soft p-3">{area}</li>
             ))}
           </ul>
         </Panel>

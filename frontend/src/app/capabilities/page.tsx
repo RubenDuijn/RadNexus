@@ -5,10 +5,10 @@ import { businessPillars } from "@/lib/corporate-content";
 export default function CapabilitiesPage() {
   return (
     <CorporateShell>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <section>
-          <h2 className="text-2xl font-semibold text-slate-100">Capabilities</h2>
-          <p className="mt-2 text-sm text-slate-400">
+          <h2 className="rn-heading text-3xl font-semibold">Capabilities</h2>
+          <p className="mt-3 max-w-3xl text-base rn-muted">
             Strategic capability map across AI, data, enterprise technology, and innovation.
           </p>
         </section>
@@ -16,9 +16,9 @@ export default function CapabilitiesPage() {
         <section className="grid gap-4 xl:grid-cols-2">
           {businessPillars.map((pillar) => (
             <Panel key={pillar.title} title={pillar.title} subtitle={pillar.state}>
-              <ul className="space-y-1 text-sm text-slate-300">
+              <ul className="space-y-2 text-sm text-slate-700">
                 {pillar.items.map((item) => (
-                  <li key={item}>- {item}</li>
+                  <li key={item} className="rn-card-soft p-3">{item}</li>
                 ))}
               </ul>
             </Panel>

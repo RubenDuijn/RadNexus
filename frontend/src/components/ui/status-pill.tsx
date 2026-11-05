@@ -7,13 +7,13 @@ export function StatusPill({ label, healthy }: StatusPillProps) {
   return (
     <span
       className={[
-        "inline-flex items-center gap-2 rounded-md border px-2.5 py-1 text-xs font-medium",
+        "inline-flex items-center gap-2 rounded-md px-2.5 py-1 text-xs font-medium",
         healthy
-          ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
-          : "border-amber-500/40 bg-amber-500/10 text-amber-200",
+          ? "border border-emerald-300 bg-emerald-50 text-emerald-700"
+          : "border border-amber-300 bg-amber-50 text-amber-700",
       ].join(" ")}
     >
-      <span className={healthy ? "h-2 w-2 rounded-full bg-emerald-300" : "h-2 w-2 rounded-full bg-amber-300"} />
+      <span className={healthy ? "h-2 w-2 rounded-full bg-emerald-500" : "h-2 w-2 rounded-full bg-amber-500"} />
       {label}
     </span>
   );

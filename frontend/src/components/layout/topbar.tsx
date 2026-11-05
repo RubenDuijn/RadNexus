@@ -67,17 +67,17 @@ export function Topbar({ initialApiStatus, initialDbStatus }: TopbarProps) {
   }, []);
 
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-800/90 bg-slate-950/95 px-5 py-3 backdrop-blur lg:px-8">
+    <header className="sticky top-0 z-20 border-b border-[#ddd5c8] bg-[#f7f4ee]/95 px-5 py-3 backdrop-blur lg:px-8">
       <div className="flex flex-wrap items-center gap-3">
         <div className="mr-auto">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-100">RAD NEXUS INTELLIGENCE</h2>
-          <p className="mt-1 text-xs text-slate-400">{environmentLabel} | Active company: NEXORA Industries</p>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-800">RAD NEXUS INTELLIGENCE</h2>
+          <p className="mt-1 text-xs text-slate-600">{environmentLabel} | Active company: NEXORA Industries</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href="/"
-            className="rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1 text-xs text-slate-300 hover:border-slate-500 hover:text-slate-100"
+            className="rn-btn-secondary rounded-md px-2.5 py-1 text-xs"
           >
             RAD NEXUS Site
           </Link>
@@ -91,7 +91,7 @@ export function Topbar({ initialApiStatus, initialDbStatus }: TopbarProps) {
               healthy={Boolean(state.db?.reachable)}
             />
           </>
-          <span className="rounded-md border border-slate-700 px-2.5 py-1 text-xs text-slate-300">User: Analyst</span>
+          <span className="rounded-md border border-[#d3cabd] bg-white px-2.5 py-1 text-xs text-slate-700">User: Analyst</span>
         </div>
       </div>
     </header>

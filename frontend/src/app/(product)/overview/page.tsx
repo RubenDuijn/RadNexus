@@ -51,10 +51,11 @@ export default async function OverviewPage() {
   const platformHealth = buildPlatformHealth(connectivity.api, connectivity.db);
 
   return (
-    <div className="space-y-6">
-      <section className="rounded-xl border border-slate-800/90 bg-slate-900/70 p-5">
-        <h1 className="text-2xl font-semibold text-slate-100">NEXORA Industries Enterprise Overview</h1>
-        <p className="mt-2 text-sm text-slate-400">
+    <div className="space-y-7">
+      <section className="rn-card p-6 lg:p-7">
+        <p className="rn-eyebrow">Executive Overview</p>
+        <h1 className="rn-heading mt-3 text-3xl font-semibold">NEXORA Industries Enterprise Overview</h1>
+        <p className="mt-3 text-sm rn-muted">
           Executive workspace for reporting period context, business performance, exceptions, and platform readiness.
         </p>
         <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -96,12 +97,12 @@ export default async function OverviewPage() {
         <Panel title="Important Changes and Exceptions" subtitle="Current explanatory signal feed">
           <ul className="space-y-3">
             {keyChangesAndExceptions.map((entry) => (
-              <li key={entry.title} className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+              <li key={entry.title} className="rn-card-soft p-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-medium text-slate-100">{entry.title}</p>
+                  <p className="text-sm font-medium text-slate-800">{entry.title}</p>
                   <DataStateTag label={entry.state} />
                 </div>
-                <p className="mt-2 text-sm text-slate-400">{entry.detail}</p>
+                <p className="mt-2 text-sm rn-muted">{entry.detail}</p>
               </li>
             ))}
           </ul>
@@ -112,12 +113,12 @@ export default async function OverviewPage() {
         <Panel title="Platform and Data-Source Health" subtitle="Runtime probes and implementation roadmap status">
           <ul className="space-y-2">
             {platformHealth.map((item) => (
-              <li key={item.id} className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+              <li key={item.id} className="rn-card-soft p-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-medium text-slate-100">{item.label}</p>
+                  <p className="text-sm font-medium text-slate-800">{item.label}</p>
                   <StatusBadge status={item.status} />
                 </div>
-                <p className="mt-1 text-sm text-slate-400">{item.detail}</p>
+                <p className="mt-1 text-sm rn-muted">{item.detail}</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.1em] text-slate-500">{item.source}</p>
               </li>
             ))}
@@ -127,10 +128,10 @@ export default async function OverviewPage() {
         <Panel title="Data Foundation Progress" subtitle="Schema and generation readiness by capability">
           <ul className="space-y-3">
             {dataGenerationStatus.map((item) => (
-              <li key={item.label} className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+              <li key={item.label} className="rn-card-soft p-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-medium text-slate-200">{item.label}</p>
-                  <p className="text-sm text-slate-400">{item.status}</p>
+                  <p className="text-sm font-medium text-slate-800">{item.label}</p>
+                  <p className="text-sm rn-muted">{item.status}</p>
                 </div>
                 <div className="mt-2">
                   <DataStateTag label={item.type} />
@@ -144,16 +145,16 @@ export default async function OverviewPage() {
       <section className="grid gap-4 xl:grid-cols-2">
         <Panel title="Drill-down Navigation" subtitle="Move directly from executive view into detailed workspaces">
           <div className="grid gap-2 sm:grid-cols-2">
-            <Link href="/business-intelligence" className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-200 hover:border-cyan-400/40 hover:text-cyan-100">
+            <Link href="/business-intelligence" className="rn-btn-secondary rounded-lg px-3 py-2 text-sm">
               Open management reports
             </Link>
-            <Link href="/data-explorer" className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-200 hover:border-cyan-400/40 hover:text-cyan-100">
+            <Link href="/data-explorer" className="rn-btn-secondary rounded-lg px-3 py-2 text-sm">
               Open table explorer
             </Link>
-            <Link href="/data-explorer/KNA1" className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-200 hover:border-cyan-400/40 hover:text-cyan-100">
+            <Link href="/data-explorer/KNA1" className="rn-btn-secondary rounded-lg px-3 py-2 text-sm">
               Inspect customer master data
             </Link>
-            <Link href="/ai-intelligence" className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-200 hover:border-cyan-400/40 hover:text-cyan-100">
+            <Link href="/ai-intelligence" className="rn-btn-secondary rounded-lg px-3 py-2 text-sm">
               Launch AI investigation workspace
             </Link>
           </div>
@@ -162,10 +163,10 @@ export default async function OverviewPage() {
         <Panel title="Recent Business and Platform Activity" subtitle="Demonstration timeline while transactional feeds are pending">
           <ul className="space-y-3">
             {recentActivity.map((activity) => (
-              <li key={activity.title} className="rounded-lg border border-slate-800 bg-slate-950 p-3">
-                <p className="font-medium text-slate-200">{activity.title}</p>
-                <p className="mt-1 text-sm text-slate-400">{activity.detail}</p>
-                <p className="mt-2 text-xs uppercase tracking-[0.12em] text-cyan-300">{activity.source}</p>
+              <li key={activity.title} className="rn-card-soft p-3">
+                <p className="font-medium text-slate-800">{activity.title}</p>
+                <p className="mt-1 text-sm rn-muted">{activity.detail}</p>
+                <p className="mt-2 text-xs uppercase tracking-[0.12em] text-[#0f6f8c]">{activity.source}</p>
               </li>
             ))}
           </ul>

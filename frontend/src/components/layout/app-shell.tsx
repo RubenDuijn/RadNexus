@@ -16,7 +16,7 @@ export async function AppShell({ children }: AppShellProps) {
   ]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="rn-product-shell">
       <div className="flex min-h-screen">
         <Sidebar />
         <div className="flex min-w-0 flex-1 flex-col">

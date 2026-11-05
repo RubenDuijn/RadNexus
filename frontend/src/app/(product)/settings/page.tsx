@@ -10,23 +10,23 @@ export default async function SettingsPage() {
   const environmentLabel = resolveEnvironmentLabel(hostName);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       <section>
-        <h1 className="text-2xl font-semibold text-slate-100">Settings</h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <h1 className="rn-heading text-3xl font-semibold">Settings</h1>
+        <p className="mt-3 text-sm rn-muted">
           Environment and workspace settings for frontend-backend integration.
         </p>
       </section>
 
       <Panel title="Environment" subtitle="Configured via frontend environment variables">
         <dl className="space-y-3 text-sm">
-          <div className="rounded-lg border border-slate-800 bg-slate-950 p-3">
-            <dt className="text-slate-400">Backend Base URL</dt>
-            <dd className="mt-1 font-mono text-slate-200">NEXT_PUBLIC_API_BASE_URL</dd>
+          <div className="rn-card-soft p-3">
+            <dt className="text-slate-500">Backend Base URL</dt>
+            <dd className="mt-1 font-mono text-slate-700">NEXT_PUBLIC_API_BASE_URL</dd>
           </div>
-          <div className="rounded-lg border border-slate-800 bg-slate-950 p-3">
-            <dt className="text-slate-400">Current Environment</dt>
-            <dd className="mt-1 text-slate-200">{environmentLabel}</dd>
+          <div className="rn-card-soft p-3">
+            <dt className="text-slate-500">Current Environment</dt>
+            <dd className="mt-1 text-slate-700">{environmentLabel}</dd>
           </div>
         </dl>
       </Panel>

@@ -11,18 +11,18 @@ const insightTopics = [
 export default function InsightsPage() {
   return (
     <CorporateShell>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <section>
-          <h2 className="text-2xl font-semibold text-slate-100">Insights</h2>
-          <p className="mt-2 text-sm text-slate-400">
+          <h2 className="rn-heading text-3xl font-semibold">Insights</h2>
+          <p className="mt-3 max-w-3xl text-base rn-muted">
             Thought pieces and technical perspectives on technology, data and artificial intelligence.
           </p>
         </section>
 
         <Panel title="Current Themes" subtitle="Editorial direction">
-          <ul className="space-y-1 text-sm text-slate-300">
+          <ul className="space-y-2 text-sm text-slate-700">
             {insightTopics.map((topic) => (
-              <li key={topic}>- {topic}</li>
+              <li key={topic} className="rn-card-soft p-3">{topic}</li>
             ))}
           </ul>
         </Panel>

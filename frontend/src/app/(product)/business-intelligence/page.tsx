@@ -24,10 +24,10 @@ const profitabilityDemo = [
 
 export default function BusinessIntelligencePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       <section>
-        <h1 className="text-2xl font-semibold text-slate-100">Business Intelligence Workspace</h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <h1 className="rn-heading text-3xl font-semibold">Business Intelligence Workspace</h1>
+        <p className="mt-3 text-sm rn-muted">
           Structured management reporting prepared for deterministic SQL and Python business logic outputs.
         </p>
       </section>
@@ -37,7 +37,7 @@ export default function BusinessIntelligencePage() {
           {reportCategories.map((category) => (
             <span
               key={category}
-              className="rounded-md border border-slate-700 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-200"
+              className="rn-chip px-3 py-1.5 text-xs font-medium"
             >
               {category}
             </span>
@@ -48,15 +48,15 @@ export default function BusinessIntelligencePage() {
       <Panel title="Reporting Controls" subtitle="Demonstration control surface while backend query endpoints are pending">
         <div className="grid gap-3 lg:grid-cols-4">
           <label className="space-y-1">
-            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Reporting period</span>
-            <select className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-200">
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-500">Reporting period</span>
+            <select className="rn-control">
               <option>FY 2026 - Q4</option>
               <option>FY 2026 - Q3</option>
             </select>
           </label>
           <label className="space-y-1">
-            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Country filter</span>
-            <select className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-200">
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-500">Country filter</span>
+            <select className="rn-control">
               <option>All countries</option>
               <option>Germany</option>
               <option>France</option>
@@ -64,8 +64,8 @@ export default function BusinessIntelligencePage() {
             </select>
           </label>
           <label className="space-y-1">
-            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Product group</span>
-            <select className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-200">
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-500">Product group</span>
+            <select className="rn-control">
               <option>All groups</option>
               <option>Industrial Components</option>
               <option>Automation Modules</option>
@@ -75,13 +75,13 @@ export default function BusinessIntelligencePage() {
           <div className="flex items-end gap-2">
             <button
               type="button"
-              className="rounded-md border border-cyan-500/50 bg-cyan-500/10 px-3 py-2 text-sm text-cyan-100"
+              className="rn-btn-primary rounded-md px-3 py-2 text-sm"
             >
               Apply filters
             </button>
             <button
               type="button"
-              className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-300"
+              className="rn-btn-secondary rounded-md px-3 py-2 text-sm"
             >
               Export CSV
             </button>
@@ -91,25 +91,25 @@ export default function BusinessIntelligencePage() {
 
       <section className="grid gap-4 md:grid-cols-4">
         <Panel title="Revenue" subtitle="Demonstration metric">
-          <p className="text-3xl font-semibold text-cyan-200">EUR 428.6M</p>
+          <p className="text-3xl font-semibold text-slate-800">EUR 428.6M</p>
           <div className="mt-2">
             <DataStateTag label="Demonstration metric" />
           </div>
         </Panel>
         <Panel title="Gross Margin" subtitle="Demonstration metric">
-          <p className="text-3xl font-semibold text-cyan-200">31.4%</p>
+          <p className="text-3xl font-semibold text-slate-800">31.4%</p>
           <div className="mt-2">
             <DataStateTag label="Demonstration metric" />
           </div>
         </Panel>
         <Panel title="Inventory Value" subtitle="Planned SQL measure">
-          <p className="text-3xl font-semibold text-slate-200">EUR 96.8M</p>
+          <p className="text-3xl font-semibold text-slate-700">EUR 96.8M</p>
           <div className="mt-2">
             <DataStateTag label="Planned functionality" />
           </div>
         </Panel>
         <Panel title="Purchasing Cost Pressure" subtitle="Planned SQL + semantic layer output">
-          <p className="text-3xl font-semibold text-slate-200">N/A</p>
+          <p className="text-3xl font-semibold text-slate-700">N/A</p>
           <div className="mt-2">
             <DataStateTag label="Planned functionality" />
           </div>
@@ -138,7 +138,7 @@ export default function BusinessIntelligencePage() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] text-left text-sm">
             <thead>
-              <tr className="border-b border-slate-800 text-xs uppercase tracking-[0.12em] text-slate-400">
+              <tr className="rn-table-head text-xs uppercase tracking-[0.12em]">
                 <th className="py-2 pr-4">Customer</th>
                 <th className="py-2 pr-4">Revenue (EUR M)</th>
                 <th className="py-2 pr-4">Margin (%)</th>
@@ -147,7 +147,7 @@ export default function BusinessIntelligencePage() {
             </thead>
             <tbody>
               {profitabilityDemo.map((row) => (
-                <tr key={row.customer} className="border-b border-slate-900 text-slate-200">
+                <tr key={row.customer} className="rn-table-row">
                   <td className="py-2 pr-4">{row.customer}</td>
                   <td className="py-2 pr-4">{row.revenue.toFixed(1)}</td>
                   <td className="py-2 pr-4">{row.margin.toFixed(1)}</td>

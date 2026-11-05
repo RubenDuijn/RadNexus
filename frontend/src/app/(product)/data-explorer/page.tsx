@@ -30,10 +30,10 @@ export default function DataExplorerPage() {
   }, [areaFilter, implementationFilter, query]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       <section>
-        <h1 className="text-2xl font-semibold text-slate-100">Data Explorer</h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <h1 className="rn-heading text-3xl font-semibold">Data Explorer</h1>
+        <p className="mt-3 text-sm rn-muted">
           SAP-inspired catalog with implementation metadata, relationship structure, and explicit connection status.
         </p>
       </section>
@@ -41,20 +41,20 @@ export default function DataExplorerPage() {
       <Panel title="Catalog Filters" subtitle="Search by table, business meaning, or SAP source mapping">
         <div className="grid gap-3 md:grid-cols-3">
           <label className="space-y-1">
-            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Search</span>
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-500">Search</span>
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="e.g. KNA1, inventory, SAP MARA"
-              className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-cyan-400/50"
+              className="rn-control"
             />
           </label>
           <label className="space-y-1">
-            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Business Area</span>
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-500">Business Area</span>
             <select
               value={areaFilter}
               onChange={(event) => setAreaFilter(event.target.value as TableArea | "All")}
-              className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-cyan-400/50"
+              className="rn-control"
             >
               <option value="All">All</option>
               {areas.map((area) => (
@@ -65,13 +65,13 @@ export default function DataExplorerPage() {
             </select>
           </label>
           <label className="space-y-1">
-            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Implementation</span>
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-500">Implementation</span>
             <select
               value={implementationFilter}
               onChange={(event) =>
                 setImplementationFilter(event.target.value as "All" | "Implemented" | "Planned")
               }
-              className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 outline-none focus:border-cyan-400/50"
+              className="rn-control"
             >
               <option value="All">All</option>
               <option value="Implemented">Implemented</option>
@@ -88,7 +88,7 @@ export default function DataExplorerPage() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[980px] text-left text-sm">
             <thead>
-              <tr className="border-b border-slate-800 text-xs uppercase tracking-[0.12em] text-slate-400">
+              <tr className="rn-table-head text-xs uppercase tracking-[0.12em]">
                 <th className="py-2 pr-4">Table</th>
                 <th className="py-2 pr-4">Business Description</th>
                 <th className="py-2 pr-4">Area</th>
@@ -100,17 +100,17 @@ export default function DataExplorerPage() {
             </thead>
             <tbody>
               {filteredTables.map((table) => (
-                <tr key={table.name} className="border-b border-slate-900 text-slate-200">
-                  <td className="py-2 pr-4 font-mono text-cyan-200">{table.name}</td>
+                <tr key={table.name} className="rn-table-row">
+                  <td className="py-2 pr-4 font-mono text-[#0f6f8c]">{table.name}</td>
                   <td className="py-2 pr-4">{table.description}</td>
                   <td className="py-2 pr-4">{table.area}</td>
                   <td className="py-2 pr-4">
                     <span
                       className={[
-                        "rounded-md border px-2 py-1 text-xs font-medium",
+                        "rounded-md px-2 py-1 text-xs font-medium",
                         table.implementationStatus === "Implemented"
-                          ? "border-emerald-400/40 bg-emerald-500/10 text-emerald-200"
-                          : "border-sky-400/40 bg-sky-500/10 text-sky-200",
+                          ? "border border-emerald-300 bg-emerald-50 text-emerald-700"
+                          : "border border-blue-300 bg-blue-50 text-blue-700",
                       ].join(" ")}
                     >
                       {table.implementationStatus}
@@ -127,7 +127,7 @@ export default function DataExplorerPage() {
                   <td className="py-2">
                     <Link
                       href={`/data-explorer/${table.name}`}
-                      className="inline-flex rounded-md border border-cyan-500/50 bg-cyan-500/10 px-2 py-1 text-xs text-cyan-100"
+                      className="rn-btn-secondary inline-flex rounded-md px-2 py-1 text-xs"
                     >
                       Open
                     </Link>

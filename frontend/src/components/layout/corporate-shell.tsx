@@ -15,27 +15,27 @@ const corporateNav = [
 
 export function CorporateShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="sticky top-0 z-20 border-b border-slate-800/90 bg-slate-950/95 backdrop-blur">
+    <div className="rn-corporate-shell bg-[#f7f5f1]">
+      <header className="sticky top-0 z-20 border-b border-[#ddd5c8] bg-[#f7f5f1]/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-4 px-4 py-4 lg:px-8">
           <div className="mr-auto">
-            <p className="text-xs uppercase tracking-[0.18em] text-cyan-300">RAD NEXUS</p>
-            <h1 className="text-base font-semibold text-slate-100">Technology · Data · Artificial Intelligence</h1>
+            <p className="rn-eyebrow">RAD NEXUS</p>
+            <h1 className="text-base font-semibold text-slate-800">Technology · Data · Artificial Intelligence</h1>
           </div>
           <Link
             href="/overview"
-            className="rounded-md border border-cyan-400/50 bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-100"
+            className="rn-btn-primary rounded-md px-3 py-1.5 text-xs font-medium"
           >
             Open Product Application
           </Link>
         </div>
-        <nav className="border-t border-slate-800/90">
+        <nav className="border-t border-[#e6dfd4]">
           <ul className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 lg:px-8">
             {corporateNav.map((item) => (
               <li key={item.href} className="shrink-0">
                 <Link
                   href={item.href}
-                  className="inline-flex rounded-md border border-slate-700/70 bg-slate-900/70 px-3 py-1.5 text-xs text-slate-300 hover:border-slate-500 hover:text-slate-100"
+                  className="rn-chip inline-flex px-3 py-1.5 text-xs"
                 >
                   {item.label}
                 </Link>

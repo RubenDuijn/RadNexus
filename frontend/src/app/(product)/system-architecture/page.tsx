@@ -41,10 +41,10 @@ const steps = [
 
 export default function SystemArchitecturePage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       <section>
-        <h1 className="text-2xl font-semibold text-slate-100">System Architecture</h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <h1 className="rn-heading text-3xl font-semibold">System Architecture</h1>
+        <p className="mt-3 text-sm rn-muted">
           End-to-end architecture from enterprise systems to explainable intelligence outputs.
         </p>
       </section>
@@ -56,14 +56,14 @@ export default function SystemArchitecturePage() {
         <ol className="space-y-3">
           {steps.map((step, index) => (
             <li key={step.name}>
-              <div className="rounded-lg border border-slate-800 bg-slate-950/85 p-4">
+              <div className="rn-card-soft p-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <p className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-200">{step.name}</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.1em] text-slate-700">{step.name}</p>
                   <StatusBadge status={step.state} />
                 </div>
-                <p className="mt-2 text-sm text-slate-400">{step.detail}</p>
+                <p className="mt-2 text-sm rn-muted">{step.detail}</p>
               </div>
-              {index < steps.length - 1 && <div className="px-2 py-2 text-center text-slate-500">↓</div>}
+              {index < steps.length - 1 && <div className="px-2 py-2 text-center text-slate-400">↓</div>}
             </li>
           ))}
         </ol>

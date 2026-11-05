@@ -6,14 +6,14 @@ import { navItems } from "@/lib/navigation";
 
 export function MobileNav() {
   return (
-    <nav className="border-b border-slate-800/90 bg-slate-950/95 px-4 py-3 lg:hidden">
+    <nav className="border-b border-[#dfd7ca] bg-[#f8f5ef]/95 px-4 py-3 lg:hidden">
       <ul className="flex gap-2 overflow-x-auto pb-1">
         {navItems.map((item) => {
           return (
             <li key={item.href} className="shrink-0">
               <Link
                 href={item.href}
-                className="inline-flex rounded-md border border-slate-700/70 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-300 transition-colors hover:border-slate-500 hover:text-slate-100"
+                className="rn-chip inline-flex px-3 py-1.5 text-xs font-medium"
               >
                 {item.label}
               </Link>
