@@ -238,31 +238,53 @@ button {
   background: color-mix(in srgb, var(--background) 84%, white);
 }
 
+.rn-product-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .rn-product-identity {
   border-left: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
   padding-left: 0.75rem;
 }
 
+.rn-product-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
 .rn-product-title {
   color: var(--foreground);
   font-weight: 700;
-  letter-spacing: 0.17em;
+  letter-spacing: 0.15em;
   line-height: 1.15;
+  font-size: 0.78rem;
+  text-transform: uppercase;
 }
 
 .rn-product-environment {
   display: inline-flex;
   align-items: center;
-  margin-top: 0.3rem;
   border: 1px solid color-mix(in srgb, var(--line-strong) 70%, transparent);
   background: color-mix(in srgb, var(--surface-2) 72%, white);
   color: var(--muted);
   border-radius: 999px;
-  padding: 0.2rem 0.55rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
+  padding: 0.14rem 0.48rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  max-width: 100%;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.rn-product-company {
+  margin-top: 0.28rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.3;
 }
 
 .rn-wordmark-link {
@@ -337,12 +359,44 @@ button {
 }
 
 @media (max-width: 640px) {
+  .rn-topbar {
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
+  }
+
   .rn-product-identity {
+    border-left: none;
+    border-top: 1px solid color-mix(in srgb, var(--line) 74%, transparent);
     padding-left: 0.55rem;
+    padding-top: 0.48rem;
   }
 
   .rn-product-title {
-    letter-spacing: 0.14em;
+    font-size: 0.74rem;
+    letter-spacing: 0.13em;
+  }
+
+  .rn-product-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .rn-product-environment {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .rn-product-company {
+    margin-top: 0.22rem;
+    font-size: 0.68rem;
+  }
+}
+
+@media (min-width: 641px) {
+  .rn-product-header {
+    min-height: 3.15rem;
+    justify-content: center;
   }
 }
 
@@ -350,5 +404,14 @@ button {
   .rn-product-identity {
     border-left: none;
     padding-left: 0;
+  }
+
+  .rn-product-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.16em;
+  }
+
+  .rn-product-company {
+    font-size: 0.78rem;
   }
 }
