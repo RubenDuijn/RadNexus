@@ -288,10 +288,15 @@ button {
 }
 
 .rn-workspace-context {
-  border-left: 2px solid color-mix(in srgb, var(--line-strong) 40%, transparent);
-  padding-left: 0.65rem;
+  border-left: none;
+  padding-left: 0;
   display: grid;
   gap: 0.15rem;
+}
+
+.rn-overview-context-card {
+  border-color: color-mix(in srgb, var(--line) 55%, transparent);
+  box-shadow: 0 6px 14px rgba(23, 36, 51, 0.05);
 }
 
 .rn-workspace-environment,
@@ -423,8 +428,7 @@ button {
   }
 
   .rn-workspace-context {
-    border-left-width: 1px;
-    padding-left: 0.55rem;
+    padding-left: 0;
   }
 
   .rn-workspace-environment,

@@ -139,7 +139,7 @@ export default function OverviewPage() {
   return (
     <div className="space-y-7">
       <Reveal>
-        <section className="rn-card p-6 lg:p-7">
+        <section className="rn-card rn-overview-context-card p-6 lg:p-7">
           <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] sm:hidden">Overview</p>
           <p className="rn-eyebrow hidden sm:block">Executive Overview</p>
           <div className="mt-3">
