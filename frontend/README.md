@@ -35,8 +35,7 @@ No credentials are required in frontend environment for current functionality.
 ## Screen status
 
 Real backend connectivity where available:
-- Top bar API and DB status probes.
-- Overview platform status panel.
+- System Architecture platform health panel.
 
 Demonstration data:
 - KPI cards.
@@ -49,14 +48,19 @@ Demonstration data:
 ## Product UX model
 
 - Enterprise design system with reusable panels, badges and status semantics.
+- Product header hierarchy:
+	- `RAD NEXUS` (corporate wordmark, external link)
+	- `RAD NEXUS INTELLIGENCE` (product identity)
+	- `DEMO ENVIRONMENT | Active company: NEXORA Industries`
 - Environment label behavior:
 	- `LOCAL DEVELOPMENT` when running locally.
 	- `DEMO ENVIRONMENT` when served publicly.
 - Data-state labeling across screens:
-	- Real database value
-	- Synthetic company data
-	- Demonstration metric
-	- Planned functionality
+	- Connected live data
+	- Synthetic demonstration data
+	- Illustrative metric
+	- Planned data
+	- Unavailable data
 
 ## Website structure
 
@@ -88,8 +92,7 @@ Strategic positioning:
 
 ## Data Explorer semantics
 
-- `Implemented` means backend schema and field metadata exist.
-- `Planned` means schema implementation is pending.
+- `Implemented`, `In development`, `Planned`, `Not started`, and `Unavailable` classify implementation status.
 - `Available` / `Not Connected` indicate runtime connection state for table access and sample data.
 
 ## Platform health semantics

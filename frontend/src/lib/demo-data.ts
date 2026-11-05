@@ -100,7 +100,7 @@ export const platformActivity = [
   },
   {
     title: "Connectivity probe configured",
-    detail: "Top bar uses backend health endpoints where available.",
+    detail: "System architecture view includes backend health endpoint visibility where available.",
     source: "Implementation event",
   },
 ];
