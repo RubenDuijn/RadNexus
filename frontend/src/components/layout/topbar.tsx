@@ -10,17 +10,18 @@ import { getClientEnvironmentLabel } from "@/lib/environment";
 type ConnectivityState = {
   api: BackendStatus | null;
   db: BackendStatus | null;
-  loading: boolean;
 };
 
-const initialState: ConnectivityState = {
-  api: null,
-  db: null,
-  loading: true,
+type TopbarProps = {
+  initialApiStatus: BackendStatus;
+  initialDbStatus: BackendStatus;
 };
 
-export function Topbar() {
-  const [state, setState] = useState<ConnectivityState>(initialState);
+export function Topbar({ initialApiStatus, initialDbStatus }: TopbarProps) {
+  const [state, setState] = useState<ConnectivityState>({
+    api: initialApiStatus,
+    db: initialDbStatus,
+  });
   const environmentLabel =
     typeof window !== "undefined"
       ? getClientEnvironmentLabel()
@@ -45,7 +46,7 @@ export function Topbar() {
           return;
         }
 
-        setState({ api, db, loading: false });
+        setState({ api, db });
       } catch {
         if (!mounted) {
           return;
@@ -54,7 +55,6 @@ export function Topbar() {
         setState({
           api: { reachable: false, message: "Health probe failed", source: "demo" },
           db: { reachable: false, message: "Health probe failed", source: "demo" },
-          loading: false,
         });
       }
     }
@@ -81,20 +81,16 @@ export function Topbar() {
           >
             RAD NEXUS Site
           </Link>
-          {state.loading ? (
-            <StatusPill label="Checking backend probes" healthy={false} />
-          ) : (
-            <>
-              <StatusPill
-                label={`API ${state.api?.reachable ? "Available" : "Not connected"}`}
-                healthy={Boolean(state.api?.reachable)}
-              />
-              <StatusPill
-                label={`Database ${state.db?.reachable ? "Available" : "Not connected"}`}
-                healthy={Boolean(state.db?.reachable)}
-              />
-            </>
-          )}
+          <>
+            <StatusPill
+              label={`API ${state.api?.reachable ? "Available" : "Not connected"}`}
+              healthy={Boolean(state.api?.reachable)}
+            />
+            <StatusPill
+              label={`Database ${state.db?.reachable ? "Available" : "Not connected"}`}
+              healthy={Boolean(state.db?.reachable)}
+            />
+          </>
           <span className="rounded-md border border-slate-700 px-2.5 py-1 text-xs text-slate-300">User: Analyst</span>
         </div>
       </div>

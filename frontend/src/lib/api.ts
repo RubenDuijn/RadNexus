@@ -5,6 +5,7 @@ export type BackendStatus = {
 };
 
 const defaultBaseUrl = "http://localhost:8000";
+const probeTimeoutMs = 2500;
 
 export function getBackendBaseUrl(): string {
   return process.env.NEXT_PUBLIC_API_BASE_URL || defaultBaseUrl;
@@ -12,15 +13,20 @@ export function getBackendBaseUrl(): string {
 
 export async function fetchBackendHealth(path: "/health" | "/health/db"): Promise<BackendStatus> {
   const baseUrl = getBackendBaseUrl();
+  const controller = new AbortController();
+  const timeoutHandle = setTimeout(() => controller.abort(), probeTimeoutMs);
 
   try {
     const response = await fetch(`${baseUrl}${path}`, {
       method: "GET",
       cache: "no-store",
+      signal: controller.signal,
       headers: {
         Accept: "application/json",
       },
     });
+
+    clearTimeout(timeoutHandle);
 
     if (!response.ok) {
       return {
@@ -36,9 +42,11 @@ export async function fetchBackendHealth(path: "/health" | "/health/db"): Promis
       source: "backend",
     };
   } catch {
+    clearTimeout(timeoutHandle);
+
     return {
       reachable: false,
-      message: "Backend unreachable from frontend",
+      message: "Backend unreachable or timed out from frontend",
       source: "demo",
     };
   }
