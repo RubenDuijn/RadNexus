@@ -131,6 +131,7 @@ Implemented model files and mapped tables:
 - KNA1, KNB1
 - MARA, MARC, MARD
 - LFA1, LFB1
+- VBAK, VBAP
 
 Key schema characteristics observed in model code:
 - Composite PKs:
@@ -164,12 +165,15 @@ Test files:
 - tests/test_phase2_migration_tranche2.py
 
 Latest result in this checkpoint:
-- pytest -q: pass (8 passed)
+- pytest -q: pass (12 passed)
 
 ### Database connectivity status
 - Runtime local probe executed from backend session code:
   - check_database_connection() result: unavailable
   - exception class: OperationalError
+- Additional operational checks in this checkpoint:
+  - `docker` CLI not available on host runtime path (`command not found`)
+  - `alembic current` cannot connect to local PostgreSQL on `localhost:5432` (connection refused)
 - Interpretation:
   - Backend code and tests are healthy
   - Active database connectivity was not available at checkpoint runtime
@@ -177,9 +181,12 @@ Latest result in this checkpoint:
 ### Outstanding schema work (from code state)
 - Current implemented set includes the full next-session target master-data tranche:
   - T001L, KNB1, MARC, MARD, LFA1, LFB1 are already present in models and migrations
+- First transactional sales foundation now implemented:
+  - VBAK (sales header)
+  - VBAP (sales items)
 - Therefore the next session must start with an implementation audit and integrity verification before adding anything.
 - Missing SAP-inspired transactional domains still pending (not started in current code):
-  - VBAK, VBAP, BKPF, BSEG, COEP, EKKO, EKPO and broader transactional/reporting layers
+  - LIKP, LIPS, VBRK, VBRP, BKPF, BSEG, COEP, EKKO, EKPO and broader transactional/reporting layers
 
 ### Backend audit rerun (this session)
 - Implementation audit executed before any new schema changes:
@@ -210,9 +217,42 @@ Run a backend implementation audit before any schema change:
 5. Only if gaps are proven by code/database state, implement missing parts in small increments.
 
 ### Scope guardrails for next session
-- Do not start transactional-table implementation until master-data foundation integrity is confirmed.
+- Master-data integrity has been confirmed and initial transactional sales tables are now in place.
 - Do not start synthetic data generation.
 - Do not start AI integration work.
+
+## F) New Increment Delivered (2026-11-05)
+
+### Phase 1 audit refresh completed
+- Repository, branch, remotes, and recent commit history verified.
+- Backend architecture re-inspected (FastAPI routes, config, sessions, models, Alembic chain, tests).
+- Frontend integration re-inspected:
+  - Backend connectivity only through `/api/backend/health` and `/api/backend/health-db` proxy routes.
+  - Business KPI/chart/table pages remain demonstration-data-driven via static catalogs/data modules.
+- Database operational status re-verified:
+  - PostgreSQL service not reachable on localhost:5432.
+  - Docker-based startup not executable in current host shell because `docker` command is unavailable.
+
+### First safe backend increment implemented
+- Added SQLAlchemy models:
+  - `src/radnexus_intelligence/db/models/vbak.py`
+  - `src/radnexus_intelligence/db/models/vbap.py`
+- Registered models in:
+  - `src/radnexus_intelligence/db/models/__init__.py`
+- Added Alembic migration:
+  - `alembic/versions/20261105_0003_phase3_sales_orders.py`
+  - Creates `VBAK` and `VBAP` with keys, foreign keys, indexes, and downgrade support.
+- Added tests:
+  - `tests/test_phase3_models.py`
+  - `tests/test_phase3_migration_sales.py`
+- Updated frontend SAP catalog metadata to reflect implemented `VBAK` and `VBAP` structure:
+  - `frontend/src/lib/schema-catalog.ts`
+
+### Validation status for this increment
+- Backend tests: pass (`pytest -q`, 12 passed).
+- Frontend lint: pass.
+- Frontend TypeScript noEmit: pass.
+- Frontend production build: pass.
 
 ## E) Longer-Term Development Roadmap
 
