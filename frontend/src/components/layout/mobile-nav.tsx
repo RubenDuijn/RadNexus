@@ -49,7 +49,7 @@ export function MobileNav() {
             />
 
             <div
-              className="absolute inset-0 flex justify-end p-2"
+              className="absolute inset-0 flex items-start justify-end p-2"
               style={{
                 paddingTop: "max(0.5rem, env(safe-area-inset-top))",
                 paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
@@ -59,7 +59,7 @@ export function MobileNav() {
             >
               <nav
                 id="product-mobile-drawer"
-                className="rn-mobile-drawer rn-mobile-drawer-product flex flex-col overflow-hidden rounded-2xl p-3"
+                className="rn-mobile-drawer rn-mobile-drawer-product flex self-start flex-col overflow-hidden rounded-2xl p-3"
                 style={{
                   maxHeight: "calc(100dvh - max(0.5rem, env(safe-area-inset-top)) - max(0.5rem, env(safe-area-inset-bottom)) - 1rem)",
                 }}
