@@ -109,7 +109,60 @@ Phase 1 prepares guardrails for future AI features:
 - Query templates, validation, permissions, and audit logs are planned as mandatory controls.
 - Financial/business computations remain deterministic and reproducible outside LLM inference.
 
-## 6. Synthetic data and integrity principles
+## 6. Explainability, auditability and reproducibility architecture
+
+Formal product principle:
+- Every answer should be explainable, traceable and reproducible.
+
+Target analytical response structure (roadmap):
+1. Business explanation.
+2. Data lineage (systems, tables, fields, relevant records).
+3. Business definitions (metrics, filters, dimensions, calculation rules).
+4. SQL execution details (executed statement and parameters).
+5. Python execution details (executed transformation/calculation logic, where applicable).
+6. Execution metadata (timestamp, user/context, query identifier, data snapshot/version, execution environment).
+7. Validation output (comparison against established reports/KPIs and expected results).
+8. Reproducibility package (inputs and execution details required to rerun against the same snapshot).
+
+Controlled execution model (roadmap):
+- Business question
+- AI interpretation
+- Validated query plan
+- Controlled SQL/Python execution
+- Deterministic result
+- Validation
+- AI explanation
+- Traceable analytical response
+
+Mandatory architectural constraints:
+- No unrestricted LLM-generated database execution.
+- Authoritative business figures must come from deterministic SQL/Python business logic.
+- The platform must record executed SQL/Python artifacts, not generated approximations.
+- Query parameters, business definitions, and source references must be retained for audit.
+- Sensitive data and credentials must be excluded from user-visible evidence and protected in audit storage.
+- Permissions, retention, and audit-access controls are required controls.
+
+Current support already present:
+- Deterministic analytics service and endpoint for revenue-by-country-month.
+- Deterministic business-rule handling (for example billing reversals/credit treatment and currency-safe aggregation).
+- Backend test coverage for deterministic analytics behavior.
+
+Missing components for full capability:
+- Query-plan validation service for NLQ orchestration.
+- Structured evidence/audit record schema and persistence layer.
+- Data snapshot/version identifiers tied to analytical executions.
+- Reproducibility rerun interface and trace verification workflows.
+- UI-level technical evidence actions (View SQL/View Python/View lineage/Compare with report/Export audit record).
+
+Dependencies and sequencing guidance:
+1. Complete deterministic SAP-style report layer and metric definitions.
+2. Introduce canonical metric-definition registry with versioning.
+3. Add controlled execution log schema for SQL/Python metadata and lineage references.
+4. Add validation engine to compare analytical outputs with established reports/KPIs.
+5. Add reproducibility package export and rerun contract.
+6. Integrate NLQ interpretation only behind validated query-plan and controlled execution boundaries.
+
+## 7. Synthetic data and integrity principles
 
 Planned for Phase 3:
 - Master data generated first (org, product, customer, supplier).
@@ -118,7 +171,7 @@ Planned for Phase 3:
 - Balanced accounting postings and currency conversion consistency.
 - Dedicated validation test suite for referential and business integrity.
 
-## 7. Development milestones
+## 8. Development milestones
 
 1. Foundation bootstrap (Phase 1).
 2. Initial SAP-inspired master-data schema and migrations (Phase 2, active).

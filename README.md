@@ -181,6 +181,44 @@ Deterministic logic:
    - Deterministic SQL reports with documented logic and reproducible tests.
 5. Phase 5: Controlled AI intelligence layer
    - Natural-language workflow, governed SQL execution, audit logging, explainability.
+   - Explainability, auditability, and reproducibility for analytical answers.
+
+## Explainability, auditability and reproducibility (roadmap capability)
+
+RAD NEXUS INTELLIGENCE treats explainability, auditability, and reproducibility as formal product principles for the controlled AI intelligence layer.
+
+Supporting principle:
+- Every answer should be explainable, traceable and reproducible.
+
+Enterprise users should be able to understand:
+- What the result means.
+- Which source data contributed to it.
+- Which business definitions and calculations were applied.
+- How the result was produced.
+- How another user can independently reproduce it.
+
+Planned analytical result structure:
+1. Business explanation.
+2. Data lineage (source systems, tables, fields, relevant records).
+3. Business definitions (metrics, filters, dimensions, calculation rules).
+4. SQL execution (executed SQL statement and parameters).
+5. Python execution (relevant transformation or calculation logic, where applicable).
+6. Execution metadata (timestamp, user/context, query identifier, data snapshot/version, execution environment).
+7. Validation (comparison with established reports, KPIs, and expected results).
+8. Reproducibility details to rerun the calculation against the same data snapshot.
+
+Execution constraints for future NLQ capabilities:
+- No unrestricted LLM-generated database execution.
+- Business calculations must remain deterministic and testable.
+- The LLM must not independently calculate authoritative business figures.
+- Audit records must store actual executed SQL/Python artifacts, not generated approximations.
+- Query parameters, business definitions, and relevant source references must be preserved.
+- Sensitive data and credentials must never be exposed in audit records.
+- Permissions, retention policies, and audit access controls are mandatory design requirements.
+
+Current status:
+- The repository currently implements deterministic analytics foundations (for example `GET /api/v1/analytics/revenue-by-country-month`) and deterministic validation tests.
+- Full explainability/auditability/reproducibility evidence records are planned and not yet fully implemented.
 
 ## Data governance principles
 

@@ -70,6 +70,27 @@ export default function ProductsPage() {
                 </article>
               ))}
             </div>
+            <div className="rn-card-soft space-y-3 p-4">
+              <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Architectural principle</p>
+              <p className="text-base font-medium text-slate-800">Explainability. Auditability. Reproducibility.</p>
+              <p className="text-sm text-slate-700">Every answer should be explainable, traceable and reproducible.</p>
+              <p>
+                Business intelligence should not end with an answer. Enterprise users should be able to understand where
+                information comes from, how calculations are performed, and how results can be independently verified.
+              </p>
+              <ul className="space-y-1 text-sm text-slate-700">
+                <li>Data lineage and source references.</li>
+                <li>Transparent business definitions and calculation logic.</li>
+                <li>Reproducible SQL and Python execution.</li>
+                <li>Validation against established enterprise reports and KPIs.</li>
+                <li>Traceable execution records for audit and review.</li>
+              </ul>
+              <p className="text-sm font-medium text-slate-800">Know the answer. Understand the calculation. Verify the evidence.</p>
+              <p className="text-xs rn-muted">
+                These are architectural principles and developing capabilities. Current production implementation remains
+                focused on deterministic reporting foundations.
+              </p>
+            </div>
             <p className="text-sm font-medium text-slate-800">
               Your established reports remain the reference. AI helps you ask the next question.
             </p>
