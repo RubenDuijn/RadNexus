@@ -139,6 +139,20 @@ export default function OverviewPage() {
   return (
     <div className="space-y-7">
       <Reveal>
+        <section className="rn-card p-6 lg:p-7">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] sm:hidden">Overview</p>
+          <p className="rn-eyebrow hidden sm:block">Executive Overview</p>
+          <div className="mt-3">
+            <WorkspaceContext />
+          </div>
+          <h2 className="rn-heading mt-3 text-3xl font-semibold">NEXORA Industries Enterprise Overview</h2>
+          <p className="mt-3 text-sm rn-muted">
+            Executive intelligence workspace focused on business performance, trends, risks, opportunities, and management priorities.
+          </p>
+        </section>
+      </Reveal>
+
+      <Reveal>
         <section className="grid gap-4 xl:grid-cols-2">
           <article className="rn-card p-6 lg:p-7">
             <p className="rn-eyebrow">AI Intelligence Workspace</p>
@@ -235,26 +249,6 @@ export default function OverviewPage() {
             ))}
           </div>
         </Panel>
-      </Reveal>
-
-      <Reveal delayMs={80}>
-        <section className="rn-card p-6 lg:p-7">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] sm:hidden">Overview</p>
-          <p className="rn-eyebrow hidden sm:block">Executive Overview</p>
-          <div className="mt-3">
-            <WorkspaceContext />
-          </div>
-          <h2 className="rn-heading mt-3 text-3xl font-semibold">NEXORA Industries Enterprise Overview</h2>
-          <p className="mt-3 text-sm rn-muted">
-            Executive intelligence workspace focused on business performance, trends, risks, opportunities, and management priorities.
-          </p>
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <DataStateTag label="Synthetic demonstration data" />
-            <DataStateTag label="Illustrative metric" />
-            <DataStateTag label="Planned data" />
-            <DataStateTag label="Unavailable data" />
-          </div>
-        </section>
       </Reveal>
 
       <Reveal delayMs={110}>
