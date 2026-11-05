@@ -74,18 +74,6 @@ const sapFoundationGroups = [
   },
 ];
 
-function statusBadgeClass(status: string): string {
-  if (status === "Implemented") {
-    return "rn-badge rn-badge-success";
-  }
-
-  if (status === "In development") {
-    return "rn-badge rn-badge-warning";
-  }
-
-  return "rn-badge";
-}
-
 const executiveSignals = [
   {
     title: "How is the business performing?",
@@ -135,6 +123,11 @@ export default function OverviewPage() {
         .filter((table): table is NonNullable<typeof table> => table !== null),
     }))
     .filter((group) => group.tables.length > 0);
+
+  const prominentTableNames = ["VBAK", "VBRP", "KNA1", "MARA", "EKKO", "BKPF"];
+  const prominentTables = groupedTables
+    .flatMap((group) => group.tables)
+    .filter((table) => prominentTableNames.includes(table.name));
 
   return (
     <div className="space-y-7">
@@ -222,31 +215,30 @@ export default function OverviewPage() {
           title="Your SAP data. Your business intelligence."
           subtitle="Connect enterprise data structures across sales, finance, procurement, inventory and operations to create a unified foundation for business intelligence."
         >
-          <div className="space-y-5">
-            {groupedTables.map((group) => (
-              <section key={group.title}>
-                <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-700">{group.title}</h3>
-                <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-                  {group.tables.map((table) => (
-                    <Link
-                      key={table.name}
-                      href={`/data-explorer/${table.name}`}
-                      className="rn-nav-focus rn-card-soft block p-4 transition-colors hover:border-[var(--line-strong)] hover:bg-white"
-                    >
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="font-mono text-sm font-semibold text-[var(--accent)]">{table.name}</p>
-                        <div className="flex flex-col items-end gap-1">
-                          <span className={statusBadgeClass(table.implementationStatus)}>{table.implementationStatus}</span>
-                          {table.hasData && <span className="rn-badge rn-badge-success">Data available</span>}
-                        </div>
-                      </div>
-                      <p className="mt-2 text-sm text-slate-700">{table.description}</p>
-                      <p className="mt-2 text-xs uppercase tracking-[0.12em] text-slate-500">{table.area}</p>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            ))}
+          <div className="space-y-4">
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {prominentTables.map((table) => (
+                <Link
+                  key={table.name}
+                  href={`/data-explorer/${table.name}`}
+                  className="rn-nav-focus rn-card-soft block p-3 transition-colors hover:border-[var(--line-strong)] hover:bg-white"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="font-mono text-sm font-semibold text-[var(--accent)]">{table.name}</p>
+                    {table.hasData && <span className="rn-badge rn-badge-success">Data available</span>}
+                  </div>
+                  <p className="mt-1 text-sm text-slate-700">{table.description}</p>
+                  <p className="mt-1 text-xs uppercase tracking-[0.12em] text-slate-500">{table.area}</p>
+                </Link>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-xs rn-muted">Prominent enterprise tables for quick entry. Explore the full catalog in Data Explorer.</p>
+              <Link href="/data-explorer" className="rn-btn-secondary rounded-md px-3 py-2 text-sm font-medium">
+                Open Data Explorer
+              </Link>
+            </div>
           </div>
         </Panel>
       </Reveal>
