@@ -1,27 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { StatusPill } from "@/components/ui/status-pill";
-import { BackendStatus } from "@/lib/api";
+import { MobileNav } from "@/components/layout/mobile-nav";
 import { getClientEnvironmentLabel } from "@/lib/environment";
 
-type ConnectivityState = {
-  api: BackendStatus | null;
-  db: BackendStatus | null;
-};
-
-type TopbarProps = {
-  initialApiStatus: BackendStatus;
-  initialDbStatus: BackendStatus;
-};
-
-export function Topbar({ initialApiStatus, initialDbStatus }: TopbarProps) {
-  const [state, setState] = useState<ConnectivityState>({
-    api: initialApiStatus,
-    db: initialDbStatus,
-  });
+export function Topbar() {
   const environmentLabel =
     typeof window !== "undefined"
       ? getClientEnvironmentLabel()
@@ -29,74 +13,31 @@ export function Topbar({ initialApiStatus, initialDbStatus }: TopbarProps) {
         ? "LOCAL DEVELOPMENT"
         : "DEMO ENVIRONMENT";
 
-  useEffect(() => {
-    let mounted = true;
-
-    async function load() {
-      try {
-        const [apiRes, dbRes] = await Promise.all([
-          fetch("/api/backend/health", { cache: "no-store" }),
-          fetch("/api/backend/health-db", { cache: "no-store" }),
-        ]);
-
-        const api = (await apiRes.json()) as BackendStatus;
-        const db = (await dbRes.json()) as BackendStatus;
-
-        if (!mounted) {
-          return;
-        }
-
-        setState({ api, db });
-      } catch {
-        if (!mounted) {
-          return;
-        }
-
-        setState({
-          api: { reachable: false, message: "Health probe failed", source: "demo" },
-          db: { reachable: false, message: "Health probe failed", source: "demo" },
-        });
-      }
-    }
-
-    load();
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
   return (
-    <header className="sticky top-0 z-20 border-b border-[#ddd5c8] bg-[#f7f4ee]/95 px-5 py-3 backdrop-blur lg:px-8">
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="mr-auto">
-          <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-slate-800">
-            <Link
-              href="https://radnexus.dev/"
-              aria-label="Open RAD NEXUS corporate homepage"
-              className="cursor-pointer rounded-sm text-slate-900 outline-none hover:text-[#0f6f8c] focus-visible:ring-2 focus-visible:ring-[#0f6f8c]/40"
-            >
-              RAD NEXUS
-            </Link>
-            <span className="text-slate-500" aria-hidden="true">|</span>
-            <span>RAD NEXUS INTELLIGENCE</span>
+    <header className="rn-topbar sticky top-0 z-30 border-b px-4 py-3 backdrop-blur lg:px-8">
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+        <Link
+          href="https://radnexus.dev/"
+          aria-label="Open RAD NEXUS corporate homepage"
+          className="rn-wordmark-link rn-nav-focus cursor-pointer rounded-sm text-xs font-semibold uppercase tracking-[0.2em]"
+        >
+          RAD NEXUS
+        </Link>
+
+        <div className="min-w-0 flex-1">
+          <h2 className="truncate text-xs font-semibold uppercase tracking-[0.18em] text-[var(--foreground)] sm:text-sm">
+            RAD NEXUS INTELLIGENCE
           </h2>
-          <p className="mt-1 text-xs text-slate-600">{environmentLabel} | Active company: NEXORA Industries</p>
+          <p className="mt-1 truncate text-[11px] text-[var(--muted)] sm:text-xs">
+            {environmentLabel} | Active company: NEXORA Industries
+          </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-md border border-[#d3cabd] bg-white px-2.5 py-1 text-xs text-slate-700">{environmentLabel}</span>
-          <>
-            <StatusPill
-              label={`API ${state.api?.reachable ? "Available" : "Not connected"}`}
-              healthy={Boolean(state.api?.reachable)}
-            />
-            <StatusPill
-              label={`Database ${state.db?.reachable ? "Available" : "Not connected"}`}
-              healthy={Boolean(state.db?.reachable)}
-            />
-          </>
-          <span className="rounded-md border border-[#d3cabd] bg-white px-2.5 py-1 text-xs text-slate-700">User: Analyst</span>
+        <div className="flex items-center gap-2 sm:ml-auto">
+          <span className="hidden rounded-md border border-[var(--line-strong)] bg-white px-2.5 py-1 text-xs text-[var(--muted)] sm:inline-flex">
+            User: Analyst
+          </span>
+          <MobileNav />
         </div>
       </div>
     </header>
