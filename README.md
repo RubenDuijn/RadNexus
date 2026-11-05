@@ -16,6 +16,10 @@ This repository currently implements:
 - Basic automated tests.
 - First SAP-inspired core schema migration for T001, T001W, TVKO, KNA1 and MARA.
 - Second master-data migration for KNB1, MARC, MARD, LFA1, LFB1 and T001L.
+- Transactional sales-order foundation for VBAK and VBAP.
+- Delivery and billing transactional chain for LIKP, LIPS, VBRK and VBRP.
+- Deterministic analytics endpoint:
+   - `GET /api/v1/analytics/revenue-by-country-month`
 
 Not yet implemented in this cycle:
 - Synthetic master and transactional data generation.
@@ -108,6 +112,12 @@ Tables introduced:
 - MARD (material storage-location stock)
 - LFA1 (suppliers)
 - LFB1 (supplier company-code data)
+- VBAK (sales document header)
+- VBAP (sales document items)
+- LIKP (delivery header)
+- LIPS (delivery items)
+- VBRK (billing header)
+- VBRP (billing items)
 
 Relationship highlights:
 - `T001W.BUKRS -> T001.BUKRS`
@@ -136,7 +146,28 @@ These are not original SAP fields and are explicitly added for platform metadata
 - Temporary `RN_` relationship columns were removed from `KNA1` and `MARA` after introducing SAP-closer relations via `KNB1`, `MARC`, `MARD`, and `LFB1`.
 - `MARD` is modeled against `MARC` and `T001L`; additional ECC-level stock detail fields remain deferred.
 - Only a focused subset of each table's columns is implemented for analytical groundwork.
-- Business-process behavior and transactional consistency are deferred to Phase 3 and later.
+- Additional transactional domains (FI/MM/CO detail) remain deferred to later phases.
+
+## Analytics endpoint implemented
+
+### Revenue by country and month
+
+Endpoint:
+- `GET /api/v1/analytics/revenue-by-country-month`
+
+Query parameters:
+- `start_date` (required, inclusive)
+- `end_date` (required, inclusive)
+- `country` (optional)
+- `currency` (optional)
+
+Deterministic logic:
+- Reporting date: `VBRK.FKDAT`.
+- Revenue measure: `VBRP.NETWR` aggregated in deterministic Python logic.
+- Country dimension: `KNA1.LAND1` via `VBRK.KUNRG` (falls back to `UNK` if missing).
+- Currency handling: values are grouped by currency; no cross-currency summation.
+- Cancellations and credits: `FKSTO='X'` and `FKART in {G2,L2,RE}` are treated as negative.
+- Inconsistent references: rows with missing delivery/sales reference pairs are excluded and counted.
 
 ## Development milestones
 

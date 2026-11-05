@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { RevenueByCountryMonthLive } from "@/components/overview/revenue-by-country-month-live";
 import { RevenueBarChart } from "@/components/charts/revenue-bar-chart";
 import { RevenueLineChart } from "@/components/charts/revenue-line-chart";
 import { DataStateTag } from "@/components/ui/data-state-tag";
@@ -14,7 +15,6 @@ import {
   keyChangesAndExceptions,
   kpiCards,
   platformActivity,
-  revenueByCountry,
   revenueByMonth,
   revenueByProductGroup,
 } from "@/lib/demo-data";
@@ -33,6 +33,10 @@ const sapFoundationGroups = [
     tables: [
       { name: "VBAK", description: "Sales Document Header" },
       { name: "VBAP", description: "Sales Document Items" },
+      { name: "LIKP", description: "Delivery Header" },
+      { name: "LIPS", description: "Delivery Items" },
+      { name: "VBRK", description: "Billing Header" },
+      { name: "VBRP", description: "Billing Items" },
     ],
   },
   {
@@ -262,14 +266,7 @@ export default function OverviewPage() {
       </Reveal>
 
       <Reveal delayMs={145}>
-        <section className="grid gap-4 xl:grid-cols-2">
-          <Panel title="Country Performance" subtitle="Illustrative metric - country variance report planned">
-            <RevenueBarChart data={revenueByCountry} xKey="country" yKey="revenue" />
-          </Panel>
-          <Panel title="Sales Development Detail" subtitle="Illustrative metric - SQL-backed trend calculations pending">
-            <RevenueLineChart data={revenueByMonth} />
-          </Panel>
-        </section>
+        <RevenueByCountryMonthLive />
       </Reveal>
 
       <Reveal delayMs={160}>

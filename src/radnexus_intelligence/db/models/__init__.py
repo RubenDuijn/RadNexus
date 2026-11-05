@@ -2,6 +2,8 @@
 
 from radnexus_intelligence.db.models.knb1 import KNB1
 from radnexus_intelligence.db.models.kna1 import KNA1
+from radnexus_intelligence.db.models.likp import LIKP
+from radnexus_intelligence.db.models.lips import LIPS
 from radnexus_intelligence.db.models.lfa1 import LFA1
 from radnexus_intelligence.db.models.lfb1 import LFB1
 from radnexus_intelligence.db.models.mara import MARA
@@ -13,6 +15,8 @@ from radnexus_intelligence.db.models.t001w import T001W
 from radnexus_intelligence.db.models.tvko import TVKO
 from radnexus_intelligence.db.models.vbak import VBAK
 from radnexus_intelligence.db.models.vbap import VBAP
+from radnexus_intelligence.db.models.vbrk import VBRK
+from radnexus_intelligence.db.models.vbrp import VBRP
 
 __all__ = [
 	"T001",
@@ -21,6 +25,8 @@ __all__ = [
 	"TVKO",
 	"KNA1",
 	"KNB1",
+	"LIKP",
+	"LIPS",
 	"MARA",
 	"MARC",
 	"MARD",
@@ -28,4 +34,6 @@ __all__ = [
 	"LFB1",
 	"VBAK",
 	"VBAP",
+	"VBRK",
+	"VBRP",
 ]

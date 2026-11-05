@@ -254,6 +254,76 @@ Run a backend implementation audit before any schema change:
 - Frontend TypeScript noEmit: pass.
 - Frontend production build: pass.
 
+## G) Phase 2/3 Bridge Milestone (2026-11-05)
+
+### Objective completed in code
+- Implemented first complete transactional-to-BI vertical slice:
+  - Transactional tables: LIKP, LIPS, VBRK, VBRP.
+  - Deterministic analytics service: revenue by country and month.
+  - Versioned API endpoint: `GET /api/v1/analytics/revenue-by-country-month`.
+  - Frontend Overview integration uses live endpoint path with explicit loading/empty/error states and data provenance.
+
+### Files added in this milestone
+- Backend models:
+  - `src/radnexus_intelligence/db/models/likp.py`
+  - `src/radnexus_intelligence/db/models/lips.py`
+  - `src/radnexus_intelligence/db/models/vbrk.py`
+  - `src/radnexus_intelligence/db/models/vbrp.py`
+- Backend analytics service:
+  - `src/radnexus_intelligence/services/revenue_analytics.py`
+- Alembic migration:
+  - `alembic/versions/20261105_0004_phase3_delivery_billing_chain.py`
+- Backend tests:
+  - `tests/test_phase3_delivery_billing_models.py`
+  - `tests/test_phase3_migration_delivery_billing.py`
+  - `tests/test_phase3_transactional_chain_integrity.py`
+  - `tests/test_phase3_revenue_analytics.py`
+  - `tests/test_analytics_endpoint.py`
+- Frontend integration:
+  - `frontend/src/components/overview/revenue-by-country-month-live.tsx`
+  - `frontend/src/app/api/backend/analytics/revenue-by-country-month/route.ts`
+
+### Files updated in this milestone
+- `src/radnexus_intelligence/db/models/__init__.py`
+- `src/radnexus_intelligence/api/routes.py`
+- `frontend/src/lib/api.ts`
+- `frontend/src/lib/schema-catalog.ts`
+- `frontend/src/app/(product)/overview/page.tsx`
+- `README.md`
+
+### Simplifications and explicit treatments
+- SAP-inspired structure is preserved with focused field subsets.
+- `VBRP` keeps explicit reference fields (`VGBEL`, `VGPOS`, `AUBEL`, `AUPOS`) and allows nullable references to support inconsistent/legacy rows; analytics excludes inconsistent rows and reports the excluded count.
+- Revenue aggregation is deterministic and never combines currencies.
+- Credits/returns/cancellations are signed negative using billing type/cancellation flag rules.
+
+### Current migration and test status
+- Alembic head in repository: `20261105_0004`.
+- Full backend test suite: pass (`23 passed`).
+- Frontend lint: pass.
+- Frontend build: pass.
+
+### Operational PostgreSQL status in this environment
+- PostgreSQL runtime is not operational in current shell.
+- Verified blockers:
+  - `docker` command unavailable (`command not found`).
+  - `pg_isready` command unavailable (`command not found`).
+  - `alembic upgrade head` fails with connection refused to `localhost:5432`.
+  - `alembic current` fails with connection refused to `localhost:5432`.
+
+### Exact commands to unblock DB operation
+If Docker becomes available:
+1. `cd /Users/ruben/Visual Studio Code/radnexus-intelligence`
+2. `docker compose up -d db`
+3. `"/Users/ruben/Visual Studio Code/.venv/bin/python" -m alembic upgrade head`
+4. `"/Users/ruben/Visual Studio Code/.venv/bin/python" -m alembic current`
+5. `"/Users/ruben/Visual Studio Code/.venv/bin/python" -c "from sqlalchemy import create_engine,text; from radnexus_intelligence.core.config import settings; e=create_engine(settings.resolved_database_url());\nwith e.connect() as c: print(c.execute(text('select tablename from pg_tables where schemaname=\'public\' and tablename in (\'LIKP\',\'LIPS\',\'VBRK\',\'VBRP\') order by 1')).all())"`
+6. `"/Users/ruben/Visual Studio Code/.venv/bin/python" -c "from fastapi.testclient import TestClient; from radnexus_intelligence.main import app; print(TestClient(app).get('/health/db').status_code, TestClient(app).get('/health/db').json())"`
+
+If a local PostgreSQL service already exists:
+1. Ensure `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` (or `DATABASE_URL`) are set for that instance.
+2. Run steps 3-6 above.
+
 ## E) Longer-Term Development Roadmap
 
 Completed vs planned is explicit below.
