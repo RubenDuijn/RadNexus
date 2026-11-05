@@ -2,7 +2,6 @@ import { headers } from "next/headers";
 
 import { Panel } from "@/components/ui/panel";
 import { Reveal } from "@/components/ui/reveal";
-import { WorkspaceContext } from "@/components/ui/workspace-context";
 import { resolveEnvironmentLabel } from "@/lib/environment";
 
 export default async function SettingsPage() {
@@ -19,9 +18,6 @@ export default async function SettingsPage() {
           <p className="mt-3 text-sm rn-muted">
             Environment and workspace settings for frontend-backend integration.
           </p>
-          <div className="mt-4">
-            <WorkspaceContext />
-          </div>
         </section>
       </Reveal>
 

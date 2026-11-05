@@ -8,14 +8,15 @@ export default function CompanyPage() {
         <section>
           <h2 className="rn-heading text-3xl font-semibold">Company</h2>
           <p className="mt-3 max-w-3xl text-base rn-muted">
-            RAD NEXUS is an independent technology company focused on technology, data and artificial intelligence.
+            RAD NEXUS is an independent technology company focused on enterprise data, business intelligence,
+            artificial intelligence and technology modernisation.
           </p>
         </section>
 
         <Panel title="Purpose">
           <p className="text-sm text-slate-700">
-            Helping organizations modernize technology, unlock enterprise data and apply artificial intelligence to
-            real business problems.
+            Helping organisations access the knowledge already stored in enterprise systems through better data foundations,
+            structured business logic, and evidence-based answers.
           </p>
         </Panel>
 

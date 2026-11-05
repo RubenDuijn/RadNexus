@@ -9,7 +9,8 @@ export default function CapabilitiesPage() {
         <section>
           <h2 className="rn-heading text-3xl font-semibold">Capabilities</h2>
           <p className="mt-3 max-w-3xl text-base rn-muted">
-            Strategic capability map across AI, data, enterprise technology, and innovation.
+            Strategic capability map across enterprise data, business intelligence, artificial intelligence,
+            structured business logic and technology modernisation.
           </p>
         </section>
 

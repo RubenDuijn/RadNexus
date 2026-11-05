@@ -1,7 +1,6 @@
 import { Panel } from "@/components/ui/panel";
 import { Reveal } from "@/components/ui/reveal";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { WorkspaceContext } from "@/components/ui/workspace-context";
 
 const sources = [
   {
@@ -33,9 +32,6 @@ export default function DataSourcesPage() {
         <section>
           <h1 className="rn-heading text-3xl font-semibold">Data Sources</h1>
           <p className="mt-3 text-sm rn-muted">Inventory of implemented and planned data source integrations.</p>
-          <div className="mt-4">
-            <WorkspaceContext />
-          </div>
         </section>
       </Reveal>
 

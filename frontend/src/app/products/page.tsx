@@ -10,21 +10,35 @@ export default function ProductsPage() {
         <section>
           <h2 className="rn-heading text-3xl font-semibold">Products</h2>
           <p className="mt-3 max-w-3xl text-base rn-muted">
-            Product portfolio under development. Rad Nexus Intelligence is the first flagship product.
+            Product portfolio under development. RAD NEXUS INTELLIGENCE is the first flagship product.
           </p>
         </section>
 
-        <Panel title="Rad Nexus Intelligence" subtitle="AI-native enterprise intelligence platform">
-          <p className="text-sm text-slate-700">
-            Product application demonstrating enterprise reporting, data exploration, and AI investigation workflows.
-            NEXORA Industries is a fictional demonstration company used for product design and technical validation.
-          </p>
+        <Panel title="RAD NEXUS INTELLIGENCE" subtitle="From enterprise data to business understanding.">
+          <div className="space-y-4 text-sm text-slate-700">
+            <p>
+              For decades, organisations have accumulated enormous amounts of valuable information across their enterprise
+              systems. Yet finding meaningful answers often remains complex, time-consuming and dependent on specialist knowledge.
+            </p>
+            <p>RAD NEXUS is building a new way to access that knowledge.</p>
+            <p>
+              By combining enterprise data, structured business logic and artificial intelligence, we aim to make complex
+              business questions easier to ask, investigate and answer.
+            </p>
+            <p className="font-medium text-slate-800">Ask the question. Explore the evidence. Understand the business.</p>
+            <p>
+              Not just another layer of reporting. A more intelligent way to work with the information organisations already have.
+            </p>
+            <p className="text-xs uppercase tracking-[0.08em] text-slate-500">
+              Demonstration context uses the fictional enterprise NEXORA Industries and illustrative business data.
+            </p>
+          </div>
           <div className="mt-4">
             <Link
               href="/overview"
               className="rn-btn-primary inline-flex rounded-md px-3 py-2 text-sm font-medium"
             >
-              Open Product Application
+              Open RAD NEXUS INTELLIGENCE
             </Link>
           </div>
         </Panel>

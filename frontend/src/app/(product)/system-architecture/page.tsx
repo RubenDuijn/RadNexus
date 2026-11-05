@@ -6,7 +6,6 @@ import { DataStateTag } from "@/components/ui/data-state-tag";
 import { dataGenerationStatus } from "@/lib/demo-data";
 import { Panel } from "@/components/ui/panel";
 import { Reveal } from "@/components/ui/reveal";
-import { WorkspaceContext } from "@/components/ui/workspace-context";
 import { buildPlatformHealth } from "@/lib/platform-health";
 
 const steps = [
@@ -84,9 +83,6 @@ export default async function SystemArchitecturePage() {
           <p className="mt-3 text-sm rn-muted">
             End-to-end architecture from enterprise systems to explainable intelligence outputs.
           </p>
-          <div className="mt-4">
-            <WorkspaceContext />
-          </div>
         </section>
       </Reveal>
 

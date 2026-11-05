@@ -6,7 +6,6 @@ import { useMemo, useState } from "react";
 import { Panel } from "@/components/ui/panel";
 import { Reveal } from "@/components/ui/reveal";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { WorkspaceContext } from "@/components/ui/workspace-context";
 import { areas, ImplementationStatus, TableArea, tableCatalog } from "@/lib/schema-catalog";
 
 const implementationStatuses: ImplementationStatus[] = [
@@ -56,9 +55,6 @@ export default function DataExplorerPage() {
           <p className="mt-3 text-sm rn-muted">
             SAP-inspired catalog with implementation metadata, relationship structure, and explicit connection status.
           </p>
-          <div className="mt-4">
-            <WorkspaceContext />
-          </div>
         </section>
       </Reveal>
 

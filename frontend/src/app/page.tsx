@@ -13,11 +13,15 @@ export default function HomePage() {
           <p className="rn-eyebrow">Independent Technology Company</p>
           <h2 className="rn-heading mt-3 text-4xl font-semibold lg:text-5xl">RAD NEXUS</h2>
           <p className="mt-2 text-base text-slate-700">Technology · Data · Artificial Intelligence</p>
-          <p className="mt-5 max-w-3xl text-2xl leading-tight text-slate-800">Turning complex technology into business advantage.</p>
+          <p className="mt-5 max-w-3xl text-2xl leading-tight text-slate-800">Your enterprise data has more to tell.</p>
+          <p className="mt-2 max-w-3xl text-xl leading-tight text-slate-800">It&apos;s time to ask better questions.</p>
           <p className="mt-4 max-w-3xl text-base rn-muted">
-            We help organisations modernise enterprise technology, unlock the value of their data and apply
-            artificial intelligence to real business challenges.
+            Organisations have decades of business knowledge stored in their enterprise systems. RAD NEXUS is building the
+            intelligence layer that makes that knowledge accessible - connecting enterprise data, structured business logic,
+            and AI to turn complex questions into meaningful answers.
           </p>
+          <p className="mt-4 text-base font-medium text-slate-800">Ask. Investigate. Understand.</p>
+          <p className="mt-2 text-sm uppercase tracking-[0.08em] text-slate-600">RAD NEXUS - Engineering depth. Executive clarity.</p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href="/products"
@@ -29,7 +33,7 @@ export default function HomePage() {
               href="/overview"
               className="rn-btn-secondary rounded-md px-4 py-2 text-sm font-medium"
             >
-              Open Rad Nexus Intelligence
+              Open RAD NEXUS INTELLIGENCE
             </Link>
           </div>
           </div>
@@ -50,7 +54,8 @@ export default function HomePage() {
               </svg>
             </div>
             <p className="mt-4 text-sm rn-muted">
-              Enterprise systems, modern data architecture, and intelligence workflows brought into one decision-ready model.
+              Enterprise systems, business intelligence, and artificial intelligence connected through structured business logic
+              and natural-language questions.
             </p>
           </div>
         </section>

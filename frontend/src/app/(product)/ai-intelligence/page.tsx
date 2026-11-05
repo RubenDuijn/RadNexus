@@ -1,7 +1,6 @@
 import { Panel } from "@/components/ui/panel";
 import { Reveal } from "@/components/ui/reveal";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { WorkspaceContext } from "@/components/ui/workspace-context";
 
 const exampleQuestions = [
   "Why did sales decline in Germany?",
@@ -65,9 +64,6 @@ export default function AiIntelligencePage() {
           <p className="mt-3 text-sm rn-muted">
             Central differentiator: natural-language business investigation that keeps evidence, assumptions, and limitations explicit.
           </p>
-          <div className="mt-4">
-            <WorkspaceContext />
-          </div>
         </section>
       </Reveal>
 

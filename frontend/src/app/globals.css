@@ -304,8 +304,17 @@ button {
 }
 
 .rn-workspace-company {
+  color: var(--foreground);
+  font-size: 0.86rem;
+  font-weight: 600;
   text-transform: none;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+}
+
+.rn-workspace-note {
+  color: var(--muted);
+  font-size: 0.69rem;
+  line-height: 1.3;
 }
 
 .rn-wordmark-link {
@@ -421,6 +430,14 @@ button {
   .rn-workspace-environment,
   .rn-workspace-company {
     font-size: 0.68rem;
+  }
+
+  .rn-workspace-company {
+    font-size: 0.8rem;
+  }
+
+  .rn-workspace-note {
+    font-size: 0.65rem;
   }
 }
 
