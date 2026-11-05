@@ -101,7 +101,7 @@ export default function AiIntelligencePage() {
               </button>
             ))}
           </div>
-          <div className="rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-700">
+          <div className="rn-alert-warning rounded-lg p-3 text-sm">
             AI provider and SQL execution backends are not connected yet. This page currently defines interaction and audit structure.
           </div>
         </div>

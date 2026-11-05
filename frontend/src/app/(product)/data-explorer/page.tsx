@@ -16,11 +16,11 @@ const implementationStatuses: ImplementationStatus[] = [
 ];
 
 const implementationStyles: Record<ImplementationStatus, string> = {
-  Implemented: "border border-emerald-300 bg-emerald-50 text-emerald-700",
-  "In development": "border border-cyan-300 bg-cyan-50 text-cyan-700",
-  Planned: "border border-blue-300 bg-blue-50 text-blue-700",
-  "Not started": "border border-slate-300 bg-slate-100 text-slate-700",
-  Unavailable: "border border-rose-300 bg-rose-50 text-rose-700",
+  Implemented: "rn-badge",
+  "In development": "rn-badge",
+  Planned: "rn-badge",
+  "Not started": "rn-badge",
+  Unavailable: "rn-badge",
 };
 
 export default function DataExplorerPage() {
@@ -124,12 +124,7 @@ export default function DataExplorerPage() {
                   <td className="py-2 pr-4">{table.description}</td>
                   <td className="py-2 pr-4">{table.area}</td>
                   <td className="py-2 pr-4">
-                    <span
-                      className={[
-                        "rounded-md px-2 py-1 text-xs font-medium",
-                        implementationStyles[table.implementationStatus],
-                      ].join(" ")}
-                    >
+                    <span className={implementationStyles[table.implementationStatus]}>
                       {table.implementationStatus}
                     </span>
                   </td>

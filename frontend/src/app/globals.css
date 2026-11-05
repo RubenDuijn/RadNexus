@@ -88,6 +88,7 @@ button {
 }
 
 .rn-btn-primary {
+  border-radius: 10px;
   border: 1px solid color-mix(in srgb, var(--accent) 55%, white);
   background: var(--accent);
   color: #f4f9fb;
@@ -97,7 +98,12 @@ button {
   background: #1f5263;
 }
 
+.rn-btn-primary:active {
+  background: #1b4756;
+}
+
 .rn-btn-secondary {
+  border-radius: 10px;
   border: 1px solid var(--line-strong);
   background: #fff;
   color: var(--foreground);
@@ -106,6 +112,49 @@ button {
 .rn-btn-secondary:hover {
   border-color: #c0c9d3;
   background: #f6f9fb;
+}
+
+.rn-btn-secondary:active {
+  background: #eef3f7;
+}
+
+.rn-btn-tertiary {
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+}
+
+.rn-btn-tertiary:hover {
+  color: var(--foreground);
+  background: #f3f7fa;
+}
+
+.rn-btn-danger {
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--danger) 40%, white);
+  background: color-mix(in srgb, var(--danger) 12%, white);
+  color: #8f4343;
+}
+
+.rn-btn-danger:hover {
+  background: color-mix(in srgb, var(--danger) 18%, white);
+}
+
+.rn-btn-primary:focus-visible,
+.rn-btn-secondary:focus-visible,
+.rn-btn-tertiary:focus-visible,
+.rn-btn-danger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+.rn-btn-primary:disabled,
+.rn-btn-secondary:disabled,
+.rn-btn-tertiary:disabled,
+.rn-btn-danger:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .rn-control {
@@ -139,6 +188,43 @@ button {
   border: 1px solid var(--line-strong);
   background: #f8fafc;
   color: #334357;
+}
+
+.rn-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  background: #f7fafc;
+  color: #4f5f72;
+  padding: 0.23rem 0.55rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.rn-badge-success {
+  border-color: color-mix(in srgb, var(--success) 32%, white);
+  background: color-mix(in srgb, var(--success) 12%, white);
+  color: #216247;
+}
+
+.rn-badge-warning {
+  border-color: color-mix(in srgb, var(--warning) 32%, white);
+  background: color-mix(in srgb, var(--warning) 12%, white);
+  color: #875a2b;
+}
+
+.rn-badge-critical {
+  border-color: color-mix(in srgb, var(--danger) 32%, white);
+  background: color-mix(in srgb, var(--danger) 12%, white);
+  color: #8f4343;
+}
+
+.rn-alert-warning {
+  border: 1px solid color-mix(in srgb, var(--warning) 32%, white);
+  background: color-mix(in srgb, var(--warning) 10%, white);
+  color: #875a2b;
 }
 
 .rn-topbar,

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { navItems } from "@/lib/navigation";
 
@@ -23,6 +24,74 @@ export function MobileNav() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
+  const drawer =
+    open && typeof document !== "undefined"
+      ? createPortal(
+          <div className="fixed inset-0 z-[100] lg:hidden" role="dialog" aria-modal="true" aria-label="Product navigation menu">
+            <button
+              type="button"
+              aria-label="Close navigation menu"
+              className="rn-mobile-drawer-overlay absolute inset-0"
+              onClick={() => setOpen(false)}
+            />
+
+            <nav
+              id="product-mobile-drawer"
+              className="rn-mobile-drawer absolute right-2 top-2 w-[min(86vw,22rem)] rounded-2xl"
+              style={{
+                maxHeight: "calc(100dvh - max(0.5rem, env(safe-area-inset-top)) - max(0.5rem, env(safe-area-inset-bottom)) - 1rem)",
+                paddingTop: "max(0.75rem, env(safe-area-inset-top))",
+                paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))",
+                paddingLeft: "0.9rem",
+                paddingRight: "0.9rem",
+              }}
+            >
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">Navigation</p>
+                <button
+                  type="button"
+                  className="rn-menu-button inline-flex h-8 w-8 items-center justify-center rounded-md border border-[var(--line-strong)] bg-white text-[var(--foreground)]"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close navigation drawer"
+                >
+                  ×
+                </button>
+              </div>
+
+              <ul className="max-h-[calc(100dvh-11rem)] space-y-2 overflow-y-auto overscroll-contain pr-1">
+                {navItems.map((item) => {
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className="rn-nav-focus block rounded-lg border border-transparent px-3 py-2 text-sm text-[var(--foreground)] hover:border-[var(--line-strong)] hover:bg-[var(--surface-2)]"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          </div>,
+          document.body,
+        )
+      : null;
+
   return (
     <>
       <button
@@ -36,45 +105,7 @@ export function MobileNav() {
         <span aria-hidden="true" className="font-mono text-sm leading-none">≡</span>
         Menu
       </button>
-
-      {open && (
-        <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Product navigation menu">
-          <button
-            type="button"
-            aria-label="Close navigation menu"
-            className="rn-mobile-drawer-overlay absolute inset-0"
-            onClick={() => setOpen(false)}
-          />
-          <nav id="product-mobile-drawer" className="rn-mobile-drawer absolute right-0 top-0 h-full w-[84vw] max-w-80 p-4">
-            <div className="mb-4 flex items-center justify-between">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">Navigation</p>
-              <button
-                type="button"
-                className="rn-menu-button inline-flex h-8 w-8 items-center justify-center rounded-md border border-[var(--line-strong)] bg-white text-[var(--foreground)]"
-                onClick={() => setOpen(false)}
-                aria-label="Close navigation drawer"
-              >
-                ×
-              </button>
-            </div>
-            <ul className="space-y-2">
-              {navItems.map((item) => {
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className="rn-nav-focus block rounded-lg border border-transparent px-3 py-2 text-sm text-[var(--foreground)] hover:border-[var(--line-strong)] hover:bg-[var(--surface-2)]"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-        </div>
-      )}
+      {drawer}
     </>
   );
 }
