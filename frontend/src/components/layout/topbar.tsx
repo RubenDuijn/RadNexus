@@ -23,11 +23,7 @@ export function Topbar() {
         </div>
 
         <div className="rn-product-identity min-w-0 flex-1">
-          <div className="rn-product-title-row">
-            <h2 className="rn-product-title">RAD NEXUS INTELLIGENCE</h2>
-            <span className="rn-product-environment">DEMO ENVIRONMENT</span>
-          </div>
-          <p className="rn-product-company">Active company: NEXORA Industries</p>
+          <h2 className="rn-product-title">RAD NEXUS INTELLIGENCE</h2>
         </div>
       </div>
     </header>

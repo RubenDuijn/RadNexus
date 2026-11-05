@@ -3,6 +3,7 @@ import { RevenueLineChart } from "@/components/charts/revenue-line-chart";
 import { DataStateTag } from "@/components/ui/data-state-tag";
 import { Panel } from "@/components/ui/panel";
 import { Reveal } from "@/components/ui/reveal";
+import { WorkspaceContext } from "@/components/ui/workspace-context";
 import { revenueByCountry, revenueByMonth, revenueByProductGroup } from "@/lib/demo-data";
 
 const reportCategories = [
@@ -32,6 +33,9 @@ export default function BusinessIntelligencePage() {
           <p className="mt-3 text-sm rn-muted">
             Structured management reporting prepared for deterministic SQL and Python business logic outputs.
           </p>
+          <div className="mt-4">
+            <WorkspaceContext />
+          </div>
         </section>
       </Reveal>
 

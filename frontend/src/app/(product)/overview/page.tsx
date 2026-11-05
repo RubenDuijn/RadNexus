@@ -7,6 +7,7 @@ import { DataStateTag } from "@/components/ui/data-state-tag";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Panel } from "@/components/ui/panel";
 import { Reveal } from "@/components/ui/reveal";
+import { WorkspaceContext } from "@/components/ui/workspace-context";
 import { tableCatalog } from "@/lib/schema-catalog";
 import {
   businessActivity,
@@ -240,6 +241,9 @@ export default function OverviewPage() {
         <section className="rn-card p-6 lg:p-7">
           <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] sm:hidden">Overview</p>
           <p className="rn-eyebrow hidden sm:block">Executive Overview</p>
+          <div className="mt-3">
+            <WorkspaceContext />
+          </div>
           <h2 className="rn-heading mt-3 text-3xl font-semibold">NEXORA Industries Enterprise Overview</h2>
           <p className="mt-3 text-sm rn-muted">
             Executive intelligence workspace focused on business performance, trends, risks, opportunities, and management priorities.

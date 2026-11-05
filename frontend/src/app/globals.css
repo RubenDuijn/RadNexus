@@ -241,7 +241,7 @@ button {
 .rn-product-header {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .rn-product-identity {
@@ -285,6 +285,27 @@ button {
   color: var(--muted);
   font-size: 0.72rem;
   line-height: 1.3;
+}
+
+.rn-workspace-context {
+  border-left: 2px solid color-mix(in srgb, var(--line-strong) 40%, transparent);
+  padding-left: 0.65rem;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.rn-workspace-environment,
+.rn-workspace-company {
+  font-size: 0.73rem;
+  line-height: 1.3;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.rn-workspace-company {
+  text-transform: none;
+  letter-spacing: 0.02em;
 }
 
 .rn-wordmark-link {
@@ -391,11 +412,21 @@ button {
     margin-top: 0.22rem;
     font-size: 0.68rem;
   }
+
+  .rn-workspace-context {
+    border-left-width: 1px;
+    padding-left: 0.55rem;
+  }
+
+  .rn-workspace-environment,
+  .rn-workspace-company {
+    font-size: 0.68rem;
+  }
 }
 
 @media (min-width: 641px) {
   .rn-product-header {
-    min-height: 3.15rem;
+    min-height: 2.65rem;
     justify-content: center;
   }
 }
