@@ -44,12 +44,18 @@ Date: 2026-11-05
   - Old duplicate product-header return buttons removed
   - Legacy sidebar three-line branding block removed
   - Duplicate desktop product-shell company wordmark removed from sidebar (single company identity in topbar)
+  - Product topbar typography/hierarchy refined with required identity content:
+    - Left: RAD NEXUS (single clickable company wordmark)
+    - Middle: RAD NEXUS INTELLIGENCE
+    - Middle metadata line: DEMO ENVIRONMENT | Active company: NEXORA Industries
 - Premium light design system applied via shared tokens in frontend/src/app/globals.css.
 - Responsive navigation implemented:
   - Product mobile drawer/hamburger with all required product routes
   - Corporate mobile drawer/hamburger
   - Drawer closes via overlay click, explicit close button, and Escape key
   - Product mobile drawer now renders in an inset safe-area container with full-height internal scrolling (iPhone clipping hardening)
+  - Corporate mobile drawer now uses matching safe-area-aware portal rendering with complete framed panel behavior and internal scroll
+  - Product mobile drawer height reduced to viewport-fitted panel with internal scrolling for longer menus
 - Data-status semantics clarified:
   - Data provenance labels normalized to:
     - Synthetic demonstration data
@@ -66,6 +72,14 @@ Date: 2026-11-05
 - Motion polish added:
   - One-time reveal animations on product route sections/panels with reduced-motion fallback
   - KPI count-up animation on first visibility for key overview metrics (countries, plants, gross margin, total revenue)
+  - Reveal timing/movement adjusted for stronger perception (faster premium transition profile, increased entry offset, and delay capping)
+- Data Explorer interaction upgraded:
+  - Full table rows are now interactive for navigation (click, Enter, Space)
+  - Redundant Open button removed
+  - Hover, focus-visible, and touch-active affordances added
+- Overview focal hierarchy improved:
+  - Prominent Executive Trend Snapshot chart moved near top (immediately after KPI summary)
+  - Data state remains explicit as synthetic demonstration data
 
 ### Tested in this checkpoint
 - Frontend lint: pass
@@ -74,6 +88,9 @@ Date: 2026-11-05
 - Build route generation includes corporate and product routes (overview, data explorer, BI, AI, data sources, system architecture, settings, and corporate pages)
 - Backend tests executed as part of full-stack checkpoint: pass (8 tests)
 - Alembic head verification: pass (20261105_0002)
+- Additional route/component validation in this checkpoint:
+  - Corporate shell + mobile navigation component structure validated by production build output across all corporate routes
+  - Product shell + route pages validated by production build output across all product routes
 
 ### Outstanding frontend items
 - Manual browser-driven visual verification at fixed viewport widths (375, 390, 768, 1024, 1440) was not executed in this checkpoint with screenshot evidence.

@@ -234,6 +234,37 @@ button {
   background: color-mix(in srgb, var(--background) 90%, white);
 }
 
+.rn-topbar {
+  background: color-mix(in srgb, var(--background) 84%, white);
+}
+
+.rn-product-identity {
+  border-left: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+  padding-left: 0.75rem;
+}
+
+.rn-product-title {
+  color: var(--foreground);
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  line-height: 1.15;
+}
+
+.rn-product-environment {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.3rem;
+  border: 1px solid color-mix(in srgb, var(--line-strong) 70%, transparent);
+  background: color-mix(in srgb, var(--surface-2) 72%, white);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  max-width: 100%;
+}
+
 .rn-wordmark-link {
   color: var(--foreground);
 }
@@ -259,10 +290,38 @@ button {
   box-shadow: -14px 0 28px rgba(23, 36, 51, 0.16);
 }
 
+.rn-mobile-drawer-corporate {
+  width: min(84vw, 21rem);
+  height: 100%;
+}
+
+.rn-mobile-drawer-product {
+  width: min(86vw, 22rem);
+  max-height: 100%;
+}
+
+.rn-table-row-interactive {
+  cursor: pointer;
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.rn-table-row-interactive:hover {
+  background: color-mix(in srgb, var(--surface-2) 62%, white);
+}
+
+.rn-table-row-interactive:active {
+  background: color-mix(in srgb, var(--surface-2) 80%, white);
+}
+
+.rn-table-row-interactive:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--ring);
+}
+
 .rn-reveal {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 440ms ease, transform 440ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.95, 0.2, 1);
   will-change: opacity, transform;
 }
 
@@ -276,5 +335,15 @@ button {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .rn-product-identity {
+    padding-left: 0.55rem;
+  }
+
+  .rn-product-title {
+    letter-spacing: 0.14em;
   }
 }

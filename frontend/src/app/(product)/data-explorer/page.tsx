@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { Panel } from "@/components/ui/panel";
@@ -25,6 +25,7 @@ const implementationStyles: Record<ImplementationStatus, string> = {
 };
 
 export default function DataExplorerPage() {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [areaFilter, setAreaFilter] = useState<TableArea | "All">("All");
   const [implementationFilter, setImplementationFilter] = useState<"All" | ImplementationStatus>("All");
@@ -120,12 +121,24 @@ export default function DataExplorerPage() {
                 <th className="py-2 pr-4">Implementation</th>
                 <th className="py-2 pr-4">Connection</th>
                 <th className="py-2 pr-4">Sample Records</th>
-                <th className="py-2">Details</th>
               </tr>
             </thead>
             <tbody>
               {filteredTables.map((table) => (
-                <tr key={table.name} className="rn-table-row">
+                <tr
+                  key={table.name}
+                  className="rn-table-row rn-table-row-interactive"
+                  role="link"
+                  tabIndex={0}
+                  aria-label={`Open ${table.name} table details`}
+                  onClick={() => router.push(`/data-explorer/${table.name}`)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      router.push(`/data-explorer/${table.name}`);
+                    }
+                  }}
+                >
                   <td className="py-2 pr-4 font-mono text-[var(--accent)]">{table.name}</td>
                   <td className="py-2 pr-4">{table.description}</td>
                   <td className="py-2 pr-4">{table.area}</td>
@@ -141,14 +154,6 @@ export default function DataExplorerPage() {
                     <StatusBadge
                       status={table.sampleRecordsState === "Available" ? "Available" : "Not Connected"}
                     />
-                  </td>
-                  <td className="py-2">
-                    <Link
-                      href={`/data-explorer/${table.name}`}
-                      className="rn-btn-secondary inline-flex rounded-md px-2 py-1 text-xs"
-                    >
-                      Open
-                    </Link>
                   </td>
                 </tr>
               ))}

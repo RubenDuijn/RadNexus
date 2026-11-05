@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 const corporateNav = [
   { label: "Company", href: "/company" },
@@ -32,6 +33,72 @@ export function CorporateShell({ children }: { children: React.ReactNode }) {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!mobileOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [mobileOpen]);
+
+  const mobileDrawer =
+    mobileOpen && typeof document !== "undefined"
+      ? createPortal(
+          <div className="fixed inset-0 z-[100] lg:hidden" role="dialog" aria-modal="true" aria-label="Corporate navigation menu">
+            <button
+              type="button"
+              aria-label="Close corporate navigation menu"
+              className="rn-mobile-drawer-overlay absolute inset-0"
+              onClick={() => setMobileOpen(false)}
+            />
+
+            <div
+              className="absolute inset-0 flex justify-end p-2"
+              style={{
+                paddingTop: "max(0.5rem, env(safe-area-inset-top))",
+                paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
+                paddingRight: "max(0.5rem, env(safe-area-inset-right))",
+                paddingLeft: "max(0.5rem, env(safe-area-inset-left))",
+              }}
+            >
+              <nav id="corporate-mobile-drawer" className="rn-mobile-drawer rn-mobile-drawer-corporate flex flex-col overflow-hidden rounded-2xl p-3">
+                <div className="mb-3 flex items-center justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">Corporate navigation</p>
+                  <button
+                    type="button"
+                    className="rn-menu-button inline-flex h-8 w-8 items-center justify-center rounded-md border border-[var(--line-strong)] bg-white text-[var(--foreground)]"
+                    onClick={() => setMobileOpen(false)}
+                    aria-label="Close corporate navigation drawer"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                <ul className="flex-1 space-y-2 overflow-y-auto overscroll-contain pr-1">
+                  {corporateNav.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="rn-nav-focus block rounded-lg border border-transparent px-3 py-2 text-sm text-[var(--foreground)] hover:border-[var(--line-strong)] hover:bg-[var(--surface-2)]"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </div>,
+          document.body,
+        )
+      : null;
 
   return (
     <div className="rn-corporate-shell">
@@ -81,42 +148,7 @@ export function CorporateShell({ children }: { children: React.ReactNode }) {
           </ul>
         </nav>
 
-        {mobileOpen && (
-          <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Corporate navigation menu">
-            <button
-              type="button"
-              aria-label="Close corporate navigation menu"
-              className="rn-mobile-drawer-overlay absolute inset-0"
-              onClick={() => setMobileOpen(false)}
-            />
-            <nav id="corporate-mobile-drawer" className="rn-mobile-drawer absolute right-0 top-0 h-full w-[84vw] max-w-80 p-4">
-              <div className="mb-4 flex items-center justify-between">
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">Corporate navigation</p>
-                <button
-                  type="button"
-                  className="rn-menu-button inline-flex h-8 w-8 items-center justify-center rounded-md border border-[var(--line-strong)] bg-white text-[var(--foreground)]"
-                  onClick={() => setMobileOpen(false)}
-                  aria-label="Close corporate navigation drawer"
-                >
-                  ×
-                </button>
-              </div>
-              <ul className="space-y-2">
-                {corporateNav.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="rn-nav-focus block rounded-lg border border-transparent px-3 py-2 text-sm text-[var(--foreground)] hover:border-[var(--line-strong)] hover:bg-[var(--surface-2)]"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-        )}
+        {mobileDrawer}
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-8 lg:px-8">{children}</main>

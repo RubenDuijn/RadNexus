@@ -59,7 +59,10 @@ export function MobileNav() {
             >
               <nav
                 id="product-mobile-drawer"
-                className="rn-mobile-drawer flex h-full w-[min(86vw,22rem)] flex-col overflow-hidden rounded-2xl p-3"
+                className="rn-mobile-drawer rn-mobile-drawer-product flex max-h-full flex-col overflow-hidden rounded-2xl p-3"
+                style={{
+                  height: "min(88dvh, 42rem)",
+                }}
               >
                 <div className="mb-2 flex items-center justify-between">
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">Navigation</p>

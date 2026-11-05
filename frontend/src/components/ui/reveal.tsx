@@ -57,12 +57,13 @@ export function Reveal({ children, className, delayMs = 0 }: RevealProps) {
 
   const mergedClassName = className ? `rn-reveal ${className}` : "rn-reveal";
   const shouldShow = reducedMotion || isVisible;
+  const appliedDelay = Math.min(Math.max(delayMs, 0), 170);
 
   return (
     <div
       ref={rootRef}
       className={`${mergedClassName} ${shouldShow ? "is-visible" : ""}`.trim()}
-      style={{ transitionDelay: `${delayMs}ms` }}
+      style={{ transitionDelay: `${appliedDelay}ms` }}
     >
       {children}
     </div>

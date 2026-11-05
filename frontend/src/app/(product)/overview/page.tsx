@@ -76,6 +76,18 @@ export default function OverviewPage() {
       </Reveal>
 
       <Reveal delayMs={80}>
+        <Panel
+          title="Executive Trend Snapshot"
+          subtitle="Synthetic demonstration data - monthly revenue trajectory for immediate business context"
+        >
+          <RevenueLineChart data={revenueByMonth} />
+          <div className="mt-3">
+            <DataStateTag label="Synthetic demonstration data" />
+          </div>
+        </Panel>
+      </Reveal>
+
+      <Reveal delayMs={110}>
         <Panel title="Executive Briefing" subtitle="Summary signals for board and leadership discussion">
           <div className="grid gap-3 lg:grid-cols-2">
             {executiveSignals.map((signal) => (
@@ -91,18 +103,18 @@ export default function OverviewPage() {
         </Panel>
       </Reveal>
 
-      <Reveal delayMs={120}>
+      <Reveal delayMs={130}>
         <section className="grid gap-4 xl:grid-cols-2">
-          <Panel title="Sales Development" subtitle="Illustrative metric - SQL-backed trend calculations pending">
-            <RevenueLineChart data={revenueByMonth} />
-          </Panel>
           <Panel title="Country Performance" subtitle="Illustrative metric - country variance report planned">
             <RevenueBarChart data={revenueByCountry} xKey="country" yKey="revenue" />
+          </Panel>
+          <Panel title="Sales Development Detail" subtitle="Illustrative metric - SQL-backed trend calculations pending">
+            <RevenueLineChart data={revenueByMonth} />
           </Panel>
         </section>
       </Reveal>
 
-      <Reveal delayMs={160}>
+      <Reveal delayMs={145}>
         <section className="grid gap-4 xl:grid-cols-2">
           <Panel title="Product Group Performance" subtitle="Illustrative metric - product profitability drill-down planned">
             <RevenueBarChart data={revenueByProductGroup} xKey="group" yKey="revenue" />
@@ -113,7 +125,7 @@ export default function OverviewPage() {
         </section>
       </Reveal>
 
-      <Reveal delayMs={200}>
+      <Reveal delayMs={160}>
         <section className="grid gap-4 xl:grid-cols-2">
           <Panel title="Inventory Position" subtitle="Illustrative metric - inventory valuation logic pending SQL layer">
             <RevenueBarChart data={inventoryPositionDemo} xKey="category" yKey="amount" />
@@ -134,7 +146,7 @@ export default function OverviewPage() {
         </section>
       </Reveal>
 
-      <Reveal delayMs={240}>
+      <Reveal delayMs={170}>
         <section className="grid gap-4 xl:grid-cols-2">
           <Panel title="Drill-down Navigation" subtitle="Executive summary first, technical and analytical detail on demand">
             <div className="grid gap-2 sm:grid-cols-2">
@@ -169,7 +181,7 @@ export default function OverviewPage() {
         </section>
       </Reveal>
 
-      <Reveal delayMs={280}>
+      <Reveal delayMs={170}>
         <Panel title="Platform Activity Stream" subtitle="Implementation and platform events shown separately from executive business signals">
           <ul className="space-y-3">
             {platformActivity.map((entry) => (
