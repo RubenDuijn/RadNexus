@@ -15,6 +15,7 @@ import {
   keyChangesAndExceptions,
   kpiCards,
   platformActivity,
+  revenueByCountry,
   revenueByMonth,
   revenueByProductGroup,
 } from "@/lib/demo-data";
@@ -127,6 +128,7 @@ export default function OverviewPage() {
             ...table,
             area: catalog.area,
             implementationStatus: catalog.implementationStatus,
+            hasData: catalog.sampleRecordsState === "Available",
           };
         })
         .filter((table): table is NonNullable<typeof table> => table !== null),
@@ -183,7 +185,16 @@ export default function OverviewPage() {
             title="Revenue Development"
             subtitle="Synthetic demonstration data - monthly trend shown as a representative executive signal"
           >
-            <RevenueLineChart data={revenueByMonth} />
+            <div className="grid gap-4 xl:grid-cols-2">
+              <div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Monthly Revenue Trend</p>
+                <RevenueLineChart data={revenueByMonth} />
+              </div>
+              <div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Revenue by Country</p>
+                <RevenueBarChart data={revenueByCountry} xKey="country" yKey="revenue" />
+              </div>
+            </div>
             <div className="mt-3">
               <DataStateTag label="Synthetic demonstration data" />
             </div>
@@ -209,7 +220,10 @@ export default function OverviewPage() {
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <p className="font-mono text-sm font-semibold text-[var(--accent)]">{table.name}</p>
-                        <span className={statusBadgeClass(table.implementationStatus)}>{table.implementationStatus}</span>
+                        <div className="flex flex-wrap items-center justify-end gap-2">
+                          <span className={statusBadgeClass(table.implementationStatus)}>{table.implementationStatus}</span>
+                          {table.hasData && <span className="rn-badge rn-badge-success">Data available</span>}
+                        </div>
                       </div>
                       <p className="mt-2 text-sm text-slate-700">{table.description}</p>
                       <p className="mt-2 text-xs uppercase tracking-[0.12em] text-slate-500">{table.area}</p>
