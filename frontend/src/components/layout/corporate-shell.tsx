@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const corporateNav = [
-  { label: "Company", href: "/company" },
+  { label: "Products", href: "/products", featured: true },
   { label: "Capabilities", href: "/capabilities" },
-  { label: "AI & Intelligence", href: "/ai-and-intelligence" },
-  { label: "Data & Platforms", href: "/data-and-platforms" },
+  { label: "AI & Intelligence", href: "/ai-and-intelligence", featured: true },
+  { label: "Data & Platforms", href: "/data-and-platforms", featured: true },
   { label: "Technology & Transformation", href: "/technology-and-transformation" },
-  { label: "Products", href: "/products" },
-  { label: "Labs & Innovation", href: "/labs-and-innovation" },
-  { label: "Insights", href: "/insights" },
+  { label: "Labs & Innovation", href: "/labs-and-innovation", featured: true },
+  { label: "Insights", href: "/insights", featured: true },
+  { label: "Company", href: "/company" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -92,7 +92,11 @@ export function CorporateShell({ children }: { children: React.ReactNode }) {
                       <Link
                         href={item.href}
                         onClick={() => setMobileOpen(false)}
-                        className="rn-nav-focus block rounded-lg border border-transparent px-3 py-2 text-sm text-[var(--foreground)] hover:border-[var(--line-strong)] hover:bg-[var(--surface-2)]"
+                        className={`rn-nav-focus block rounded-lg border px-3 py-2 text-sm hover:bg-[var(--surface-2)] ${
+                          item.featured
+                            ? "border-[color-mix(in_srgb,var(--accent)_45%,white)] bg-[color-mix(in_srgb,var(--accent)_8%,white)] font-medium text-[var(--accent)] hover:border-[var(--accent)]"
+                            : "border-transparent text-[var(--foreground)] hover:border-[var(--line-strong)]"
+                        }`}
                       >
                         {item.label}
                       </Link>
@@ -145,7 +149,11 @@ export function CorporateShell({ children }: { children: React.ReactNode }) {
               <li key={item.href} className="shrink-0">
                 <Link
                   href={item.href}
-                  className="rn-chip rn-nav-focus inline-flex px-3 py-1.5 text-xs"
+                  className={`rn-chip rn-nav-focus inline-flex px-3 py-1.5 text-xs ${
+                    item.featured
+                      ? "border-[color-mix(in_srgb,var(--accent)_45%,white)] bg-[color-mix(in_srgb,var(--accent)_8%,white)] text-[var(--accent)]"
+                      : ""
+                  }`}
                 >
                   {item.label}
                 </Link>
