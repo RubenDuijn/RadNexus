@@ -67,7 +67,13 @@ export function CorporateShell({ children }: { children: React.ReactNode }) {
                 paddingLeft: "max(0.5rem, env(safe-area-inset-left))",
               }}
             >
-              <nav id="corporate-mobile-drawer" className="rn-mobile-drawer rn-mobile-drawer-corporate flex flex-col overflow-hidden rounded-2xl p-3">
+              <nav
+                id="corporate-mobile-drawer"
+                className="rn-mobile-drawer rn-mobile-drawer-corporate flex flex-col overflow-hidden rounded-2xl p-3"
+                style={{
+                  maxHeight: "calc(100dvh - max(0.5rem, env(safe-area-inset-top)) - max(0.5rem, env(safe-area-inset-bottom)) - 1rem)",
+                }}
+              >
                 <div className="mb-3 flex items-center justify-between">
                   <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">Corporate navigation</p>
                   <button
@@ -80,7 +86,7 @@ export function CorporateShell({ children }: { children: React.ReactNode }) {
                   </button>
                 </div>
 
-                <ul className="flex-1 space-y-2 overflow-y-auto overscroll-contain pr-1">
+                <ul className="max-h-[calc(100dvh-11rem)] space-y-2 overflow-y-auto overscroll-contain pr-1">
                   {corporateNav.map((item) => (
                     <li key={item.href}>
                       <Link

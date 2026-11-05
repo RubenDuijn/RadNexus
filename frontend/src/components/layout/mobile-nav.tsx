@@ -59,9 +59,9 @@ export function MobileNav() {
             >
               <nav
                 id="product-mobile-drawer"
-                className="rn-mobile-drawer rn-mobile-drawer-product flex max-h-full flex-col overflow-hidden rounded-2xl p-3"
+                className="rn-mobile-drawer rn-mobile-drawer-product flex flex-col overflow-hidden rounded-2xl p-3"
                 style={{
-                  height: "min(88dvh, 42rem)",
+                  maxHeight: "calc(100dvh - max(0.5rem, env(safe-area-inset-top)) - max(0.5rem, env(safe-area-inset-bottom)) - 1rem)",
                 }}
               >
                 <div className="mb-2 flex items-center justify-between">
@@ -76,7 +76,7 @@ export function MobileNav() {
                   </button>
                 </div>
 
-                <ul className="flex-1 space-y-2 overflow-y-auto overscroll-contain pr-1">
+                <ul className="max-h-[calc(100dvh-11rem)] space-y-2 overflow-y-auto overscroll-contain pr-1">
                   {navItems.map((item) => {
                     return (
                       <li key={item.href}>

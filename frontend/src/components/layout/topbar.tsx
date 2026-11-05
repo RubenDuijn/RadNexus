@@ -11,7 +11,7 @@ export function Topbar() {
         <Link
           href="https://radnexus.dev/"
           aria-label="Open RAD NEXUS corporate homepage"
-          className="rn-wordmark-link rn-nav-focus shrink-0 cursor-pointer rounded-sm text-xs font-semibold uppercase tracking-[0.2em] sm:text-sm"
+          className="rn-wordmark-link rn-nav-focus shrink-0 cursor-pointer rounded-sm text-xs font-semibold uppercase tracking-[0.2em] sm:text-sm lg:hidden"
         >
           RAD NEXUS
         </Link>

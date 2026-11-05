@@ -292,12 +292,10 @@ button {
 
 .rn-mobile-drawer-corporate {
   width: min(84vw, 21rem);
-  height: 100%;
 }
 
 .rn-mobile-drawer-product {
   width: min(86vw, 22rem);
-  max-height: 100%;
 }
 
 .rn-table-row-interactive {
@@ -345,5 +343,12 @@ button {
 
   .rn-product-title {
     letter-spacing: 0.14em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .rn-product-identity {
+    border-left: none;
+    padding-left: 0;
   }
 }

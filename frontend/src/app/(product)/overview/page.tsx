@@ -51,7 +51,8 @@ export default function OverviewPage() {
     <div className="space-y-7">
       <Reveal>
         <section className="rn-card p-6 lg:p-7">
-          <p className="rn-eyebrow">Executive Overview</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] sm:hidden">Overview</p>
+          <p className="rn-eyebrow hidden sm:block">Executive Overview</p>
           <h1 className="rn-heading mt-3 text-3xl font-semibold">NEXORA Industries Enterprise Overview</h1>
           <p className="mt-3 text-sm rn-muted">
             Executive intelligence workspace focused on business performance, trends, risks, opportunities, and management priorities.
