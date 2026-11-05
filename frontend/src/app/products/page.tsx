@@ -3,6 +3,27 @@ import Link from "next/link";
 import { CorporateShell } from "@/components/layout/corporate-shell";
 import { Panel } from "@/components/ui/panel";
 
+const productPrinciples = [
+  {
+    title: "Ask",
+    detail:
+      "Interact with enterprise data naturally, using business questions instead of relying exclusively on predefined reports.",
+  },
+  {
+    title: "Investigate",
+    detail: "Explore underlying business drivers, relationships and contributing factors.",
+  },
+  {
+    title: "Validate",
+    detail:
+      "Compare analytical results against established enterprise reports, KPIs and recognised business definitions.",
+  },
+  {
+    title: "Discover",
+    detail: "Uncover relationships, trends and opportunities beyond predefined reporting.",
+  },
+];
+
 export default function ProductsPage() {
   return (
     <CorporateShell>
@@ -24,6 +45,37 @@ export default function ProductsPage() {
             <p>
               By combining enterprise data, structured business logic and artificial intelligence, we aim to make complex
               business questions easier to ask, investigate and answer.
+            </p>
+            <div className="rn-card-soft space-y-3 p-4">
+              <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Product principle</p>
+              <p className="text-base font-medium text-slate-800">Compare. Validate. Discover.</p>
+              <p>
+                Go beyond traditional reporting without losing sight of the numbers you trust.
+              </p>
+              <p>
+                Ask questions in natural language, explore the results and compare them with established enterprise reports
+                and KPIs.
+              </p>
+              <p className="text-sm rn-muted">
+                RAD NEXUS INTELLIGENCE aims to connect the flexibility of AI-driven analysis with the consistency of
+                structured business reporting - helping organisations validate results, investigate differences and
+                discover insights that traditional reports may not reveal.
+              </p>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              {productPrinciples.map((principle) => (
+                <article key={principle.title} className="rn-card-soft p-3">
+                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">{principle.title}</p>
+                  <p className="mt-1 text-sm text-slate-700">{principle.detail}</p>
+                </article>
+              ))}
+            </div>
+            <p className="text-sm font-medium text-slate-800">
+              Your established reports remain the reference. AI helps you ask the next question.
+            </p>
+            <p className="text-xs rn-muted">
+              Comparison and validation workflows are a core product capability direction. The current build demonstrates
+              interface patterns and illustrative data only.
             </p>
             <p className="font-medium text-slate-800">Ask the question. Explore the evidence. Understand the business.</p>
             <p>
