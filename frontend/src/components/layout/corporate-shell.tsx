@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 const corporateNav = [
-  { label: "Home", href: "/" },
   { label: "Company", href: "/company" },
   { label: "Capabilities", href: "/capabilities" },
   { label: "AI & Intelligence", href: "/ai-and-intelligence" },
@@ -19,7 +18,13 @@ export function CorporateShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-20 border-b border-[#ddd5c8] bg-[#f7f5f1]/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-4 px-4 py-4 lg:px-8">
           <div className="mr-auto">
-            <p className="rn-eyebrow">RAD NEXUS</p>
+            <Link
+              href="https://radnexus.dev/"
+              aria-label="Open RAD NEXUS corporate homepage"
+              className="rn-eyebrow inline-flex cursor-pointer rounded-sm outline-none hover:text-[#0f6f8c] focus-visible:ring-2 focus-visible:ring-[#0f6f8c]/40"
+            >
+              RAD NEXUS
+            </Link>
             <h1 className="text-base font-semibold text-slate-800">Technology · Data · Artificial Intelligence</h1>
           </div>
           <Link

@@ -70,17 +70,22 @@ export function Topbar({ initialApiStatus, initialDbStatus }: TopbarProps) {
     <header className="sticky top-0 z-20 border-b border-[#ddd5c8] bg-[#f7f4ee]/95 px-5 py-3 backdrop-blur lg:px-8">
       <div className="flex flex-wrap items-center gap-3">
         <div className="mr-auto">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-800">RAD NEXUS INTELLIGENCE</h2>
+          <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-slate-800">
+            <Link
+              href="https://radnexus.dev/"
+              aria-label="Open RAD NEXUS corporate homepage"
+              className="cursor-pointer rounded-sm text-slate-900 outline-none hover:text-[#0f6f8c] focus-visible:ring-2 focus-visible:ring-[#0f6f8c]/40"
+            >
+              RAD NEXUS
+            </Link>
+            <span className="text-slate-500" aria-hidden="true">|</span>
+            <span>RAD NEXUS INTELLIGENCE</span>
+          </h2>
           <p className="mt-1 text-xs text-slate-600">{environmentLabel} | Active company: NEXORA Industries</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <Link
-            href="/"
-            className="rn-btn-secondary rounded-md px-2.5 py-1 text-xs"
-          >
-            RAD NEXUS Site
-          </Link>
+          <span className="rounded-md border border-[#d3cabd] bg-white px-2.5 py-1 text-xs text-slate-700">{environmentLabel}</span>
           <>
             <StatusPill
               label={`API ${state.api?.reachable ? "Available" : "Not connected"}`}

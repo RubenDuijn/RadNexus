@@ -57,7 +57,7 @@ export default function OverviewPage() {
           <DataStateTag label="Synthetic company data" />
           <DataStateTag label="Demonstration metric" />
           <DataStateTag label="Planned functionality" />
-          <DataStateTag label="Real database value" />
+          <DataStateTag label="Unavailable service" />
         </div>
       </section>
 

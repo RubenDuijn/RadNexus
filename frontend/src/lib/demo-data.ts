@@ -1,8 +1,9 @@
 export type DataStateLabel =
-  | "Real database value"
+  | "Real connected data"
   | "Synthetic company data"
   | "Demonstration metric"
-  | "Planned functionality";
+  | "Planned functionality"
+  | "Unavailable service";
 
 export const kpiCards = [
   {
@@ -138,9 +139,9 @@ export const keyChangesAndExceptions = [
 
 export const dataGenerationStatus = [
   {
-    label: "Master data schema",
-    status: "Implemented",
-    type: "Real database value",
+    label: "Runtime master-data availability",
+    status: "Unavailable",
+    type: "Unavailable service",
   },
   {
     label: "Synthetic master data records",
