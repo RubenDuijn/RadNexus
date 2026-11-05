@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
-import { AppShell } from "@/components/layout/app-shell";
 import "./globals.css";
 
 const plexSans = IBM_Plex_Sans({
@@ -17,8 +16,8 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RAD NEXUS INTELLIGENCE",
-  description: "From enterprise data to business intelligence.",
+  title: "RAD NEXUS",
+  description: "Technology, data and artificial intelligence for enterprise transformation.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -27,9 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-slate-950 font-sans text-slate-100">
-        <AppShell>{children}</AppShell>
-      </body>
+      <body className="min-h-full bg-slate-950 font-sans text-slate-100">{children}</body>
     </html>
   );
 }

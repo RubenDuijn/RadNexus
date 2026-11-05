@@ -46,6 +46,34 @@ Demonstration data:
 - AI Intelligence interaction surface.
 - System architecture implementation/planned labels.
 
+## Website structure
+
+Corporate website routes:
+- `/`
+- `/company`
+- `/capabilities`
+- `/ai-and-intelligence`
+- `/data-and-platforms`
+- `/technology-and-transformation`
+- `/products`
+- `/labs-and-innovation`
+- `/insights`
+- `/contact`
+
+Product application routes:
+- `/overview`
+- `/data-explorer`
+- `/business-intelligence`
+- `/ai-intelligence`
+- `/data-sources`
+- `/system-architecture`
+- `/settings`
+
+Strategic positioning:
+- `RAD NEXUS` is the company.
+- `Rad Nexus Intelligence` is the first product under active development.
+- `NEXORA Industries` is a fictional demonstration company used in product UX.
+
 ## Deployment
 
 - Vercel deployment instructions: see `VERCEL_DEPLOYMENT.md`.
