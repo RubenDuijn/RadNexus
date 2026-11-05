@@ -17,7 +17,7 @@ export type TableArea =
   | "Inventory"
   | "Controlling";
 
-export type ImplementationStatus = "Implemented" | "Planned";
+export type ImplementationStatus = "Implemented" | "In development" | "Planned" | "Not started" | "Unavailable";
 export type ConnectionStatus = "Available" | "Not Connected";
 
 export type TableMeta = {
@@ -254,7 +254,7 @@ export const tableCatalog: TableMeta[] = [
   {
     name: "VBAK",
     area: "Sales",
-    implementationStatus: "Planned",
+    implementationStatus: "Not started",
     connectionStatus: "Not Connected",
     description: "Sales document header",
     sapSourceTable: "SAP VBAK",
@@ -269,7 +269,7 @@ export const tableCatalog: TableMeta[] = [
   {
     name: "VBAP",
     area: "Sales",
-    implementationStatus: "Planned",
+    implementationStatus: "Not started",
     connectionStatus: "Not Connected",
     description: "Sales document item",
     sapSourceTable: "SAP VBAP",
@@ -284,7 +284,7 @@ export const tableCatalog: TableMeta[] = [
   {
     name: "BKPF",
     area: "Finance",
-    implementationStatus: "Planned",
+    implementationStatus: "Not started",
     connectionStatus: "Not Connected",
     description: "Accounting document header",
     sapSourceTable: "SAP BKPF",
@@ -299,7 +299,7 @@ export const tableCatalog: TableMeta[] = [
   {
     name: "BSEG",
     area: "Finance",
-    implementationStatus: "Planned",
+    implementationStatus: "Not started",
     connectionStatus: "Not Connected",
     description: "Accounting document segment",
     sapSourceTable: "SAP BSEG",
@@ -314,7 +314,7 @@ export const tableCatalog: TableMeta[] = [
   {
     name: "COEP",
     area: "Controlling",
-    implementationStatus: "Planned",
+    implementationStatus: "Not started",
     connectionStatus: "Not Connected",
     description: "Controlling line items",
     sapSourceTable: "SAP COEP",
@@ -329,7 +329,7 @@ export const tableCatalog: TableMeta[] = [
   {
     name: "EKKO",
     area: "Purchasing",
-    implementationStatus: "Planned",
+    implementationStatus: "Not started",
     connectionStatus: "Not Connected",
     description: "Purchasing document header",
     sapSourceTable: "SAP EKKO",
@@ -344,7 +344,7 @@ export const tableCatalog: TableMeta[] = [
   {
     name: "EKPO",
     area: "Purchasing",
-    implementationStatus: "Planned",
+    implementationStatus: "Not started",
     connectionStatus: "Not Connected",
     description: "Purchasing document item",
     sapSourceTable: "SAP EKPO",

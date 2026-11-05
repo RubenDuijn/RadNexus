@@ -17,7 +17,7 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
 
   const previewRows = getPreviewRows(tableName);
   const columns = previewRows.length > 0 ? Object.keys(previewRows[0]) : [];
-  const hasFieldMetadata = meta.implementationStatus === "Implemented" && meta.fields.length > 0;
+  const hasFieldMetadata = meta.fields.length > 0;
 
   return (
     <div className="space-y-7">
@@ -79,7 +79,9 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
 
       <Panel title="Field Definitions" subtitle="Current schema tranche metadata">
         {!hasFieldMetadata ? (
-          <p className="text-sm rn-muted">No field metadata is available yet. This table remains in planned state.</p>
+          <p className="text-sm rn-muted">
+            No field metadata is available yet. Current implementation status: {meta.implementationStatus}.
+          </p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[760px] text-left text-sm">

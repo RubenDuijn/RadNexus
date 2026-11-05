@@ -45,7 +45,7 @@ export default function BusinessIntelligencePage() {
         </div>
       </Panel>
 
-      <Panel title="Reporting Controls" subtitle="Demonstration control surface while backend query endpoints are pending">
+      <Panel title="Reporting Controls" subtitle="Illustrative control surface while backend query endpoints are pending">
         <div className="grid gap-3 lg:grid-cols-4">
           <label className="space-y-1">
             <span className="text-xs uppercase tracking-[0.12em] text-slate-500">Reporting period</span>
@@ -90,51 +90,51 @@ export default function BusinessIntelligencePage() {
       </Panel>
 
       <section className="grid gap-4 md:grid-cols-4">
-        <Panel title="Revenue" subtitle="Demonstration metric">
+        <Panel title="Revenue" subtitle="Illustrative metric">
           <p className="text-3xl font-semibold text-slate-800">EUR 428.6M</p>
           <div className="mt-2">
-            <DataStateTag label="Demonstration metric" />
+            <DataStateTag label="Illustrative metric" />
           </div>
         </Panel>
-        <Panel title="Gross Margin" subtitle="Demonstration metric">
+        <Panel title="Gross Margin" subtitle="Illustrative metric">
           <p className="text-3xl font-semibold text-slate-800">31.4%</p>
           <div className="mt-2">
-            <DataStateTag label="Demonstration metric" />
+            <DataStateTag label="Illustrative metric" />
           </div>
         </Panel>
         <Panel title="Inventory Value" subtitle="Planned SQL measure">
           <p className="text-3xl font-semibold text-slate-700">EUR 96.8M</p>
           <div className="mt-2">
-            <DataStateTag label="Planned functionality" />
+            <DataStateTag label="Planned data" />
           </div>
         </Panel>
         <Panel title="Purchasing Cost Pressure" subtitle="Planned SQL + semantic layer output">
           <p className="text-3xl font-semibold text-slate-700">N/A</p>
           <div className="mt-2">
-            <DataStateTag label="Planned functionality" />
+            <DataStateTag label="Planned data" />
           </div>
         </Panel>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-2">
-        <Panel title="Sales by Month" subtitle="Demonstration metric">
+        <Panel title="Sales by Month" subtitle="Illustrative metric">
           <RevenueLineChart data={revenueByMonth} />
         </Panel>
-        <Panel title="Sales by Country" subtitle="Demonstration metric">
+        <Panel title="Sales by Country" subtitle="Illustrative metric">
           <RevenueBarChart data={revenueByCountry} xKey="country" yKey="revenue" />
         </Panel>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-2">
-        <Panel title="Product Group Revenue" subtitle="Demonstration metric">
+        <Panel title="Product Group Revenue" subtitle="Illustrative metric">
           <RevenueBarChart data={revenueByProductGroup} xKey="group" yKey="revenue" />
         </Panel>
-        <Panel title="Customer Profitability" subtitle="Demonstration metric">
+        <Panel title="Customer Profitability" subtitle="Illustrative metric">
           <RevenueBarChart data={profitabilityDemo} xKey="customer" yKey="margin" />
         </Panel>
       </section>
 
-      <Panel title="Detailed Report Table" subtitle="Demonstration rows for layout and export workflow">
+      <Panel title="Detailed Report Table" subtitle="Illustrative rows for layout and export workflow">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] text-left text-sm">
             <thead>
@@ -152,7 +152,7 @@ export default function BusinessIntelligencePage() {
                   <td className="py-2 pr-4">{row.revenue.toFixed(1)}</td>
                   <td className="py-2 pr-4">{row.margin.toFixed(1)}</td>
                   <td className="py-2">
-                    <DataStateTag label="Demonstration metric" />
+                    <DataStateTag label="Illustrative metric" />
                   </td>
                 </tr>
               ))}

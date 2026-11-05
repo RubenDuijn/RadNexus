@@ -1,58 +1,58 @@
 export type DataStateLabel =
-  | "Real connected data"
-  | "Synthetic company data"
-  | "Demonstration metric"
-  | "Planned functionality"
-  | "Unavailable service";
+  | "Connected live data"
+  | "Synthetic demonstration data"
+  | "Illustrative metric"
+  | "Planned data"
+  | "Unavailable data";
 
 export const kpiCards = [
   {
     title: "Reporting Period",
     value: "FY 2026 - Q4",
     note: "Current period context in demonstration workspace",
-    dataState: "Demonstration metric",
+    dataState: "Illustrative metric",
   },
   {
     title: "Company",
     value: "NEXORA Industries",
-    note: "Active legal entity group in this environment",
-    dataState: "Synthetic company data",
+    note: "Fictional demonstration company used in this environment",
+    dataState: "Synthetic demonstration data",
   },
   {
     title: "Countries",
     value: "18",
-    note: "Target operating footprint",
-    dataState: "Synthetic company data",
+    note: "Target demonstration scale (planned footprint)",
+    dataState: "Planned data",
   },
   {
     title: "Production Plants",
     value: "12",
-    note: "Target manufacturing sites",
-    dataState: "Synthetic company data",
+    note: "Target demonstration scale (planned footprint)",
+    dataState: "Planned data",
   },
   {
     title: "Customers",
     value: "35,000",
     note: "Planned synthetic customer base",
-    dataState: "Planned functionality",
+    dataState: "Planned data",
   },
   {
     title: "Products",
     value: "8,000",
     note: "Planned synthetic product catalog",
-    dataState: "Planned functionality",
+    dataState: "Planned data",
   },
   {
     title: "Total Revenue",
     value: "EUR 428.6M",
     note: "Illustrative dashboard metric",
-    dataState: "Demonstration metric",
+    dataState: "Illustrative metric",
   },
   {
     title: "Gross Margin",
     value: "31.4%",
     note: "Illustrative profitability metric",
-    dataState: "Demonstration metric",
+    dataState: "Illustrative metric",
   },
 ] as const;
 
@@ -87,21 +87,39 @@ export const revenueByProductGroup = [
   { group: "Energy Systems", revenue: 88.2 },
 ];
 
-export const recentActivity = [
+export const platformActivity = [
   {
     title: "Schema migration 0002 executed",
     detail: "Master-data tables KNB1, MARC, MARD, LFA1, LFB1 and T001L added.",
-    source: "Backend migration log",
+    source: "Implementation event",
   },
   {
     title: "Frontend foundation initialized",
     detail: "Overview, Data Explorer, BI, AI, and architecture screens created.",
-    source: "Frontend project",
+    source: "Implementation event",
   },
   {
     title: "Connectivity probe configured",
     detail: "Top bar uses backend health endpoints where available.",
-    source: "Frontend API route",
+    source: "Implementation event",
+  },
+];
+
+export const businessActivity = [
+  {
+    title: "Country and product variance signals",
+    detail: "Illustrative scenarios used to demonstrate executive investigation workflow.",
+    source: "Illustrative scenario",
+  },
+  {
+    title: "Margin pressure watchpoint",
+    detail: "Hypothetical margin-impact scenario for management discussion and follow-up analysis.",
+    source: "Illustrative scenario",
+  },
+  {
+    title: "Inventory concentration indicator",
+    detail: "Demonstration-only signal to show inventory drill-down and risk framing.",
+    source: "Illustrative scenario",
   },
 ];
 
@@ -122,18 +140,18 @@ export const inventoryPositionDemo = [
 export const keyChangesAndExceptions = [
   {
     title: "Germany sales deceleration in industrial components",
-    detail: "Illustrative signal to validate with SQL-backed variance analysis.",
-    state: "Demonstration metric",
+    detail: "Illustrative scenario to validate with SQL-backed variance analysis when connected data is available.",
+    state: "Illustrative metric",
   },
   {
     title: "Margin pressure from energy system input costs",
-    detail: "Planned to be linked with supplier and purchasing tables when available.",
-    state: "Planned functionality",
+    detail: "Hypothetical scenario planned to be linked with supplier and purchasing tables when connected data is available.",
+    state: "Planned data",
   },
   {
     title: "Inventory increase in finished goods",
-    detail: "Synthetic scenario used to demonstrate inventory drill-down views.",
-    state: "Synthetic company data",
+    detail: "Illustrative scenario used to demonstrate inventory drill-down views.",
+    state: "Illustrative metric",
   },
 ] as const;
 
@@ -141,16 +159,16 @@ export const dataGenerationStatus = [
   {
     label: "Runtime master-data availability",
     status: "Unavailable",
-    type: "Unavailable service",
+    type: "Unavailable data",
   },
   {
     label: "Synthetic master data records",
     status: "Planned",
-    type: "Planned functionality",
+    type: "Planned data",
   },
   {
     label: "Synthetic transactional records",
     status: "Not started",
-    type: "Planned functionality",
+    type: "Planned data",
   },
 ] as const satisfies ReadonlyArray<{ label: string; status: string; type: DataStateLabel }>;

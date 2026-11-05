@@ -5,12 +5,28 @@ import { useMemo, useState } from "react";
 
 import { Panel } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { areas, TableArea, tableCatalog } from "@/lib/schema-catalog";
+import { areas, ImplementationStatus, TableArea, tableCatalog } from "@/lib/schema-catalog";
+
+const implementationStatuses: ImplementationStatus[] = [
+  "Implemented",
+  "In development",
+  "Planned",
+  "Not started",
+  "Unavailable",
+];
+
+const implementationStyles: Record<ImplementationStatus, string> = {
+  Implemented: "border border-emerald-300 bg-emerald-50 text-emerald-700",
+  "In development": "border border-cyan-300 bg-cyan-50 text-cyan-700",
+  Planned: "border border-blue-300 bg-blue-50 text-blue-700",
+  "Not started": "border border-slate-300 bg-slate-100 text-slate-700",
+  Unavailable: "border border-rose-300 bg-rose-50 text-rose-700",
+};
 
 export default function DataExplorerPage() {
   const [query, setQuery] = useState("");
   const [areaFilter, setAreaFilter] = useState<TableArea | "All">("All");
-  const [implementationFilter, setImplementationFilter] = useState<"All" | "Implemented" | "Planned">("All");
+  const [implementationFilter, setImplementationFilter] = useState<"All" | ImplementationStatus>("All");
 
   const filteredTables = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -69,13 +85,16 @@ export default function DataExplorerPage() {
             <select
               value={implementationFilter}
               onChange={(event) =>
-                setImplementationFilter(event.target.value as "All" | "Implemented" | "Planned")
+                setImplementationFilter(event.target.value as "All" | ImplementationStatus)
               }
               className="rn-control"
             >
               <option value="All">All</option>
-              <option value="Implemented">Implemented</option>
-              <option value="Planned">Planned</option>
+              {implementationStatuses.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
             </select>
           </label>
         </div>
@@ -83,7 +102,7 @@ export default function DataExplorerPage() {
 
       <Panel
         title="Table Registry"
-        subtitle={`${filteredTables.length} table entries shown. Implemented requires backend schema and field metadata.`}
+        subtitle={`${filteredTables.length} table entries shown. Implementation status indicates backend schema and field metadata readiness.`}
       >
         <div className="overflow-x-auto">
           <table className="w-full min-w-[980px] text-left text-sm">
@@ -108,9 +127,7 @@ export default function DataExplorerPage() {
                     <span
                       className={[
                         "rounded-md px-2 py-1 text-xs font-medium",
-                        table.implementationStatus === "Implemented"
-                          ? "border border-emerald-300 bg-emerald-50 text-emerald-700"
-                          : "border border-blue-300 bg-blue-50 text-blue-700",
+                        implementationStyles[table.implementationStatus],
                       ].join(" ")}
                     >
                       {table.implementationStatus}
