@@ -45,3 +45,7 @@ Demonstration data:
 - Business Intelligence metric cards.
 - AI Intelligence interaction surface.
 - System architecture implementation/planned labels.
+
+## Deployment
+
+- Vercel deployment instructions: see `VERCEL_DEPLOYMENT.md`.
