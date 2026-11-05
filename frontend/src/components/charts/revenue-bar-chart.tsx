@@ -17,18 +17,18 @@ export function RevenueBarChart({ data, xKey, yKey }: RevenueBarChartProps) {
     <div className="h-72 w-full">
       <ResponsiveContainer>
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#1f2a3a" />
           <XAxis dataKey={xKey} stroke="#94a3b8" />
           <YAxis stroke="#94a3b8" />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#0f172a",
-              border: "1px solid #334155",
+              backgroundColor: "#0b1321",
+              border: "1px solid #324159",
               borderRadius: 8,
               color: "#e2e8f0",
             }}
           />
-          <Bar dataKey={yKey} fill="#3b82f6" radius={[6, 6, 0, 0]} />
+          <Bar dataKey={yKey} fill="#35b9d6" radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

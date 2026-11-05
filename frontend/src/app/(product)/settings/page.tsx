@@ -1,6 +1,14 @@
-import { Panel } from "@/components/ui/panel";
+import { headers } from "next/headers";
 
-export default function SettingsPage() {
+import { Panel } from "@/components/ui/panel";
+import { resolveEnvironmentLabel } from "@/lib/environment";
+
+export default async function SettingsPage() {
+  const headerStore = await headers();
+  const host = headerStore.get("x-forwarded-host") || headerStore.get("host") || "localhost:3000";
+  const hostName = host.split(":")[0] || host;
+  const environmentLabel = resolveEnvironmentLabel(hostName);
+
   return (
     <div className="space-y-6">
       <section>
@@ -18,7 +26,7 @@ export default function SettingsPage() {
           </div>
           <div className="rounded-lg border border-slate-800 bg-slate-950 p-3">
             <dt className="text-slate-400">Current Environment</dt>
-            <dd className="mt-1 text-slate-200">LOCAL DEVELOPMENT</dd>
+            <dd className="mt-1 text-slate-200">{environmentLabel}</dd>
           </div>
         </dl>
       </Panel>

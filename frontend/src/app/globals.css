@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #e2e8f0;
+  --background: #080d17;
+  --surface-1: #0c1421;
+  --surface-2: #111c2d;
+  --foreground: #dbe6f5;
+  --muted: #91a2be;
+  --accent: #35b9d6;
 }
 
 @theme inline {
@@ -13,12 +17,20 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(1200px 700px at 90% -20%, rgba(53, 185, 214, 0.12), transparent 50%),
+    radial-gradient(900px 500px at -10% -20%, rgba(59, 130, 246, 0.14), transparent 45%),
+    var(--background);
   color: var(--foreground);
   font-family: var(--font-plex-sans), sans-serif;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #334155 #020617;
+  scrollbar-color: #334155 #0b1321;
+}
+
+a,
+button {
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, opacity 160ms ease;
 }

@@ -1,55 +1,165 @@
 import { RevenueBarChart } from "@/components/charts/revenue-bar-chart";
 import { RevenueLineChart } from "@/components/charts/revenue-line-chart";
+import { DataStateTag } from "@/components/ui/data-state-tag";
 import { Panel } from "@/components/ui/panel";
 import { revenueByCountry, revenueByMonth, revenueByProductGroup } from "@/lib/demo-data";
 
+const reportCategories = [
+  "Sales performance",
+  "Customer profitability",
+  "Product profitability",
+  "Country performance",
+  "Gross margin",
+  "Inventory",
+  "Purchasing",
+  "Finance",
+];
+
 const profitabilityDemo = [
-  { customer: "Helios Industriehandel", margin: 18.2 },
-  { customer: "Nova Equipos SL", margin: 13.1 },
-  { customer: "Apex Manufacturing", margin: 20.4 },
-  { customer: "Nordic Process AB", margin: 16.8 },
+  { customer: "Helios Industriehandel", revenue: 49.8, margin: 18.2 },
+  { customer: "Nova Equipos SL", revenue: 37.4, margin: 13.1 },
+  { customer: "Apex Manufacturing", revenue: 44.1, margin: 20.4 },
+  { customer: "Nordic Process AB", revenue: 29.6, margin: 16.8 },
 ];
 
 export default function BusinessIntelligencePage() {
   return (
     <div className="space-y-6">
       <section>
-        <h1 className="text-2xl font-semibold text-slate-100">Business Intelligence</h1>
+        <h1 className="text-2xl font-semibold text-slate-100">Business Intelligence Workspace</h1>
         <p className="mt-2 text-sm text-slate-400">
-          Reporting workspace prepared for deterministic SQL-backed metrics. Current visuals use clearly labelled
-          demonstration data.
+          Structured management reporting prepared for deterministic SQL and Python business logic outputs.
         </p>
       </section>
 
+      <Panel title="Report Catalog" subtitle="Planned management reporting families">
+        <div className="flex flex-wrap gap-2">
+          {reportCategories.map((category) => (
+            <span
+              key={category}
+              className="rounded-md border border-slate-700 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-200"
+            >
+              {category}
+            </span>
+          ))}
+        </div>
+      </Panel>
+
+      <Panel title="Reporting Controls" subtitle="Demonstration control surface while backend query endpoints are pending">
+        <div className="grid gap-3 lg:grid-cols-4">
+          <label className="space-y-1">
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Reporting period</span>
+            <select className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-200">
+              <option>FY 2026 - Q4</option>
+              <option>FY 2026 - Q3</option>
+            </select>
+          </label>
+          <label className="space-y-1">
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Country filter</span>
+            <select className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-200">
+              <option>All countries</option>
+              <option>Germany</option>
+              <option>France</option>
+              <option>Spain</option>
+            </select>
+          </label>
+          <label className="space-y-1">
+            <span className="text-xs uppercase tracking-[0.12em] text-slate-400">Product group</span>
+            <select className="w-full rounded-md border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-200">
+              <option>All groups</option>
+              <option>Industrial Components</option>
+              <option>Automation Modules</option>
+              <option>Energy Systems</option>
+            </select>
+          </label>
+          <div className="flex items-end gap-2">
+            <button
+              type="button"
+              className="rounded-md border border-cyan-500/50 bg-cyan-500/10 px-3 py-2 text-sm text-cyan-100"
+            >
+              Apply filters
+            </button>
+            <button
+              type="button"
+              className="rounded-md border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-300"
+            >
+              Export CSV
+            </button>
+          </div>
+        </div>
+      </Panel>
+
+      <section className="grid gap-4 md:grid-cols-4">
+        <Panel title="Revenue" subtitle="Demonstration metric">
+          <p className="text-3xl font-semibold text-cyan-200">EUR 428.6M</p>
+          <div className="mt-2">
+            <DataStateTag label="Demonstration metric" />
+          </div>
+        </Panel>
+        <Panel title="Gross Margin" subtitle="Demonstration metric">
+          <p className="text-3xl font-semibold text-cyan-200">31.4%</p>
+          <div className="mt-2">
+            <DataStateTag label="Demonstration metric" />
+          </div>
+        </Panel>
+        <Panel title="Inventory Value" subtitle="Planned SQL measure">
+          <p className="text-3xl font-semibold text-slate-200">EUR 96.8M</p>
+          <div className="mt-2">
+            <DataStateTag label="Planned functionality" />
+          </div>
+        </Panel>
+        <Panel title="Purchasing Cost Pressure" subtitle="Planned SQL + semantic layer output">
+          <p className="text-3xl font-semibold text-slate-200">N/A</p>
+          <div className="mt-2">
+            <DataStateTag label="Planned functionality" />
+          </div>
+        </Panel>
+      </section>
+
       <section className="grid gap-4 xl:grid-cols-2">
-        <Panel title="Sales by Month" subtitle="Demonstration data">
+        <Panel title="Sales by Month" subtitle="Demonstration metric">
           <RevenueLineChart data={revenueByMonth} />
         </Panel>
-        <Panel title="Sales by Country" subtitle="Demonstration data">
+        <Panel title="Sales by Country" subtitle="Demonstration metric">
           <RevenueBarChart data={revenueByCountry} xKey="country" yKey="revenue" />
         </Panel>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-2">
-        <Panel title="Revenue by Product Group" subtitle="Demonstration data">
+        <Panel title="Product Group Revenue" subtitle="Demonstration metric">
           <RevenueBarChart data={revenueByProductGroup} xKey="group" yKey="revenue" />
         </Panel>
-        <Panel title="Customer Profitability" subtitle="Demonstration data">
+        <Panel title="Customer Profitability" subtitle="Demonstration metric">
           <RevenueBarChart data={profitabilityDemo} xKey="customer" yKey="margin" />
         </Panel>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-3">
-        <Panel title="Gross Margin" subtitle="Demonstration metric">
-          <p className="text-3xl font-semibold text-blue-200">31.4%</p>
-        </Panel>
-        <Panel title="Inventory Valuation" subtitle="Demonstration metric">
-          <p className="text-3xl font-semibold text-blue-200">EUR 96.8M</p>
-        </Panel>
-        <Panel title="Data Source State" subtitle="Backend reporting endpoints pending">
-          <p className="text-sm text-slate-300">Prepared for SQL report endpoints in upcoming backend iterations.</p>
-        </Panel>
-      </section>
+      <Panel title="Detailed Report Table" subtitle="Demonstration rows for layout and export workflow">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[760px] text-left text-sm">
+            <thead>
+              <tr className="border-b border-slate-800 text-xs uppercase tracking-[0.12em] text-slate-400">
+                <th className="py-2 pr-4">Customer</th>
+                <th className="py-2 pr-4">Revenue (EUR M)</th>
+                <th className="py-2 pr-4">Margin (%)</th>
+                <th className="py-2">Data State</th>
+              </tr>
+            </thead>
+            <tbody>
+              {profitabilityDemo.map((row) => (
+                <tr key={row.customer} className="border-b border-slate-900 text-slate-200">
+                  <td className="py-2 pr-4">{row.customer}</td>
+                  <td className="py-2 pr-4">{row.revenue.toFixed(1)}</td>
+                  <td className="py-2 pr-4">{row.margin.toFixed(1)}</td>
+                  <td className="py-2">
+                    <DataStateTag label="Demonstration metric" />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Panel>
     </div>
   );
 }

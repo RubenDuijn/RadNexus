@@ -16,18 +16,18 @@ export function RevenueLineChart({ data }: RevenueLineChartProps) {
     <div className="h-72 w-full">
       <ResponsiveContainer>
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#1f2a3a" />
           <XAxis dataKey="month" stroke="#94a3b8" />
           <YAxis stroke="#94a3b8" />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#0f172a",
-              border: "1px solid #334155",
+              backgroundColor: "#0b1321",
+              border: "1px solid #324159",
               borderRadius: 8,
               color: "#e2e8f0",
             }}
           />
-          <Line type="monotone" dataKey="revenue" stroke="#60a5fa" strokeWidth={2.5} dot={false} />
+          <Line type="monotone" dataKey="revenue" stroke="#35b9d6" strokeWidth={2.5} dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </div>

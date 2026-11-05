@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Panel } from "@/components/ui/panel";
+import { StatusBadge } from "@/components/ui/status-badge";
 import { tableCatalog } from "@/lib/schema-catalog";
 import { getPreviewRows } from "@/lib/table-preview";
 
@@ -16,20 +17,69 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
 
   const previewRows = getPreviewRows(tableName);
   const columns = previewRows.length > 0 ? Object.keys(previewRows[0]) : [];
+  const hasFieldMetadata = meta.implementationStatus === "Implemented" && meta.fields.length > 0;
 
   return (
     <div className="space-y-6">
       <div>
-        <Link href="/data-explorer" className="text-sm text-blue-300 hover:text-blue-200">
+        <Link href="/data-explorer" className="text-sm text-cyan-300 hover:text-cyan-200">
           Back to catalog
         </Link>
         <h1 className="mt-2 text-2xl font-semibold text-slate-100">{meta.name}</h1>
         <p className="mt-1 text-sm text-slate-400">{meta.description}</p>
       </div>
 
+      <Panel title="Table Context" subtitle="Business and implementation metadata">
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Business area</p>
+            <p className="mt-1 text-sm text-slate-200">{meta.area}</p>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">SAP source mapping</p>
+            <p className="mt-1 text-sm text-slate-200">{meta.sapSourceTable}</p>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Implementation status</p>
+            <p className="mt-2 text-sm text-slate-200">{meta.implementationStatus}</p>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Connection status</p>
+            <div className="mt-2">
+              <StatusBadge status={meta.connectionStatus === "Available" ? "Available" : "Not Connected"} />
+            </div>
+          </div>
+        </div>
+      </Panel>
+
+      <Panel title="Keys and Relationships" subtitle="Primary keys, foreign keys, and relationship dependencies">
+        <div className="grid gap-3 lg:grid-cols-3">
+          <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Primary keys</p>
+            <ul className="mt-2 space-y-1 text-sm text-slate-200">
+              {meta.primaryKeys.length > 0 ? meta.primaryKeys.map((key) => <li key={key}>{key}</li>) : <li>Not defined</li>}
+            </ul>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Foreign keys</p>
+            <ul className="mt-2 space-y-1 text-sm text-slate-200">
+              {meta.foreignKeys.length > 0 ? meta.foreignKeys.map((key) => <li key={key}>{key}</li>) : <li>Not defined</li>}
+            </ul>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Relationships</p>
+            <ul className="mt-2 space-y-1 text-sm text-slate-200">
+              {meta.relationships.map((relationship) => (
+                <li key={relationship}>{relationship}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Panel>
+
       <Panel title="Field Definitions" subtitle="Current schema tranche metadata">
-        {meta.fields.length === 0 ? (
-          <p className="text-sm text-slate-400">No field metadata yet. Table is planned and not implemented.</p>
+        {!hasFieldMetadata ? (
+          <p className="text-sm text-slate-400">No field metadata is available yet. This table remains in planned state.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[760px] text-left text-sm">
@@ -58,20 +108,37 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
         )}
       </Panel>
 
-      <Panel title="Relationships" subtitle="Foreign key and dependency map">
+      <Panel title="Rad Nexus Extension Fields" subtitle="Platform-specific semantic extension layer">
         <ul className="space-y-2 text-sm text-slate-300">
-          {meta.relationships.map((relationship) => (
-            <li key={relationship} className="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2">
-              {relationship}
+          {meta.radNexusExtensions.map((extension) => (
+            <li key={extension} className="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 font-mono text-slate-200">
+              {extension}
             </li>
           ))}
         </ul>
       </Panel>
 
-      <Panel title="Data Preview" subtitle="Demonstration snapshot until table preview endpoints are introduced">
+      <Panel title="Record and Sample Availability" subtitle="Connection and sample row readiness">
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Record count</p>
+            <p className="mt-2 text-sm text-slate-200">
+              {meta.recordCount === null ? "Not connected to runtime count endpoint" : meta.recordCount.toLocaleString()}
+            </p>
+          </div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950/80 p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Sample records status</p>
+            <div className="mt-2">
+              <StatusBadge status={meta.sampleRecordsState === "Available" ? "Available" : "Not Connected"} />
+            </div>
+          </div>
+        </div>
+      </Panel>
+
+      <Panel title="Sample Records" subtitle="Illustrative demonstration rows when available">
         {previewRows.length === 0 ? (
           <div className="rounded-lg border border-slate-800 bg-slate-950 p-4 text-sm text-slate-400">
-            No preview rows are available yet for {meta.name}. This table is currently in a metadata-only state.
+            No sample rows are available for {meta.name}. Sample data is not connected for this table.
           </div>
         ) : (
           <div className="overflow-x-auto">

@@ -46,6 +46,18 @@ Demonstration data:
 - AI Intelligence interaction surface.
 - System architecture implementation/planned labels.
 
+## Product UX model
+
+- Enterprise design system with reusable panels, badges and status semantics.
+- Environment label behavior:
+	- `LOCAL DEVELOPMENT` when running locally.
+	- `DEMO ENVIRONMENT` when served publicly.
+- Data-state labeling across screens:
+	- Real database value
+	- Synthetic company data
+	- Demonstration metric
+	- Planned functionality
+
 ## Website structure
 
 Corporate website routes:
@@ -73,6 +85,23 @@ Strategic positioning:
 - `RAD NEXUS` is the company.
 - `Rad Nexus Intelligence` is the first product under active development.
 - `NEXORA Industries` is a fictional demonstration company used in product UX.
+
+## Data Explorer semantics
+
+- `Implemented` means backend schema and field metadata exist.
+- `Planned` means schema implementation is pending.
+- `Available` / `Not Connected` indicate runtime connection state for table access and sample data.
+
+## Platform health semantics
+
+The platform health section distinguishes:
+- Frontend availability
+- Backend API availability
+- Database connectivity
+- Database migrations status integration
+- Data generation status
+- External source connectivity
+- AI provider connectivity
 
 ## Deployment
 

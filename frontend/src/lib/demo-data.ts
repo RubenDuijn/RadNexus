@@ -1,41 +1,59 @@
+export type DataStateLabel =
+  | "Real database value"
+  | "Synthetic company data"
+  | "Demonstration metric"
+  | "Planned functionality";
+
 export const kpiCards = [
+  {
+    title: "Reporting Period",
+    value: "FY 2026 - Q4",
+    note: "Current period context in demonstration workspace",
+    dataState: "Demonstration metric",
+  },
+  {
+    title: "Company",
+    value: "NEXORA Industries",
+    note: "Active legal entity group in this environment",
+    dataState: "Synthetic company data",
+  },
   {
     title: "Countries",
     value: "18",
     note: "Target operating footprint",
-    dataState: "Demonstration target",
+    dataState: "Synthetic company data",
   },
   {
     title: "Production Plants",
     value: "12",
     note: "Target manufacturing sites",
-    dataState: "Demonstration target",
+    dataState: "Synthetic company data",
   },
   {
     title: "Customers",
     value: "35,000",
     note: "Planned synthetic customer base",
-    dataState: "Demonstration target",
+    dataState: "Planned functionality",
   },
   {
     title: "Products",
     value: "8,000",
     note: "Planned synthetic product catalog",
-    dataState: "Demonstration target",
+    dataState: "Planned functionality",
   },
   {
     title: "Total Revenue",
     value: "EUR 428.6M",
     note: "Illustrative dashboard metric",
-    dataState: "Demonstration data",
+    dataState: "Demonstration metric",
   },
   {
     title: "Gross Margin",
     value: "31.4%",
     note: "Illustrative profitability metric",
-    dataState: "Demonstration data",
+    dataState: "Demonstration metric",
   },
-];
+] as const;
 
 export const revenueByMonth = [
   { month: "Jan", revenue: 31.2 },
@@ -86,20 +104,52 @@ export const recentActivity = [
   },
 ];
 
+export const customerConcentrationDemo = [
+  { customer: "Helios Industriehandel", share: 9.8 },
+  { customer: "Apex Manufacturing", share: 8.2 },
+  { customer: "Nordic Process AB", share: 6.6 },
+  { customer: "Delta Motion Group", share: 5.9 },
+  { customer: "Others", share: 69.5 },
+];
+
+export const inventoryPositionDemo = [
+  { category: "Raw materials", amount: 24.3 },
+  { category: "Work in progress", amount: 18.1 },
+  { category: "Finished goods", amount: 54.4 },
+];
+
+export const keyChangesAndExceptions = [
+  {
+    title: "Germany sales deceleration in industrial components",
+    detail: "Illustrative signal to validate with SQL-backed variance analysis.",
+    state: "Demonstration metric",
+  },
+  {
+    title: "Margin pressure from energy system input costs",
+    detail: "Planned to be linked with supplier and purchasing tables when available.",
+    state: "Planned functionality",
+  },
+  {
+    title: "Inventory increase in finished goods",
+    detail: "Synthetic scenario used to demonstrate inventory drill-down views.",
+    state: "Synthetic company data",
+  },
+] as const;
+
 export const dataGenerationStatus = [
   {
     label: "Master data schema",
     status: "Implemented",
-    type: "real",
+    type: "Real database value",
   },
   {
     label: "Synthetic master data records",
     status: "Planned",
-    type: "planned",
+    type: "Planned functionality",
   },
   {
     label: "Synthetic transactional records",
     status: "Not started",
-    type: "planned",
+    type: "Planned functionality",
   },
-];
+] as const satisfies ReadonlyArray<{ label: string; status: string; type: DataStateLabel }>;
