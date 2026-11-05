@@ -1,5 +1,11 @@
-import { Panel } from "@/components/ui/panel";
+import { headers } from "next/headers";
+
 import { StatusBadge } from "@/components/ui/status-badge";
+import { BackendStatus } from "@/lib/api";
+import { DataStateTag } from "@/components/ui/data-state-tag";
+import { dataGenerationStatus } from "@/lib/demo-data";
+import { Panel } from "@/components/ui/panel";
+import { buildPlatformHealth } from "@/lib/platform-health";
 
 const steps = [
   {
@@ -39,7 +45,35 @@ const steps = [
   },
 ];
 
-export default function SystemArchitecturePage() {
+type ConnectivityState = {
+  api: BackendStatus | null;
+  db: BackendStatus | null;
+};
+
+async function getConnectivity(): Promise<ConnectivityState> {
+  const headerStore = await headers();
+  const host = headerStore.get("x-forwarded-host") || headerStore.get("host") || "localhost:3000";
+  const protocol = headerStore.get("x-forwarded-proto") || "http";
+  const appBaseUrl = `${protocol}://${host}`;
+
+  const [apiRes, dbRes] = await Promise.all([
+    fetch(`${appBaseUrl}/api/backend/health`, { cache: "no-store" }).catch(() => null),
+    fetch(`${appBaseUrl}/api/backend/health-db`, { cache: "no-store" }).catch(() => null),
+  ]);
+
+  const apiPayload = apiRes ? ((await apiRes.json()) as BackendStatus) : null;
+  const dbPayload = dbRes ? ((await dbRes.json()) as BackendStatus) : null;
+
+  return {
+    api: apiPayload,
+    db: dbPayload,
+  };
+}
+
+export default async function SystemArchitecturePage() {
+  const connectivity = await getConnectivity();
+  const platformHealth = buildPlatformHealth(connectivity.api, connectivity.db);
+
   return (
     <div className="space-y-7">
       <section>
@@ -68,6 +102,39 @@ export default function SystemArchitecturePage() {
           ))}
         </ol>
       </Panel>
+
+      <section className="grid gap-4 xl:grid-cols-2">
+        <Panel title="Platform Health" subtitle="Runtime probe visibility moved from executive overview into technical architecture context">
+          <ul className="space-y-2">
+            {platformHealth.map((item) => (
+              <li key={item.id} className="rn-card-soft p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm font-medium text-slate-800">{item.label}</p>
+                  <StatusBadge status={item.status} />
+                </div>
+                <p className="mt-1 text-sm rn-muted">{item.detail}</p>
+                <p className="mt-2 text-xs uppercase tracking-[0.1em] text-slate-500">{item.source}</p>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+
+        <Panel title="Data Foundation Progress" subtitle="Schema and generation readiness by capability">
+          <ul className="space-y-3">
+            {dataGenerationStatus.map((item) => (
+              <li key={item.label} className="rn-card-soft p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm font-medium text-slate-800">{item.label}</p>
+                  <p className="text-sm rn-muted">{item.status}</p>
+                </div>
+                <div className="mt-2">
+                  <DataStateTag label={item.type} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Panel>
+      </section>
     </div>
   );
 }

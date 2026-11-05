@@ -22,15 +22,64 @@ const investigationStages = [
   { title: "8. Suggested follow-up questions", state: "Planned" as const, detail: "Follow-up prompt generation is scaffolded for future AI integration." },
 ];
 
+const investigationTrack = [
+  "Revenue development",
+  "Product contribution",
+  "Customer contribution",
+  "Sales volume evolution",
+  "Pricing and margin movement",
+  "Relevant external economic indicators",
+];
+
+const resultFramework = [
+  {
+    label: "Verified findings",
+    detail: "Statements supported by executed queries and traceable evidence.",
+    state: "Not Connected" as const,
+  },
+  {
+    label: "Correlations",
+    detail: "Observed patterns that may explain performance but do not prove causality.",
+    state: "Planned" as const,
+  },
+  {
+    label: "Hypotheses",
+    detail: "Candidate explanations to test in follow-up analysis.",
+    state: "Planned" as const,
+  },
+  {
+    label: "Confidence and limitations",
+    detail: "Expected confidence scoring and explicit data limitations in final narrative.",
+    state: "Planned" as const,
+  },
+];
+
 export default function AiIntelligencePage() {
   return (
     <div className="space-y-7">
       <section>
         <h1 className="rn-heading text-3xl font-semibold">AI Intelligence Investigation Workspace</h1>
         <p className="mt-3 text-sm rn-muted">
-          Central enterprise differentiator: natural-language business investigation with transparent evidence workflow.
+          Central differentiator: natural-language business investigation that keeps evidence, assumptions, and limitations explicit.
         </p>
       </section>
+
+      <Panel title="Investigation Vision" subtitle="Question to evidence workflow for executive and analyst use">
+        <div className="grid gap-3 lg:grid-cols-3">
+          <div className="rn-card-soft p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Business question</p>
+            <p className="mt-1 text-sm text-slate-700">Why did revenue decline in Germany?</p>
+          </div>
+          <div className="rn-card-soft p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Investigation</p>
+            <p className="mt-1 text-sm text-slate-700">Structured analysis across commercial, operational, and macroeconomic dimensions.</p>
+          </div>
+          <div className="rn-card-soft p-3">
+            <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Result</p>
+            <p className="mt-1 text-sm text-slate-700">Findings, supporting evidence, confidence limits, and suggested follow-up questions.</p>
+          </div>
+        </div>
+      </Panel>
 
       <Panel
         title="Question Workspace"
@@ -58,6 +107,16 @@ export default function AiIntelligencePage() {
         </div>
       </Panel>
 
+      <Panel title="Investigation Scope" subtitle="Planned analysis domains for each business question">
+        <div className="grid gap-2 md:grid-cols-2">
+          {investigationTrack.map((item) => (
+            <div key={item} className="rn-card-soft p-3 text-sm text-slate-700">
+              {item}
+            </div>
+          ))}
+        </div>
+      </Panel>
+
       <Panel title="Investigation Lifecycle" subtitle="End-to-end explainable investigation flow">
         <div className="grid gap-3 xl:grid-cols-2">
           {investigationStages.map((stage) => (
@@ -79,9 +138,17 @@ export default function AiIntelligencePage() {
           </div>
         </Panel>
 
-        <Panel title="Planned Conclusion Workspace" subtitle="Decision-ready narrative output">
-          <div className="rn-card-soft p-3 text-sm rn-muted">
-            Investigation outputs will include confidence, assumptions, evidence links, and suggested next questions when AI pipeline integration is complete.
+        <Panel title="Result Framework" subtitle="How findings, correlations, and hypotheses will be distinguished">
+          <div className="space-y-2">
+            {resultFramework.map((item) => (
+              <article key={item.label} className="rn-card-soft p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-sm font-medium text-slate-800">{item.label}</p>
+                  <StatusBadge status={item.state} />
+                </div>
+                <p className="mt-1 text-sm rn-muted">{item.detail}</p>
+              </article>
+            ))}
           </div>
         </Panel>
       </section>

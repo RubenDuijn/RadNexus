@@ -16,11 +16,20 @@ export default function CapabilitiesPage() {
         <section className="grid gap-4 xl:grid-cols-2">
           {businessPillars.map((pillar) => (
             <Panel key={pillar.title} title={pillar.title} subtitle={pillar.state}>
-              <ul className="space-y-2 text-sm text-slate-700">
-                {pillar.items.map((item) => (
-                  <li key={item} className="rn-card-soft p-3">{item}</li>
-                ))}
-              </ul>
+              <div className="space-y-2 text-sm text-slate-700">
+                <div className="rn-card-soft p-3">
+                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Business problem</p>
+                  <p className="mt-1">{pillar.problem}</p>
+                </div>
+                <div className="rn-card-soft p-3">
+                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Technical capability</p>
+                  <p className="mt-1">{pillar.capability}</p>
+                </div>
+                <div className="rn-card-soft p-3">
+                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Business outcome</p>
+                  <p className="mt-1">{pillar.outcome}</p>
+                </div>
+              </div>
             </Panel>
           ))}
         </section>

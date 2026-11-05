@@ -1,44 +1,33 @@
 export const businessPillars = [
   {
     title: "AI & Intelligence",
-    items: [
-      "Enterprise AI",
-      "AI agents",
-      "Intelligent automation",
-      "Natural-language interfaces",
-      "AI integration",
-    ],
+    problem: "Leadership teams need faster answers without losing control over data quality or governance.",
+    capability:
+      "Design and integration of controlled enterprise AI workflows, natural-language interfaces, and investigation tooling.",
+    outcome: "Faster decision cycles with clear traceability of evidence, assumptions, and limitations.",
     state: "Strategic business area",
   },
   {
     title: "Data & Platforms",
-    items: [
-      "Enterprise data engineering",
-      "Data architecture",
-      "Business intelligence",
-      "Data modernisation",
-      "Data platforms",
-    ],
+    problem: "Critical business data is fragmented across ERP, operational systems, and reporting layers.",
+    capability:
+      "Enterprise data architecture, SAP-inspired data modeling, integration pipelines, and modern analytics platform foundations.",
+    outcome: "Reliable, decision-ready data that supports performance management and cross-functional alignment.",
     state: "Strategic business area",
   },
   {
     title: "Technology & Transformation",
-    items: [
-      "SAP and ERP modernisation",
-      "Software architecture",
-      "Enterprise integration",
-      "Technology consulting",
-    ],
+    problem: "Legacy technology slows strategic execution and increases transformation risk.",
+    capability:
+      "Enterprise architecture guidance, ERP and integration modernization, and technical transformation program delivery.",
+    outcome: "Lower transformation risk, stronger platform resilience, and clearer technology roadmaps.",
     state: "Strategic business area",
   },
   {
     title: "Labs & Innovation",
-    items: [
-      "Research and development",
-      "Experimental applications",
-      "Prototypes",
-      "Proprietary software products",
-    ],
+    problem: "Organizations struggle to convert emerging technology ideas into practical business value.",
+    capability: "Rapid prototyping, controlled experimentation, and product incubation for proprietary software concepts.",
+    outcome: "A practical innovation pipeline that links experimentation to measurable business priorities.",
     state: "Strategic business area",
   },
 ] as const;
@@ -48,3 +37,12 @@ export const maturityNotes = [
   "Not every area is currently a commercialized service line.",
   "Rad Nexus Intelligence is currently the flagship product under active development.",
 ];
+
+export const flagshipProductSummary = {
+  ambition:
+    "Transforming enterprise data into actionable business intelligence through modern data platforms, controlled AI and natural-language interaction.",
+  currentState:
+    "Current build demonstrates executive dashboarding, architecture transparency, and AI investigation workflow scaffolding.",
+  plannedState:
+    "Planned capabilities include deeper SQL-backed analytics, semantic business logic, and evidence-based AI investigation outputs.",
+} as const;
