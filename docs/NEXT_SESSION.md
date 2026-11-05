@@ -7,6 +7,7 @@ Date: 2026-11-05
 ### Company and product structure
 - Company: RAD NEXUS
 - Product: RAD NEXUS INTELLIGENCE
+- Product header label now shown as: INTELLIGENCE WORKSPACE
 - Demonstration company in product UX: NEXORA Industries (fictional)
 
 ### Repository and deployment endpoints
@@ -39,14 +40,16 @@ Date: 2026-11-05
 - Corporate/product identity hierarchy implemented:
   - Product header shows:
     - Left: RAD NEXUS wordmark (clickable, keyboard-focusable) linking to https://radnexus.dev/
-    - Center/right: RAD NEXUS INTELLIGENCE and environment/company line
+    - Center/right: INTELLIGENCE WORKSPACE and environment/company line
   - Old duplicate product-header return buttons removed
   - Legacy sidebar three-line branding block removed
+  - Duplicate desktop product-shell company wordmark removed from sidebar (single company identity in topbar)
 - Premium light design system applied via shared tokens in frontend/src/app/globals.css.
 - Responsive navigation implemented:
   - Product mobile drawer/hamburger with all required product routes
   - Corporate mobile drawer/hamburger
   - Drawer closes via overlay click, explicit close button, and Escape key
+  - Product mobile drawer now renders in an inset safe-area container with full-height internal scrolling (iPhone clipping hardening)
 - Data-status semantics clarified:
   - Data provenance labels normalized to:
     - Synthetic demonstration data
@@ -60,6 +63,9 @@ Date: 2026-11-05
   - Business signals kept in executive context
   - Platform and runtime diagnostics moved to System Architecture/Platform Health context
   - NEXORA footprint values marked as planned demonstration scale where records are not connected
+- Motion polish added:
+  - One-time reveal animations on product route sections/panels with reduced-motion fallback
+  - KPI count-up animation on first visibility for key overview metrics (countries, plants, gross margin, total revenue)
 
 ### Tested in this checkpoint
 - Frontend lint: pass
@@ -67,6 +73,7 @@ Date: 2026-11-05
 - Frontend production build: pass
 - Build route generation includes corporate and product routes (overview, data explorer, BI, AI, data sources, system architecture, settings, and corporate pages)
 - Backend tests executed as part of full-stack checkpoint: pass (8 tests)
+- Alembic head verification: pass (20261105_0002)
 
 ### Outstanding frontend items
 - Manual browser-driven visual verification at fixed viewport widths (375, 390, 768, 1024, 1440) was not executed in this checkpoint with screenshot evidence.
@@ -156,6 +163,24 @@ Latest result in this checkpoint:
 - Therefore the next session must start with an implementation audit and integrity verification before adding anything.
 - Missing SAP-inspired transactional domains still pending (not started in current code):
   - VBAK, VBAP, BKPF, BSEG, COEP, EKKO, EKPO and broader transactional/reporting layers
+
+### Backend audit rerun (this session)
+- Implementation audit executed before any new schema changes:
+  - ORM table coverage verified from model declarations:
+    - T001, T001W, T001L, TVKO, KNA1, KNB1, MARA, MARC, MARD, LFA1, LFB1
+  - Migration coverage verified from Alembic create_table operations:
+    - Core tranche in 20261105_0001
+    - Master-data expansion tranche in 20261105_0002
+  - Key integrity declarations present in models:
+    - Composite foreign keys in MARC/MARD
+    - Composite primary keys in KNB1, MARC, MARD, LFB1, T001L
+    - Index declarations present across org/customer/material/supplier tables
+  - Downgrade paths present for all tables introduced in both revisions
+  - Alembic revision chain head confirmed:
+    - 20261105_0002 (single head)
+- Conclusion:
+  - Master-data foundation is internally consistent at code/migration level.
+  - Next backend work should proceed to planned transactional domains only after deciding tranche boundaries and report-first priorities.
 
 ## D) Next Development Milestone — Backend Foundation
 

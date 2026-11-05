@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { Panel } from "@/components/ui/panel";
+import { Reveal } from "@/components/ui/reveal";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { tableCatalog } from "@/lib/schema-catalog";
 import { getPreviewRows } from "@/lib/table-preview";
@@ -21,15 +22,18 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
 
   return (
     <div className="space-y-7">
-      <div>
-        <Link href="/data-explorer" className="text-sm text-[#0f6f8c] hover:text-[#0b6078]">
-          Back to catalog
-        </Link>
-        <h1 className="rn-heading mt-2 text-3xl font-semibold">{meta.name}</h1>
-        <p className="mt-1 text-sm rn-muted">{meta.description}</p>
-      </div>
+      <Reveal>
+        <div>
+          <Link href="/data-explorer" className="text-sm text-[var(--accent)] hover:text-[#1f5263]">
+            Back to catalog
+          </Link>
+          <h1 className="rn-heading mt-2 text-3xl font-semibold">{meta.name}</h1>
+          <p className="mt-1 text-sm rn-muted">{meta.description}</p>
+        </div>
+      </Reveal>
 
-      <Panel title="Table Context" subtitle="Business and implementation metadata">
+      <Reveal delayMs={40}>
+        <Panel title="Table Context" subtitle="Business and implementation metadata">
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rn-card-soft p-3">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Business area</p>
@@ -50,9 +54,11 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
             </div>
           </div>
         </div>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <Panel title="Keys and Relationships" subtitle="Primary keys, foreign keys, and relationship dependencies">
+      <Reveal delayMs={80}>
+        <Panel title="Keys and Relationships" subtitle="Primary keys, foreign keys, and relationship dependencies">
         <div className="grid gap-3 lg:grid-cols-3">
           <div className="rn-card-soft p-3">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Primary keys</p>
@@ -75,9 +81,11 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
             </ul>
           </div>
         </div>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <Panel title="Field Definitions" subtitle="Current schema tranche metadata">
+      <Reveal delayMs={120}>
+        <Panel title="Field Definitions" subtitle="Current schema tranche metadata">
         {!hasFieldMetadata ? (
           <p className="text-sm rn-muted">
             No field metadata is available yet. Current implementation status: {meta.implementationStatus}.
@@ -108,9 +116,11 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
             </table>
           </div>
         )}
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <Panel title="Rad Nexus Extension Fields" subtitle="Platform-specific semantic extension layer">
+      <Reveal delayMs={160}>
+        <Panel title="Rad Nexus Extension Fields" subtitle="Platform-specific semantic extension layer">
         <ul className="space-y-2 text-sm text-slate-700">
           {meta.radNexusExtensions.map((extension) => (
             <li key={extension} className="rn-card-soft px-3 py-2 font-mono text-slate-700">
@@ -118,9 +128,11 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
             </li>
           ))}
         </ul>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <Panel title="Record and Sample Availability" subtitle="Connection and sample row readiness">
+      <Reveal delayMs={200}>
+        <Panel title="Record and Sample Availability" subtitle="Connection and sample row readiness">
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rn-card-soft p-3">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Record count</p>
@@ -135,9 +147,11 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
             </div>
           </div>
         </div>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <Panel title="Sample Records" subtitle="Illustrative demonstration rows when available">
+      <Reveal delayMs={240}>
+        <Panel title="Sample Records" subtitle="Illustrative demonstration rows when available">
         {previewRows.length === 0 ? (
           <div className="rn-card-soft p-4 text-sm rn-muted">
             No sample rows are available for {meta.name}. Sample data is not connected for this table.
@@ -168,7 +182,8 @@ export default async function TableDetailPage({ params }: { params: Promise<{ ta
             </table>
           </div>
         )}
-      </Panel>
+        </Panel>
+      </Reveal>
     </div>
   );
 }

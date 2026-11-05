@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { Panel } from "@/components/ui/panel";
+import { Reveal } from "@/components/ui/reveal";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { areas, ImplementationStatus, TableArea, tableCatalog } from "@/lib/schema-catalog";
 
@@ -47,14 +48,17 @@ export default function DataExplorerPage() {
 
   return (
     <div className="space-y-7">
-      <section>
-        <h1 className="rn-heading text-3xl font-semibold">Data Explorer</h1>
-        <p className="mt-3 text-sm rn-muted">
-          SAP-inspired catalog with implementation metadata, relationship structure, and explicit connection status.
-        </p>
-      </section>
+      <Reveal>
+        <section>
+          <h1 className="rn-heading text-3xl font-semibold">Data Explorer</h1>
+          <p className="mt-3 text-sm rn-muted">
+            SAP-inspired catalog with implementation metadata, relationship structure, and explicit connection status.
+          </p>
+        </section>
+      </Reveal>
 
-      <Panel title="Catalog Filters" subtitle="Search by table, business meaning, or SAP source mapping">
+      <Reveal delayMs={40}>
+        <Panel title="Catalog Filters" subtitle="Search by table, business meaning, or SAP source mapping">
         <div className="grid gap-3 md:grid-cols-3">
           <label className="space-y-1">
             <span className="text-xs uppercase tracking-[0.12em] text-slate-500">Search</span>
@@ -98,12 +102,14 @@ export default function DataExplorerPage() {
             </select>
           </label>
         </div>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <Panel
-        title="Table Registry"
-        subtitle={`${filteredTables.length} table entries shown. Implementation status indicates backend schema and field metadata readiness.`}
-      >
+      <Reveal delayMs={80}>
+        <Panel
+          title="Table Registry"
+          subtitle={`${filteredTables.length} table entries shown. Implementation status indicates backend schema and field metadata readiness.`}
+        >
         <div className="overflow-x-auto">
           <table className="w-full min-w-[980px] text-left text-sm">
             <thead>
@@ -120,7 +126,7 @@ export default function DataExplorerPage() {
             <tbody>
               {filteredTables.map((table) => (
                 <tr key={table.name} className="rn-table-row">
-                  <td className="py-2 pr-4 font-mono text-[#0f6f8c]">{table.name}</td>
+                  <td className="py-2 pr-4 font-mono text-[var(--accent)]">{table.name}</td>
                   <td className="py-2 pr-4">{table.description}</td>
                   <td className="py-2 pr-4">{table.area}</td>
                   <td className="py-2 pr-4">
@@ -149,7 +155,8 @@ export default function DataExplorerPage() {
             </tbody>
           </table>
         </div>
-      </Panel>
+        </Panel>
+      </Reveal>
     </div>
   );
 }

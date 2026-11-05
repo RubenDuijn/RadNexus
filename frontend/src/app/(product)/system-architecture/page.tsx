@@ -5,6 +5,7 @@ import { BackendStatus } from "@/lib/api";
 import { DataStateTag } from "@/components/ui/data-state-tag";
 import { dataGenerationStatus } from "@/lib/demo-data";
 import { Panel } from "@/components/ui/panel";
+import { Reveal } from "@/components/ui/reveal";
 import { buildPlatformHealth } from "@/lib/platform-health";
 
 const steps = [
@@ -76,17 +77,20 @@ export default async function SystemArchitecturePage() {
 
   return (
     <div className="space-y-7">
-      <section>
-        <h1 className="rn-heading text-3xl font-semibold">System Architecture</h1>
-        <p className="mt-3 text-sm rn-muted">
-          End-to-end architecture from enterprise systems to explainable intelligence outputs.
-        </p>
-      </section>
+      <Reveal>
+        <section>
+          <h1 className="rn-heading text-3xl font-semibold">System Architecture</h1>
+          <p className="mt-3 text-sm rn-muted">
+            End-to-end architecture from enterprise systems to explainable intelligence outputs.
+          </p>
+        </section>
+      </Reveal>
 
-      <Panel
-        title="Architecture Flow"
-        subtitle="Implementation state is explicit for every layer. Future adapters are ERP and database agnostic."
-      >
+      <Reveal delayMs={40}>
+        <Panel
+          title="Architecture Flow"
+          subtitle="Implementation state is explicit for every layer. Future adapters are ERP and database agnostic."
+        >
         <ol className="space-y-3">
           {steps.map((step, index) => (
             <li key={step.name}>
@@ -101,9 +105,11 @@ export default async function SystemArchitecturePage() {
             </li>
           ))}
         </ol>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <section className="grid gap-4 xl:grid-cols-2">
+      <Reveal delayMs={80}>
+        <section className="grid gap-4 xl:grid-cols-2">
         <Panel title="Platform Health" subtitle="Runtime probe visibility moved from executive overview into technical architecture context">
           <ul className="space-y-2">
             {platformHealth.map((item) => (
@@ -134,7 +140,8 @@ export default async function SystemArchitecturePage() {
             ))}
           </ul>
         </Panel>
-      </section>
+        </section>
+      </Reveal>
     </div>
   );
 }

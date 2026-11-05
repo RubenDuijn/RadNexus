@@ -1,4 +1,5 @@
 import { Panel } from "@/components/ui/panel";
+import { Reveal } from "@/components/ui/reveal";
 import { StatusBadge } from "@/components/ui/status-badge";
 
 const exampleQuestions = [
@@ -57,14 +58,17 @@ const resultFramework = [
 export default function AiIntelligencePage() {
   return (
     <div className="space-y-7">
-      <section>
-        <h1 className="rn-heading text-3xl font-semibold">AI Intelligence Investigation Workspace</h1>
-        <p className="mt-3 text-sm rn-muted">
-          Central differentiator: natural-language business investigation that keeps evidence, assumptions, and limitations explicit.
-        </p>
-      </section>
+      <Reveal>
+        <section>
+          <h1 className="rn-heading text-3xl font-semibold">AI Intelligence Investigation Workspace</h1>
+          <p className="mt-3 text-sm rn-muted">
+            Central differentiator: natural-language business investigation that keeps evidence, assumptions, and limitations explicit.
+          </p>
+        </section>
+      </Reveal>
 
-      <Panel title="Investigation Vision" subtitle="Question to evidence workflow for executive and analyst use">
+      <Reveal delayMs={40}>
+        <Panel title="Investigation Vision" subtitle="Question to evidence workflow for executive and analyst use">
         <div className="grid gap-3 lg:grid-cols-3">
           <div className="rn-card-soft p-3">
             <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Business question</p>
@@ -79,12 +83,14 @@ export default function AiIntelligencePage() {
             <p className="mt-1 text-sm text-slate-700">Findings, supporting evidence, confidence limits, and suggested follow-up questions.</p>
           </div>
         </div>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <Panel
-        title="Question Workspace"
-        subtitle="Interface scaffold only. No AI execution or simulated analytical conclusions are generated in current build."
-      >
+      <Reveal delayMs={80}>
+        <Panel
+          title="Question Workspace"
+          subtitle="Interface scaffold only. No AI execution or simulated analytical conclusions are generated in current build."
+        >
         <div className="space-y-4">
           <textarea
             className="rn-control h-36"
@@ -105,9 +111,11 @@ export default function AiIntelligencePage() {
             AI provider and SQL execution backends are not connected yet. This page currently defines interaction and audit structure.
           </div>
         </div>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <Panel title="Investigation Scope" subtitle="Planned analysis domains for each business question">
+      <Reveal delayMs={120}>
+        <Panel title="Investigation Scope" subtitle="Planned analysis domains for each business question">
         <div className="grid gap-2 md:grid-cols-2">
           {investigationTrack.map((item) => (
             <div key={item} className="rn-card-soft p-3 text-sm text-slate-700">
@@ -115,9 +123,11 @@ export default function AiIntelligencePage() {
             </div>
           ))}
         </div>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <Panel title="Investigation Lifecycle" subtitle="End-to-end explainable investigation flow">
+      <Reveal delayMs={160}>
+        <Panel title="Investigation Lifecycle" subtitle="End-to-end explainable investigation flow">
         <div className="grid gap-3 xl:grid-cols-2">
           {investigationStages.map((stage) => (
             <article key={stage.title} className="rn-card-soft p-3">
@@ -129,9 +139,11 @@ export default function AiIntelligencePage() {
             </article>
           ))}
         </div>
-      </Panel>
+        </Panel>
+      </Reveal>
 
-      <section className="grid gap-4 xl:grid-cols-2">
+      <Reveal delayMs={200}>
+        <section className="grid gap-4 xl:grid-cols-2">
         <Panel title="Planned SQL Evidence Log" subtitle="Query lineage and reproducibility">
           <div className="rn-card-soft p-3 text-sm rn-muted">
             SQL execution records will appear here with query text, execution time, row counts, and table lineage once backend integration is available.
@@ -151,7 +163,8 @@ export default function AiIntelligencePage() {
             ))}
           </div>
         </Panel>
-      </section>
+        </section>
+      </Reveal>
     </div>
   );
 }

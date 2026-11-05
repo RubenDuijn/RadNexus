@@ -48,45 +48,48 @@ export function MobileNav() {
               onClick={() => setOpen(false)}
             />
 
-            <nav
-              id="product-mobile-drawer"
-              className="rn-mobile-drawer absolute right-2 top-2 w-[min(86vw,22rem)] rounded-2xl"
+            <div
+              className="absolute inset-0 flex justify-end p-2"
               style={{
-                maxHeight: "calc(100dvh - max(0.5rem, env(safe-area-inset-top)) - max(0.5rem, env(safe-area-inset-bottom)) - 1rem)",
-                paddingTop: "max(0.75rem, env(safe-area-inset-top))",
-                paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))",
-                paddingLeft: "0.9rem",
-                paddingRight: "0.9rem",
+                paddingTop: "max(0.5rem, env(safe-area-inset-top))",
+                paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))",
+                paddingRight: "max(0.5rem, env(safe-area-inset-right))",
+                paddingLeft: "max(0.5rem, env(safe-area-inset-left))",
               }}
             >
-              <div className="mb-3 flex items-center justify-between">
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">Navigation</p>
-                <button
-                  type="button"
-                  className="rn-menu-button inline-flex h-8 w-8 items-center justify-center rounded-md border border-[var(--line-strong)] bg-white text-[var(--foreground)]"
-                  onClick={() => setOpen(false)}
-                  aria-label="Close navigation drawer"
-                >
-                  ×
-                </button>
-              </div>
+              <nav
+                id="product-mobile-drawer"
+                className="rn-mobile-drawer flex h-full w-[min(86vw,22rem)] flex-col overflow-hidden rounded-2xl p-3"
+              >
+                <div className="mb-2 flex items-center justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--muted)]">Navigation</p>
+                  <button
+                    type="button"
+                    className="rn-menu-button inline-flex h-8 w-8 items-center justify-center rounded-md border border-[var(--line-strong)] bg-white text-[var(--foreground)]"
+                    onClick={() => setOpen(false)}
+                    aria-label="Close navigation drawer"
+                  >
+                    ×
+                  </button>
+                </div>
 
-              <ul className="max-h-[calc(100dvh-11rem)] space-y-2 overflow-y-auto overscroll-contain pr-1">
-                {navItems.map((item) => {
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={() => setOpen(false)}
-                        className="rn-nav-focus block rounded-lg border border-transparent px-3 py-2 text-sm text-[var(--foreground)] hover:border-[var(--line-strong)] hover:bg-[var(--surface-2)]"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
+                <ul className="flex-1 space-y-2 overflow-y-auto overscroll-contain pr-1">
+                  {navItems.map((item) => {
+                    return (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setOpen(false)}
+                          className="rn-nav-focus block rounded-lg border border-transparent px-3 py-2 text-sm text-[var(--foreground)] hover:border-[var(--line-strong)] hover:bg-[var(--surface-2)]"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </nav>
+            </div>
           </div>,
           document.body,
         )

@@ -18,7 +18,7 @@ export function Topbar() {
 
         <div className="min-w-0 flex-1 px-1 sm:px-2">
           <h2 className="truncate text-xs font-semibold uppercase tracking-[0.18em] text-[var(--foreground)] sm:text-sm">
-            RAD NEXUS INTELLIGENCE
+            INTELLIGENCE WORKSPACE
           </h2>
           <p className="mt-1 truncate text-[11px] text-[var(--muted)] sm:text-xs">
             DEMO ENVIRONMENT | Active company: NEXORA Industries
