@@ -6,6 +6,7 @@ import { DataStateTag } from "@/components/ui/data-state-tag";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Panel } from "@/components/ui/panel";
 import { Reveal } from "@/components/ui/reveal";
+import { tableCatalog } from "@/lib/schema-catalog";
 import {
   businessActivity,
   customerConcentrationDemo,
@@ -17,6 +18,67 @@ import {
   revenueByMonth,
   revenueByProductGroup,
 } from "@/lib/demo-data";
+
+const aiExampleQuestions = [
+  "Why did revenue decline in Germany last quarter?",
+  "Which customers generate the highest margins?",
+  "Which products have growing sales but declining profitability?",
+  "Where is inventory increasing?",
+  "Which suppliers are putting pressure on costs?",
+];
+
+const sapFoundationGroups = [
+  {
+    title: "Sales",
+    tables: [
+      { name: "VBAK", description: "Sales Document Header" },
+      { name: "VBAP", description: "Sales Document Items" },
+    ],
+  },
+  {
+    title: "Customers",
+    tables: [
+      { name: "KNA1", description: "General Customer Data" },
+      { name: "KNB1", description: "Customer Company Code Data" },
+    ],
+  },
+  {
+    title: "Materials and Inventory",
+    tables: [
+      { name: "MARA", description: "General Material Data" },
+      { name: "MARC", description: "Material Plant Data" },
+      { name: "MARD", description: "Storage Location Data" },
+    ],
+  },
+  {
+    title: "Purchasing and Suppliers",
+    tables: [
+      { name: "EKKO", description: "Purchasing Document Header" },
+      { name: "EKPO", description: "Purchasing Document Items" },
+      { name: "LFA1", description: "Supplier General Data" },
+      { name: "LFB1", description: "Supplier Company Code Data" },
+    ],
+  },
+  {
+    title: "Finance",
+    tables: [
+      { name: "BKPF", description: "Accounting Document Header" },
+      { name: "BSEG", description: "Accounting Document Line Items" },
+    ],
+  },
+];
+
+function statusBadgeClass(status: string): string {
+  if (status === "Implemented") {
+    return "rn-badge rn-badge-success";
+  }
+
+  if (status === "In development") {
+    return "rn-badge rn-badge-warning";
+  }
+
+  return "rn-badge";
+}
 
 const executiveSignals = [
   {
@@ -47,13 +109,120 @@ const executiveSignals = [
 ];
 
 export default function OverviewPage() {
+  const groupedTables = sapFoundationGroups
+    .map((group) => ({
+      title: group.title,
+      tables: group.tables
+        .map((table) => {
+          const catalog = tableCatalog.find((item) => item.name === table.name);
+          if (!catalog) {
+            return null;
+          }
+
+          return {
+            ...table,
+            area: catalog.area,
+            implementationStatus: catalog.implementationStatus,
+          };
+        })
+        .filter((table): table is NonNullable<typeof table> => table !== null),
+    }))
+    .filter((group) => group.tables.length > 0);
+
   return (
     <div className="space-y-7">
       <Reveal>
+        <section className="grid gap-4 xl:grid-cols-2">
+          <article className="rn-card p-6 lg:p-7">
+            <p className="rn-eyebrow">AI Intelligence Workspace</p>
+            <h1 className="rn-heading mt-3 text-3xl font-semibold">Ask your enterprise data.</h1>
+            <h2 className="mt-2 text-xl font-semibold text-slate-800">Get business intelligence in natural language.</h2>
+            <p className="mt-3 text-sm rn-muted">
+              Explore sales, profitability, customers, inventory and operations. Ask questions that previously required weeks of reporting development.
+            </p>
+
+            <div className="mt-5 rounded-2xl border border-[color-mix(in_srgb,var(--accent)_26%,white)] bg-[color-mix(in_srgb,var(--accent)_7%,white)] p-4 lg:p-5">
+              <label htmlFor="overview-ai-question" className="text-xs font-semibold uppercase tracking-[0.13em] text-[var(--accent)]">
+                Natural-language question
+              </label>
+              <textarea
+                id="overview-ai-question"
+                className="rn-control mt-2 h-28 resize-y border-[color-mix(in_srgb,var(--accent)_24%,white)] bg-white"
+                placeholder="Ask a business question about enterprise data..."
+              />
+              <div className="mt-3 flex flex-wrap gap-2">
+                {aiExampleQuestions.map((question) => (
+                  <button
+                    key={question}
+                    type="button"
+                    className="rn-btn-secondary rounded-full px-3 py-1.5 text-xs"
+                  >
+                    {question}
+                  </button>
+                ))}
+              </div>
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                <p className="text-xs rn-muted">Preview interface only. Live AI query execution requires backend and database connectivity.</p>
+                <button type="button" className="rn-btn-primary rounded-md px-4 py-2 text-sm">
+                  Submit question
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <DataStateTag label="Planned data" />
+              <span className="rn-badge rn-badge-warning">Not Connected</span>
+            </div>
+          </article>
+
+          <Panel
+            title="Revenue Development"
+            subtitle="Synthetic demonstration data - monthly trend shown as a representative executive signal"
+          >
+            <RevenueLineChart data={revenueByMonth} />
+            <div className="mt-3">
+              <DataStateTag label="Synthetic demonstration data" />
+            </div>
+          </Panel>
+        </section>
+      </Reveal>
+
+      <Reveal delayMs={40}>
+        <Panel
+          title="Your SAP data. Your business intelligence."
+          subtitle="Connect enterprise data structures across sales, finance, procurement, inventory and operations to create a unified foundation for business intelligence."
+        >
+          <div className="space-y-5">
+            {groupedTables.map((group) => (
+              <section key={group.title}>
+                <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-700">{group.title}</h3>
+                <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {group.tables.map((table) => (
+                    <Link
+                      key={table.name}
+                      href={`/data-explorer/${table.name}`}
+                      className="rn-nav-focus rn-card-soft block p-4 transition-colors hover:border-[var(--line-strong)] hover:bg-white"
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="font-mono text-sm font-semibold text-[var(--accent)]">{table.name}</p>
+                        <span className={statusBadgeClass(table.implementationStatus)}>{table.implementationStatus}</span>
+                      </div>
+                      <p className="mt-2 text-sm text-slate-700">{table.description}</p>
+                      <p className="mt-2 text-xs uppercase tracking-[0.12em] text-slate-500">{table.area}</p>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
+        </Panel>
+      </Reveal>
+
+      <Reveal delayMs={80}>
         <section className="rn-card p-6 lg:p-7">
           <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] sm:hidden">Overview</p>
           <p className="rn-eyebrow hidden sm:block">Executive Overview</p>
-          <h1 className="rn-heading mt-3 text-3xl font-semibold">NEXORA Industries Enterprise Overview</h1>
+          <h2 className="rn-heading mt-3 text-3xl font-semibold">NEXORA Industries Enterprise Overview</h2>
           <p className="mt-3 text-sm rn-muted">
             Executive intelligence workspace focused on business performance, trends, risks, opportunities, and management priorities.
           </p>
@@ -66,7 +235,7 @@ export default function OverviewPage() {
         </section>
       </Reveal>
 
-      <Reveal delayMs={40}>
+      <Reveal delayMs={110}>
         <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {kpiCards
             .filter((card) => ["Total Revenue", "Gross Margin", "Countries", "Production Plants"].includes(card.title))
@@ -76,19 +245,7 @@ export default function OverviewPage() {
         </section>
       </Reveal>
 
-      <Reveal delayMs={80}>
-        <Panel
-          title="Executive Trend Snapshot"
-          subtitle="Synthetic demonstration data - monthly revenue trajectory for immediate business context"
-        >
-          <RevenueLineChart data={revenueByMonth} />
-          <div className="mt-3">
-            <DataStateTag label="Synthetic demonstration data" />
-          </div>
-        </Panel>
-      </Reveal>
-
-      <Reveal delayMs={110}>
+      <Reveal delayMs={130}>
         <Panel title="Executive Briefing" subtitle="Summary signals for board and leadership discussion">
           <div className="grid gap-3 lg:grid-cols-2">
             {executiveSignals.map((signal) => (
@@ -104,7 +261,7 @@ export default function OverviewPage() {
         </Panel>
       </Reveal>
 
-      <Reveal delayMs={130}>
+      <Reveal delayMs={145}>
         <section className="grid gap-4 xl:grid-cols-2">
           <Panel title="Country Performance" subtitle="Illustrative metric - country variance report planned">
             <RevenueBarChart data={revenueByCountry} xKey="country" yKey="revenue" />
@@ -115,7 +272,7 @@ export default function OverviewPage() {
         </section>
       </Reveal>
 
-      <Reveal delayMs={145}>
+      <Reveal delayMs={160}>
         <section className="grid gap-4 xl:grid-cols-2">
           <Panel title="Product Group Performance" subtitle="Illustrative metric - product profitability drill-down planned">
             <RevenueBarChart data={revenueByProductGroup} xKey="group" yKey="revenue" />
@@ -126,7 +283,7 @@ export default function OverviewPage() {
         </section>
       </Reveal>
 
-      <Reveal delayMs={160}>
+      <Reveal delayMs={170}>
         <section className="grid gap-4 xl:grid-cols-2">
           <Panel title="Inventory Position" subtitle="Illustrative metric - inventory valuation logic pending SQL layer">
             <RevenueBarChart data={inventoryPositionDemo} xKey="category" yKey="amount" />
