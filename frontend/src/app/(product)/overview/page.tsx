@@ -185,7 +185,7 @@ export default function OverviewPage() {
             title="Revenue Development"
             subtitle="Synthetic demonstration data - monthly trend shown as a representative executive signal"
           >
-            <div className="grid gap-4 xl:grid-cols-2">
+            <div className="space-y-5">
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">Monthly Revenue Trend</p>
                 <RevenueLineChart data={revenueByMonth} />
@@ -220,7 +220,7 @@ export default function OverviewPage() {
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <p className="font-mono text-sm font-semibold text-[var(--accent)]">{table.name}</p>
-                        <div className="flex flex-wrap items-center justify-end gap-2">
+                        <div className="flex flex-col items-end gap-1">
                           <span className={statusBadgeClass(table.implementationStatus)}>{table.implementationStatus}</span>
                           {table.hasData && <span className="rn-badge rn-badge-success">Data available</span>}
                         </div>
