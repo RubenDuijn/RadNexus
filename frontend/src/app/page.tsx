@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { BusinessQuestionRotator } from "@/components/corporate/business-question-rotator";
 import { CorporateShell } from "@/components/layout/corporate-shell";
 import { Panel } from "@/components/ui/panel";
 import { businessPillars, flagshipProductSummary, maturityNotes } from "@/lib/corporate-content";
@@ -15,6 +16,7 @@ export default function HomePage() {
           <p className="mt-2 text-base text-slate-700">Technology · Data · Artificial Intelligence</p>
           <p className="mt-5 max-w-3xl text-2xl leading-tight text-slate-800">Your enterprise data has more to tell.</p>
           <p className="mt-2 max-w-3xl text-xl leading-tight text-slate-800">It&apos;s time to ask better questions.</p>
+          <BusinessQuestionRotator />
           <p className="mt-4 max-w-3xl text-base rn-muted">
             Organisations have decades of business knowledge stored in their enterprise systems. RAD NEXUS is building the
             intelligence layer that makes that knowledge accessible - connecting enterprise data, structured business logic,

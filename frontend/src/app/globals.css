@@ -337,6 +337,65 @@ button {
   box-shadow: 0 0 0 3px var(--ring);
 }
 
+.rn-hero-question {
+  margin-top: 1.2rem;
+  max-width: min(100%, 46rem);
+  border: 1px solid color-mix(in srgb, var(--accent-2) 28%, #ffffff);
+  border-radius: 14px;
+  background:
+    radial-gradient(110% 140% at 95% 0%, rgba(41, 151, 165, 0.2), transparent 52%),
+    linear-gradient(145deg, #0f1c2b 0%, #121f30 55%, #162638 100%);
+  color: #e8f1f8;
+  box-shadow:
+    inset 0 1px 0 rgba(197, 225, 237, 0.12),
+    0 16px 34px rgba(9, 19, 31, 0.26);
+  padding: 0.9rem 1rem 1rem;
+}
+
+.rn-hero-question-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  color: color-mix(in srgb, #7dc2cb 70%, #ffffff);
+}
+
+.rn-hero-question-text {
+  margin-top: 0.42rem;
+  min-height: 3.2rem;
+  display: flex;
+  align-items: center;
+  font-size: clamp(1.02rem, 0.96rem + 0.36vw, 1.22rem);
+  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #eef6fd;
+  overflow-wrap: anywhere;
+}
+
+.rn-hero-question-cursor {
+  display: inline-block;
+  width: 0.62ch;
+  height: 1.2em;
+  margin-left: 0.12rem;
+  border-radius: 1px;
+  background: color-mix(in srgb, #89d7db 74%, #ffffff);
+  box-shadow: 0 0 14px rgba(124, 201, 209, 0.45);
+  animation: rn-cursor-blink 980ms steps(1, end) infinite;
+}
+
+@keyframes rn-cursor-blink {
+  0%,
+  46% {
+    opacity: 1;
+  }
+
+  47%,
+  100% {
+    opacity: 0;
+  }
+}
+
 .rn-mobile-drawer-overlay {
   background: rgba(23, 36, 51, 0.36);
 }
@@ -391,9 +450,30 @@ button {
     transform: none;
     transition: none;
   }
+
+  .rn-hero-question-cursor {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 @media (max-width: 640px) {
+  .rn-hero-question {
+    margin-top: 1rem;
+    padding: 0.8rem 0.82rem 0.9rem;
+  }
+
+  .rn-hero-question-label {
+    letter-spacing: 0.14em;
+    font-size: 0.63rem;
+  }
+
+  .rn-hero-question-text {
+    min-height: 3.5rem;
+    font-size: 0.98rem;
+    line-height: 1.4;
+  }
+
   .rn-topbar {
     padding-top: 0.65rem;
     padding-bottom: 0.65rem;
