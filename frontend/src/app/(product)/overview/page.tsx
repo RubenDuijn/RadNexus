@@ -132,44 +132,52 @@ export default function OverviewPage() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [questionDraft, setQuestionDraft] = useState("");
   const [isQuestionFocused, setIsQuestionFocused] = useState(false);
+  const [animatedValue, setAnimatedValue] = useState("");
+  const [animationPhase, setAnimationPhase] = useState<"typing" | "pause" | "deleting" | "idle">("typing");
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
-  const [animatedText, setAnimatedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     if (questionDraft.length > 0 || isQuestionFocused || prefersReducedMotion) {
-      return;
+      return undefined;
     }
 
     const currentQuestion = aiExampleQuestions[activeQuestionIndex];
     let timeoutId: number | undefined;
 
-    if (animatedText === currentQuestion) {
-      timeoutId = window.setTimeout(() => {
-        setIsDeleting(true);
-      }, pauseAfterCompletionMs);
-    } else if (isDeleting) {
-      if (animatedText.length === 0) {
+    if (animationPhase === "typing") {
+      if (animatedValue.length < currentQuestion.length) {
         timeoutId = window.setTimeout(() => {
-          setActiveQuestionIndex((currentIndex) => (currentIndex + 1) % aiExampleQuestions.length);
-          setIsDeleting(false);
-        }, 200);
+          setAnimatedValue(currentQuestion.slice(0, animatedValue.length + 1));
+        }, typingIntervalMs);
       } else {
         timeoutId = window.setTimeout(() => {
-          setAnimatedText(currentQuestion.slice(0, animatedText.length - 1));
-        }, deletingIntervalMs);
+          setAnimationPhase("pause");
+        }, pauseAfterCompletionMs);
       }
-    } else if (animatedText.length < currentQuestion.length) {
+    } else if (animationPhase === "pause") {
       timeoutId = window.setTimeout(() => {
-        setAnimatedText(currentQuestion.slice(0, animatedText.length + 1));
-      }, typingIntervalMs);
+        setAnimationPhase("deleting");
+      }, 180);
+    } else if (animationPhase === "deleting") {
+      if (animatedValue.length > 0) {
+        timeoutId = window.setTimeout(() => {
+          setAnimatedValue(animatedValue.slice(0, -1));
+        }, deletingIntervalMs);
+      } else {
+        timeoutId = window.setTimeout(() => {
+          setActiveQuestionIndex((currentIndex) => (currentIndex + 1) % aiExampleQuestions.length);
+          setAnimationPhase("typing");
+        }, 140);
+      }
     }
 
     return () => window.clearTimeout(timeoutId);
-  }, [activeQuestionIndex, animatedText, isDeleting, isQuestionFocused, prefersReducedMotion, questionDraft]);
+  }, [activeQuestionIndex, animatedValue, animationPhase, isQuestionFocused, prefersReducedMotion, questionDraft]);
 
-  const showAnimatedPlaceholder = questionDraft.length === 0 && !isQuestionFocused && !prefersReducedMotion;
-  const placeholderText = prefersReducedMotion ? staticQuestionPlaceholder : animatedText;
+  const isAnimating = questionDraft.length === 0 && !isQuestionFocused && !prefersReducedMotion;
+  const displayedQuestionText = isAnimating ? animatedValue : "";
+  const textareaValue = questionDraft || displayedQuestionText;
+  const hasVisiblePlaceholder = !isAnimating && questionDraft.length === 0 && !isQuestionFocused;
 
   const groupedTables = sapFoundationGroups
     .map((group) => ({
@@ -230,41 +238,36 @@ export default function OverviewPage() {
               <div className="relative mt-2">
                 <textarea
                   id="overview-ai-question"
-                  value={questionDraft}
+                  value={textareaValue}
                   onChange={(event) => {
                     setQuestionDraft(event.target.value);
                     if (event.target.value.length === 0) {
-                      setAnimatedText("");
-                      setIsDeleting(false);
+                      setAnimatedValue("");
+                      setAnimationPhase("typing");
                       setActiveQuestionIndex(0);
                     }
                   }}
                   onFocus={() => {
                     setIsQuestionFocused(true);
-                    setAnimatedText("");
-                    setIsDeleting(false);
+                    setAnimatedValue("");
+                    setAnimationPhase("idle");
                   }}
                   onBlur={() => {
                     setIsQuestionFocused(false);
                     if (questionDraft.length === 0) {
-                      setAnimatedText("");
-                      setIsDeleting(false);
+                      setAnimatedValue("");
+                      setAnimationPhase("typing");
                       setActiveQuestionIndex(0);
                     }
                   }}
                   className="rn-control h-28 w-full resize-y border-[color-mix(in_srgb,var(--accent)_24%,white)] bg-white text-slate-800"
-                  placeholder={staticQuestionPlaceholder}
+                  placeholder={hasVisiblePlaceholder ? staticQuestionPlaceholder : undefined}
                   aria-label="Natural-language question"
                 />
-                {showAnimatedPlaceholder && (
-                  <div className="pointer-events-none absolute inset-0 z-10 flex items-start overflow-hidden px-3 py-3 text-left text-sm leading-6 text-slate-500 sm:text-[0.95rem]">
-                    <span className="block max-w-full overflow-hidden whitespace-pre-wrap break-words">
-                      {placeholderText}
-                      {!prefersReducedMotion && animatedText.length > 0 && (
-                        <span className="ml-0.5 inline-block h-5 w-px translate-y-[2px] animate-pulse bg-slate-500 align-middle" />
-                      )}
-                    </span>
-                  </div>
+                {!isAnimating && !isQuestionFocused && questionDraft.length === 0 && (
+                  <span className="pointer-events-none absolute inset-x-3 top-3 text-sm text-slate-400 sm:text-[0.95rem]">
+                    {staticQuestionPlaceholder}
+                  </span>
                 )}
               </div>
               <div className="mt-3 flex flex-wrap gap-2">
