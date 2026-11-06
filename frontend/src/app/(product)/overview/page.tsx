@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import { RevenueByCountryMonthLive } from "@/components/overview/revenue-by-country-month-live";
 import { RevenueBarChart } from "@/components/charts/revenue-bar-chart";
@@ -25,9 +28,32 @@ const aiExampleQuestions = [
   "Why did revenue decline in Germany last quarter?",
   "Which customers generate the highest margins?",
   "Which products have growing sales but declining profitability?",
-  "Where is inventory increasing?",
-  "Which suppliers are putting pressure on costs?",
+  "Where is inventory increasing across our production facilities?",
+  "Which suppliers are putting the most pressure on costs?",
 ];
+
+const staticQuestionPlaceholder = "Ask a business question about enterprise data...";
+
+const typingIntervalMs = 60;
+const deletingIntervalMs = 32;
+const pauseAfterCompletionMs = 1200;
+
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
+
+  return prefersReducedMotion;
+}
 
 const sapFoundationGroups = [
   {
@@ -103,6 +129,48 @@ const executiveSignals = [
 ];
 
 export default function OverviewPage() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const [questionDraft, setQuestionDraft] = useState("");
+  const [isQuestionFocused, setIsQuestionFocused] = useState(false);
+  const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
+  const [animatedText, setAnimatedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (questionDraft.length > 0 || isQuestionFocused || prefersReducedMotion) {
+      return;
+    }
+
+    const currentQuestion = aiExampleQuestions[activeQuestionIndex];
+    let timeoutId: number | undefined;
+
+    if (animatedText === currentQuestion) {
+      timeoutId = window.setTimeout(() => {
+        setIsDeleting(true);
+      }, pauseAfterCompletionMs);
+    } else if (isDeleting) {
+      if (animatedText.length === 0) {
+        timeoutId = window.setTimeout(() => {
+          setActiveQuestionIndex((currentIndex) => (currentIndex + 1) % aiExampleQuestions.length);
+          setIsDeleting(false);
+        }, 200);
+      } else {
+        timeoutId = window.setTimeout(() => {
+          setAnimatedText(currentQuestion.slice(0, animatedText.length - 1));
+        }, deletingIntervalMs);
+      }
+    } else if (animatedText.length < currentQuestion.length) {
+      timeoutId = window.setTimeout(() => {
+        setAnimatedText(currentQuestion.slice(0, animatedText.length + 1));
+      }, typingIntervalMs);
+    }
+
+    return () => window.clearTimeout(timeoutId);
+  }, [activeQuestionIndex, animatedText, isDeleting, isQuestionFocused, prefersReducedMotion, questionDraft]);
+
+  const showAnimatedPlaceholder = questionDraft.length === 0 && !isQuestionFocused && !prefersReducedMotion;
+  const placeholderText = prefersReducedMotion ? staticQuestionPlaceholder : animatedText;
+
   const groupedTables = sapFoundationGroups
     .map((group) => ({
       title: group.title,
@@ -159,11 +227,46 @@ export default function OverviewPage() {
               <label htmlFor="overview-ai-question" className="text-xs font-semibold uppercase tracking-[0.13em] text-[var(--accent)]">
                 Natural-language question
               </label>
-              <textarea
-                id="overview-ai-question"
-                className="rn-control mt-2 h-28 resize-y border-[color-mix(in_srgb,var(--accent)_24%,white)] bg-white"
-                placeholder="Ask a business question about enterprise data..."
-              />
+              <div className="relative mt-2">
+                <textarea
+                  id="overview-ai-question"
+                  value={questionDraft}
+                  onChange={(event) => {
+                    setQuestionDraft(event.target.value);
+                    if (event.target.value.length === 0) {
+                      setAnimatedText("");
+                      setIsDeleting(false);
+                      setActiveQuestionIndex(0);
+                    }
+                  }}
+                  onFocus={() => {
+                    setIsQuestionFocused(true);
+                    setAnimatedText("");
+                    setIsDeleting(false);
+                  }}
+                  onBlur={() => {
+                    setIsQuestionFocused(false);
+                    if (questionDraft.length === 0) {
+                      setAnimatedText("");
+                      setIsDeleting(false);
+                      setActiveQuestionIndex(0);
+                    }
+                  }}
+                  className="rn-control h-28 w-full resize-y border-[color-mix(in_srgb,var(--accent)_24%,white)] bg-white text-slate-800"
+                  placeholder={staticQuestionPlaceholder}
+                  aria-label="Natural-language question"
+                />
+                {showAnimatedPlaceholder && (
+                  <div className="pointer-events-none absolute inset-0 z-10 flex items-start overflow-hidden px-3 py-3 text-left text-sm leading-6 text-slate-500 sm:text-[0.95rem]">
+                    <span className="block max-w-full overflow-hidden whitespace-pre-wrap break-words">
+                      {placeholderText}
+                      {!prefersReducedMotion && animatedText.length > 0 && (
+                        <span className="ml-0.5 inline-block h-5 w-px translate-y-[2px] animate-pulse bg-slate-500 align-middle" />
+                      )}
+                    </span>
+                  </div>
+                )}
+              </div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {aiExampleQuestions.map((question) => (
                   <button
