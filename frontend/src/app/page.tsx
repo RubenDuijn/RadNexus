@@ -3,7 +3,51 @@ import Link from "next/link";
 import { BusinessQuestionRotator } from "@/components/corporate/business-question-rotator";
 import { CorporateShell } from "@/components/layout/corporate-shell";
 import { Panel } from "@/components/ui/panel";
-import { businessPillars, flagshipProductSummary, maturityNotes } from "@/lib/corporate-content";
+import { coreBusinessAreaSection, coreBusinessAreas, flagshipProductSummary, maturityNotes } from "@/lib/corporate-content";
+
+function AreaVisual({ theme }: { theme: "ai" | "data" | "technology" | "labs" }) {
+  if (theme === "ai") {
+    return (
+      <svg className="h-12 w-12" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <circle cx="32" cy="32" r="26" stroke="currentColor" strokeWidth="1.4" opacity="0.44" />
+        <circle cx="20" cy="24" r="3.5" fill="currentColor" />
+        <circle cx="42" cy="20" r="3.5" fill="currentColor" />
+        <circle cx="46" cy="40" r="3.5" fill="currentColor" />
+        <circle cx="24" cy="44" r="3.5" fill="currentColor" />
+        <path d="M23 25L39 21M24 42L44 38M22 26L25 41M41 22L45 37" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" opacity="0.8" />
+      </svg>
+    );
+  }
+
+  if (theme === "data") {
+    return (
+      <svg className="h-12 w-12" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <rect x="10" y="11" width="18" height="13" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+        <rect x="36" y="11" width="18" height="13" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+        <rect x="23" y="40" width="18" height="13" rx="2.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M28 17H36M19 24V31H32M45 24V31H32M32 31V40" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" opacity="0.88" />
+      </svg>
+    );
+  }
+
+  if (theme === "technology") {
+    return (
+      <svg className="h-12 w-12" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <path d="M20 11H44L54 21V43L44 53H20L10 43V21L20 11Z" stroke="currentColor" strokeWidth="1.5" opacity="0.7" />
+        <path d="M20 21H44M20 32H44M20 43H44" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <circle cx="25" cy="32" r="2.2" fill="currentColor" />
+        <circle cx="39" cy="43" r="2.2" fill="currentColor" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="h-12 w-12" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <path d="M32 10L39 25L55 25L42 35L47 51L32 41L17 51L22 35L9 25L25 25L32 10Z" stroke="currentColor" strokeWidth="1.5" opacity="0.75" />
+      <circle cx="32" cy="32" r="4" fill="currentColor" />
+    </svg>
+  );
+}
 
 export default function HomePage() {
   return (
@@ -62,25 +106,48 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="grid gap-4 xl:grid-cols-2">
-          {businessPillars.map((pillar) => (
-            <Panel key={pillar.title} title={pillar.title} subtitle={pillar.state}>
-              <div className="space-y-2 text-sm text-slate-700">
-                <div className="rn-card-soft p-3">
-                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Business problem</p>
-                  <p className="mt-1">{pillar.problem}</p>
+        <section className="rn-pillars-wrap rn-card p-6 lg:p-8">
+          <div className="max-w-4xl">
+            <p className="rn-eyebrow">Corporate Business Architecture</p>
+            <h3 className="rn-heading mt-3 text-3xl font-semibold lg:text-4xl">{coreBusinessAreaSection.heading}</h3>
+            <p className="mt-4 text-base rn-muted">{coreBusinessAreaSection.supportingText}</p>
+          </div>
+
+          <div className="rn-pillars-grid mt-7">
+            {coreBusinessAreas.map((area) => (
+              <article
+                key={area.slug}
+                className={`rn-pillar-card rn-pillar-${area.visualTheme} rn-reveal`}
+              >
+                <div className="rn-pillar-header">
+                  <div className="rn-pillar-icon" aria-hidden="true">
+                    <AreaVisual theme={area.visualTheme} />
+                  </div>
+                  <div>
+                    <p className="rn-pillar-kicker">Core business area</p>
+                    <h4 className="rn-pillar-title">{area.title}</h4>
+                  </div>
                 </div>
-                <div className="rn-card-soft p-3">
-                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Technical capability</p>
-                  <p className="mt-1">{pillar.capability}</p>
+
+                <p className="rn-pillar-positioning">{area.positioning}</p>
+
+                <p className="rn-pillar-value">{area.value}</p>
+
+                <ul className="rn-pillar-list">
+                  {area.capabilities.slice(0, 4).map((capability) => (
+                    <li key={capability}>{capability}</li>
+                  ))}
+                </ul>
+
+                <div className="rn-pillar-footer">
+                  <p className="text-xs rn-muted">Strategic capability scope with phased implementation maturity.</p>
+                  <Link href={area.href} className="rn-pillar-link">
+                    Explore {area.shortTitle}
+                  </Link>
                 </div>
-                <div className="rn-card-soft p-3">
-                  <p className="text-xs uppercase tracking-[0.12em] text-slate-500">Business outcome</p>
-                  <p className="mt-1">{pillar.outcome}</p>
-                </div>
-              </div>
-            </Panel>
-          ))}
+              </article>
+            ))}
+          </div>
         </section>
 
         <Panel title="Flagship Product" subtitle="Rad Nexus Intelligence">

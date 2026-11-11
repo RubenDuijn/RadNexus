@@ -70,6 +70,191 @@ button {
   border-radius: 12px;
 }
 
+.rn-pillars-wrap {
+  background:
+    radial-gradient(96% 120% at 102% -6%, rgba(35, 101, 128, 0.18), transparent 60%),
+    radial-gradient(80% 100% at -12% -18%, rgba(20, 64, 83, 0.1), transparent 58%),
+    linear-gradient(178deg, #f8fbfd 0%, #f4f8fb 100%);
+}
+
+.rn-pillars-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 940px) {
+  .rn-pillars-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.rn-pillar-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--line-strong) 80%, white);
+  background: linear-gradient(165deg, #ffffff 0%, #f7fbfd 100%);
+  padding: 1rem;
+  box-shadow: 0 16px 28px rgba(15, 25, 37, 0.08);
+  transition: transform 280ms cubic-bezier(0.2, 0.95, 0.2, 1), box-shadow 280ms ease, border-color 240ms ease;
+}
+
+.rn-pillar-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -22% -42% auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  opacity: 0.36;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.rn-pillar-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 36px rgba(10, 20, 32, 0.16);
+}
+
+.rn-pillar-ai {
+  border-color: color-mix(in srgb, #2b6f8a 36%, white);
+}
+
+.rn-pillar-ai::after {
+  background: radial-gradient(circle, rgba(28, 130, 166, 0.26) 0%, rgba(18, 95, 121, 0) 70%);
+}
+
+.rn-pillar-data {
+  border-color: color-mix(in srgb, #397e88 34%, white);
+}
+
+.rn-pillar-data::after {
+  background: radial-gradient(circle, rgba(55, 156, 149, 0.24) 0%, rgba(55, 156, 149, 0) 72%);
+}
+
+.rn-pillar-technology {
+  border-color: color-mix(in srgb, #355b7c 34%, white);
+}
+
+.rn-pillar-technology::after {
+  background: radial-gradient(circle, rgba(69, 119, 165, 0.24) 0%, rgba(69, 119, 165, 0) 72%);
+}
+
+.rn-pillar-labs {
+  border-color: color-mix(in srgb, #2f6e61 34%, white);
+}
+
+.rn-pillar-labs::after {
+  background: radial-gradient(circle, rgba(70, 167, 139, 0.24) 0%, rgba(70, 167, 139, 0) 72%);
+}
+
+.rn-pillar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.rn-pillar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--line-strong) 70%, white);
+  background: color-mix(in srgb, var(--surface-2) 68%, white);
+  color: #1f5f79;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.52);
+}
+
+.rn-pillar-kicker {
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #5f6f81;
+}
+
+.rn-pillar-title {
+  margin-top: 0.22rem;
+  font-size: 1.14rem;
+  line-height: 1.25;
+  color: #112030;
+  font-weight: 600;
+}
+
+.rn-pillar-positioning {
+  margin-top: 0.95rem;
+  font-size: 0.97rem;
+  line-height: 1.45;
+  color: #1a2b3d;
+  font-weight: 500;
+}
+
+.rn-pillar-value {
+  margin-top: 0.58rem;
+  font-size: 0.88rem;
+  line-height: 1.48;
+  color: #4a5c70;
+}
+
+.rn-pillar-list {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.5rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+.rn-pillar-list li {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--line) 84%, white);
+  background: #fcfefe;
+  border-radius: 10px;
+  padding: 0.46rem 0.55rem 0.46rem 1.4rem;
+  font-size: 0.8rem;
+  line-height: 1.42;
+  color: #304155;
+}
+
+.rn-pillar-list li::before {
+  content: "";
+  position: absolute;
+  left: 0.56rem;
+  top: 0.74rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #1a87a7 0%, #2ba68b 100%);
+}
+
+.rn-pillar-footer {
+  margin-top: 0.88rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.rn-pillar-link {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, white);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  padding: 0.4rem 0.72rem;
+  background: color-mix(in srgb, var(--accent) 7%, white);
+}
+
+.rn-pillar-link:hover {
+  border-color: var(--accent);
+  color: #123949;
+  background: color-mix(in srgb, var(--accent) 13%, white);
+}
+
 .rn-muted {
   color: var(--muted);
 }
@@ -522,6 +707,19 @@ button {
 
   .rn-workspace-note {
     font-size: 0.65rem;
+  }
+
+  .rn-pillar-card {
+    padding: 0.9rem;
+  }
+
+  .rn-pillar-title {
+    font-size: 1.02rem;
+  }
+
+  .rn-pillar-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
